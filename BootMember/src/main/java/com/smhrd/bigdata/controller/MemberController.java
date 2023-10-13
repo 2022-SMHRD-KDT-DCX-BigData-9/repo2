@@ -14,7 +14,7 @@ import com.smhrd.bigdata.service.MemberService;
 @Controller
 public class MemberController {
 // main수정 안상우 16:36
-	
+// 하아ㅏ	
 	@Autowired
 	MemberService service; 
 	
