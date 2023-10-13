@@ -15,6 +15,7 @@ import com.smhrd.bigdata.service.MemberService;
 public class MemberController {
 // main수정 안상우 16:36
 // 하아ㅏ	
+// 이게 맞아??????
 	@Autowired
 	MemberService service; 
 	
