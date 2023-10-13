@@ -9,6 +9,7 @@
 <body>
 <!--  action에 절대경로, 상대경로 사용 가능 절대경로 : localhost:8087~ -->
 <!-- 상대경로:   -->
+<!-- 코드 수정 한번하기 -->
 <form action="member/login" method = "post">
 
 <input type = "text" name = "email" placeholder = "이메일 입력"><br>
