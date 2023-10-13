@@ -17,6 +17,7 @@ import com.smhrd.bigdata.service.BoardService;
 public class MainController {
 
 	// 코드 변경
+	// 코드 변경2
 	
 	@Autowired
 	BoardService service;
