@@ -17,6 +17,7 @@ public class MemberController {
 // 하아ㅏ	
 // 이게 맞아??????
 // git 사용 가능?
+// 111
 	@Autowired
 	MemberService service; 
 	
