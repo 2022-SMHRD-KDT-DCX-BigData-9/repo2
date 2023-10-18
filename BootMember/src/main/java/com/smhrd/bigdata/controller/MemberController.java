@@ -15,7 +15,13 @@ import com.smhrd.bigdata.service.MemberService;
 public class MemberController {
 // main수정 안상우 16:36
 // 하아ㅏ	
+<<<<<<< HEAD
 // 깃 .. 어렵다 ...
+=======
+// 이게 맞아??????
+// git 사용 가능?
+// 111
+>>>>>>> refs/heads/master
 	@Autowired
 	MemberService service; 
 	
