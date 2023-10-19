@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.smhrd.bigdata.entity.Member;
+import com.smhrd.bigdata.entity.UserInfo;
 import com.smhrd.bigdata.service.MemberService;
 
 @Controller
@@ -19,7 +20,7 @@ public class MemberController {
 // git 사용 가능?
 // 111
 	@Autowired
-	MemberService service; 
+	UserInfo userinfo;
 	
 	
 	@GetMapping("/")
