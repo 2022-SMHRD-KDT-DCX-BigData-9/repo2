@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.bigdata.mapper.UserMapper">
+	<!-- 회원가입 -->
+	<insert id="join"
+		parameterType="com.smhrd.bigdata.entity.UserInfo">
+		insert into user_info values (#{user_email}, #{user_pw},
+		#{user_name}, #{user_nick}, #{user_addr}, #{user_category},
+		#{user_phone})
+	</insert>
+
+	<!-- 로그인 -->
+	<select id="login"
+		resultType="com.smhrd.bigdata.entity.UserInfo">
+		select * from user_info where user_email = #{user_email}
+		and user_pw = #{user_pw}
+	</select>
+
+	<!-- 게시물 작성 -->
+	<insert id="boardWrite"
+		parameterType="com.smhrd.bigdata.entity.BoardInfo">
+		insert into board_info values (#{item_name},
+		#{board_content}, #{item_img}, #{item_category}, #{want_category},
+		#{item_place})
+	</insert>
+
+	<!-- 회원 정보 수정 -->
+	<update id="userUpdate"
+		parameterType="com.smhrd.bigdata.entity.UserInfo">
+		update user_info set user_nick = #{user_nick}, user_pw =
+		#{user_pw}, user_category = #{user_category}
+	</update>
+
+	<!-- 게시글 리스트 출력 -->
+	<select id="boardList"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info
+	</select>
+
+	<!-- 게시글 상세 페이지 출력 -->
+	<select id="boardDetail"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where board_idx = #{board_idx}
+	</select>
+
+	<!-- 마이페이지 출력 기능 -->
+	<select id="profile"
+		resultType="com.smhrd.bigdata.entity.UserInfo">
+
+	</select>
+
+	<!-- 카테고리 별 게시물 출력 기능 -->
+	<select id="boardCategory"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category =
+		#{item_category}
+	</select>
+
+	<!-- 후기 목록 출력 기능 -->
+	<select id="reviewList"
+		resultType="com.smhrd.bigdata.entity.ReviewInfo">
+		select * from review_info
+	</select>
+
+	<!-- 제목으로 검색 할 수 있는 기능 -->
+	<select id="search" resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_name like '%${search}%'
+	</select>
+</mapper>
