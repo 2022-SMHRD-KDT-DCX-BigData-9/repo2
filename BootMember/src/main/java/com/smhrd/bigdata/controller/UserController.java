@@ -17,7 +17,7 @@ public class UserController {
 	UserService service;
 	
 	// 회원가입
-	@PostMapping("/")
+	@PostMapping("/join")
 	public String join(@ModelAttribute UserInfo userinfo) {
 		int result = service.join(userinfo);
 		
@@ -31,7 +31,7 @@ public class UserController {
 	}
 	
 	// 로그인
-	@PostMapping("/")
+	@PostMapping("/login")
 	public String login(UserInfo userinfo, HttpSession session) {
 		UserInfo result = service.login(userinfo);
 		
@@ -46,14 +46,14 @@ public class UserController {
 	}
 	
 	// 로그아웃
-	@GetMapping("/")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate(); // 세션에 저장된 유저 정보 삭제
 		return ""; // 메인페이지로 리턴해주기
 	}
 	
 	// 회원정보 수정 기능
-	@PostMapping("/")
+	@PostMapping("/update")
 	public String userUpdate(@ModelAttribute UserInfo userinfo) {
 		int result = service.userUpdate(userinfo);
 		
