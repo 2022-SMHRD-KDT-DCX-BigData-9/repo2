@@ -17,8 +17,13 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
+	@GetMapping("/")
+	public String main() {
+		return "main";
+	}
+	
 	// 게시글 작성
-	@PostMapping("/")
+	@PostMapping("/boardWrite")
 	public String boardWrite(@ModelAttribute BoardInfo boardinfo) {
 		int result = service.boardWrite(boardinfo);
 		
@@ -32,7 +37,7 @@ public class BoardController {
 	}
 	
 	// 게시글 리스트 출력 기능
-	@GetMapping("/")
+	@GetMapping("/boardList")
 	public String boardInfo(Model model) {
 		List<BoardInfo> list = service.boardList();
 		
@@ -43,7 +48,7 @@ public class BoardController {
 	}
 	
 	// 게시글 상세 페이지 출력 기능
-	@GetMapping("/")
+	@GetMapping("/boardDetail")
 	public String boardDetail(int board_idx, Model model) {
 		BoardInfo board = service.boardDetail(board_idx);
 		
@@ -54,7 +59,7 @@ public class BoardController {
 	}
 	
 	// 카테고리 별 게시물 출력 기능
-	@GetMapping("/")
+	@GetMapping("/boardCategory")
 	public String boardCategory(String item_category, Model model) {
 		List<BoardInfo> list = service.boardCategory(item_category);
 		
