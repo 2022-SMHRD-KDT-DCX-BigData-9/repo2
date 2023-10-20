@@ -399,7 +399,7 @@ header.sticky {
 
 .modal-content {
   position: relative;
-  top: 50%; /* Adjust the value to move the content down */
+  top: 50%; 
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
