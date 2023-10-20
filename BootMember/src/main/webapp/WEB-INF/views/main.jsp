@@ -458,6 +458,10 @@ header.sticky {
 	background-color: #0074d9; /* 배경색 설정 */
 	color: #fff; /* 텍스트 색상 설정 */
 }
+/* 검색창 관련 css  */
+#search-box {
+            display: none;
+        }
 </style>
 </head>
 <body>
@@ -468,18 +472,31 @@ header.sticky {
 
 			<li><a href="#" class="btn-open-login">login</a></li>
 			<li><a href="#" class="btn-open-join">register</a></li>
-			<li><a href="#">products</a></li>
+			<li><a href="product">products</a></li>
 			<li><a href="#">page</a></li>
 			<li><a href="#">Docs</a></li>
 		</ul>
 		<div class="nav-icon">
-
-			<a href="#"></a><i class='bx bx-search'></i> <a href="mypage"></a><i
-				class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
+			<a href="mypage"><i class='bx bx-user'></i></a>
+			
+			<!--  검색창 관련 코드 -->
+			<a href="#"><i class='bx bx-search' id="search-icon" onclick="toggleSearchBox()"></i></a>
+			<form action="product" method = "get">
+			<div id="search-box">
+        		<input type="text" placeholder="찾고 싶은 물품을 입력하세요" style = "width: 300px;" name = "item_name">
+        		<button onclick="performSearch()">Search</button>
+    		</div>
+    		</form>
+			 
+				 <a href="#"><i class='bx bx-cart'></i></a>
 
 			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>
+		
 	</header>
+	
+	<br>
+	<p>hello</p>
 
 	<section class="main-home">
 		<div class="main-text">
@@ -957,6 +974,16 @@ header.sticky {
 	            window.location.href = "upload";
 	        }
 			
+			function toggleSearchBox() {
+	            var searchBox = document.getElementById("search-box");
+	            if (searchBox.style.display === "none" || searchBox.style.display === "") {
+	                searchBox.style.display = "block";
+	            } else {
+	                searchBox.style.display = "none";
+	            }
+	        }
+
+	       
 		</script>
 </body>
 </html>

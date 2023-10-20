@@ -47,6 +47,11 @@ public class BoardController {
 		return "boardwrite";
 	}
 
+	
+	@GetMapping("/product")
+	   public String product() {
+	      return "product";
+	   }
 	// 게시글 작성
 	@PostMapping("/boardWrite")
 	public String boardWrite(@ModelAttribute BoardInfo boardinfo) {
