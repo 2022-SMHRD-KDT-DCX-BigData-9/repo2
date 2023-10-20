@@ -815,6 +815,7 @@ header.sticky {
 		</div>
 	</section>
 
+	<!-- 회원가입 모달 -->
 	<div class="modal" id="modal_join">
 		<!-- 모달 내용 -->
 		<div class="modal_body">
@@ -960,6 +961,3 @@ header.sticky {
 		</script>
 </body>
 </html>
-
->>>>>>> refs/remotes/origin/kdh
-<!-- ! 치고 enter치면 자동적으로 나옴 -->
