@@ -388,15 +388,16 @@ header.sticky {
 
 		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
-			<li><a href="#">home</a></li>
-			<li><a href="#">shop</a></li>
+			<li><a href="login">login</a></li>
+			<li><a href="join">register</a></li>
 			<li><a href="#">products</a></li>
 			<li><a href="#">page</a></li>
 			<li><a href="#">Docs</a></li>
 		</ul>
 		<div class="nav-icon">
-			<a href="#"></a><i class='bx bx-search'></i> <a href="#"></a><i
-				class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
+			<a href="#"></a><i class='bx bx-search'></i> 
+			<a href="mypage"></a><i class='bx bx-user'></i> 
+			<a href="#"></a><i class='bx bx-cart'></i>
 
 			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>

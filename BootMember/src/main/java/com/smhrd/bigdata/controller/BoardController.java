@@ -22,6 +22,21 @@ public class BoardController {
 		return "main";
 	}
 	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping("/join")
+	public String join() {
+		return "join";
+	}
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "mypage";
+	}
+	
 	// 게시글 작성
 	@PostMapping("/boardWrite")
 	public String boardWrite(@ModelAttribute BoardInfo boardinfo) {
@@ -69,6 +84,14 @@ public class BoardController {
 		return ""; // 페이지 이동
 	}
 	
-	// 검색 기능
+	// 조회수가 높은 상위 8개 출력
+	@GetMapping("/boardRanking")
+	public String boardRanking(Model model) {
+		List<BoardInfo> list = service.boardRanking();
+		model.addAttribute("boardRanking", list);
+		// 페이지에 출력하기 위해 model에 저장하기
+		
+		return ""; // 페이지 이동
+	}
 	
 }

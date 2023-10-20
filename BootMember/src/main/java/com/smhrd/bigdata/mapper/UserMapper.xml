@@ -43,17 +43,10 @@
 		select * from board_info where board_idx = #{board_idx}
 	</select>
 
-	<!-- 마이페이지 출력 기능 -->
-	<select id="profile"
-		resultType="com.smhrd.bigdata.entity.UserInfo">
-
-	</select>
-
 	<!-- 카테고리 별 게시물 출력 기능 -->
 	<select id="boardCategory"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category =
-		#{item_category}
+		select * from board_info where item_category = #{item_category}
 	</select>
 
 	<!-- 후기 목록 출력 기능 -->
@@ -65,5 +58,20 @@
 	<!-- 제목으로 검색 할 수 있는 기능 -->
 	<select id="search" resultType="com.smhrd.bigdata.entity.BoardInfo">
 		select * from board_info where item_name like '%${search}%'
+	</select>
+	
+	<!-- 조회수 높은 순서대로 출력하는 기능 -->
+	<select id="boardRanking" resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info order by board_views desc limit 8
+	</select>
+	
+	
+	
+	
+	
+	
+	<!-- 마이페이지 출력 기능 -->
+	<select id="profile"
+		resultType="com.smhrd.bigdata.entity.UserInfo">
 	</select>
 </mapper>

@@ -36,4 +36,10 @@ public class BoardService {
 		List<BoardInfo> list = mapper.boardCategory(item_category);
 		return list;
 	}
+	
+	// 조회수가 높은 상위 8개 출력
+	public List<BoardInfo> boardRanking(){
+		List<BoardInfo> list = mapper.boardRanking();
+		return list;
+	}
 }
