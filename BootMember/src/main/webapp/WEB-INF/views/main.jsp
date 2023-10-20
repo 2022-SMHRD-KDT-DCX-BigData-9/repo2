@@ -462,6 +462,18 @@ header.sticky {
 
   margin-top: 20px;
 }
+
+.upload_thing_btn {
+
+position: relative;
+left: 1500px;
+bottom: 150px;
+width: 200px; /* 원하는 너비 설정 */
+padding: 10px; /* 버튼 내부 여백 설정 */
+background-color: #0074d9; /* 배경색 설정 */
+color: #fff; /* 텍스트 색상 설정 */
+
+}
  
 </style>
 </head>
@@ -705,6 +717,7 @@ header.sticky {
 
 
 	</section>
+	<button class= "upload_thing_btn" onclick="redirectToURL()">게시물 쓰기</button>
 
 	<!-- 회원 리뷰 section -->
 	<section class="Client-reivews">
@@ -956,6 +969,12 @@ header.sticky {
 				modalLogin.style.display = 'none';
 				}
 			});
+			
+			function redirectToURL() {
+	            // 원하는 URL로 이동
+	            window.location.href = "upload";
+	        }
+			
 		</script>
 </body>
 </html>

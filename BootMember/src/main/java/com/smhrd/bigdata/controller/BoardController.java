@@ -28,6 +28,11 @@ public class BoardController {
 		return "detail";
 	}
 	
+	@GetMapping("/upload")
+	public String upload() {
+		return "boardwrite";
+	}
+	
 	
 	// 게시글 작성
 	@PostMapping("/boardWrite")
