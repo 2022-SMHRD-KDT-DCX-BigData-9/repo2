@@ -4,10 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 import com.smhrd.bigdata.entity.UserInfo;
 import com.smhrd.bigdata.service.UserService;
@@ -20,7 +22,8 @@ public class UserController {
 	UserService service;
 	
 	// 회원가입
-	@PostMapping("join")
+
+	@PostMapping("/join/success")
 	public String join(@ModelAttribute UserInfo userinfo) {
 		int result = service.join(userinfo);
 		
@@ -34,7 +37,8 @@ public class UserController {
 	}
 	
 	// 로그인
-	@RequestMapping("login")
+
+	@RequestMapping(value = "/login/success", method = {RequestMethod.POST})
 	public String login(UserInfo userinfo, HttpSession session) {
 		UserInfo result = service.login(userinfo);
 		

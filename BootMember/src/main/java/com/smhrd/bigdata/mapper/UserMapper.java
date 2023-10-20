@@ -34,5 +34,9 @@ public interface UserMapper {
 	// 후기 목록 출력 기능  -- 리턴타입 List<ReviewInfo>
 	public List<ReviewInfo> reviewList();
 	
+	// 검색 기능 
 	public List<BoardInfo> search(String search);
+	
+	// 조회수 높은 순서대로 출력하는 기능
+	public List<BoardInfo> boardRanking();
 }

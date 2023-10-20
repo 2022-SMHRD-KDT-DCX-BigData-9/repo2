@@ -1,6 +1,6 @@
 
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -380,101 +380,84 @@ header.sticky {
 		transition: .4s;
 	}
 }
- 
+
 .modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100%;
-
-  display: none;
-
-   background-color: rgba(200, 200, 200, 0.8);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(200, 200, 200, 0.8);
 }
 
 .modal.show {
-  display: block;
+	display: block;
 }
 
 .modal-header {
-  position: relative;
-  top: 50%;
-  left: 50%;
-
-  text-align: center;
-
-  transform: translateX(-50%) translateY(-50%);
-
-  margin-bottom: 20px;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	text-align: center;
+	transform: translateX(-50%) translateY(-50%);
+	margin-bottom: 20px;
 }
 
 .modal_body {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  width: 400px;
-  height: 700px;
-
-  padding: 40px;
-
-  text-align: center;
-
-  background-color: rgb(192, 192, 192); 
-  border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-
-  transform: translateX(-50%) translateY(-50%);
-
-  margin-top: 20px;
-  border: 2px solid #000; 
-}    
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 700px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(192, 192, 192);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
+	margin-top: 20px;
+	border: 2px solid #000;
+}
 
 .modal_body .main {
-  margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 .modal_body .main input {
-  width: 80%;
-  padding: 10px; 
+	width: 80%;
+	padding: 10px;
 }
 
 .modal_body fieldset {
-  background-color: rgba(255, 255, 204, 0.7);
-  margin-top: 20px; 
-  border: 2px solid #000; 
+	background-color: rgba(255, 255, 204, 0.7);
+	margin-top: 20px;
+	border: 2px solid #000;
 }
 
 .modal_body fieldset input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px; 
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
 }
 
 .modal-footer {
-  position: relative;
-  bottom: 0;
-  left: 50%;
-
-  transform: translateX(-50%) translateY(0);
-
-  margin-top: 20px;
+	position: relative;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%) translateY(0);
+	margin-top: 20px;
 }
 
 .upload_thing_btn {
-
-position: relative;
-left: 1500px;
-bottom: 150px;
-width: 200px; /* 원하는 너비 설정 */
-padding: 10px; /* 버튼 내부 여백 설정 */
-background-color: #0074d9; /* 배경색 설정 */
-color: #fff; /* 텍스트 색상 설정 */
-
+	position: relative;
+	left: 1500px;
+	bottom: 150px;
+	width: 200px; /* 원하는 너비 설정 */
+	padding: 10px; /* 버튼 내부 여백 설정 */
+	background-color: #0074d9; /* 배경색 설정 */
+	color: #fff; /* 텍스트 색상 설정 */
 }
- 
 </style>
 </head>
 <body>
@@ -482,6 +465,7 @@ color: #fff; /* 텍스트 색상 설정 */
 	<header>
 		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
+
 			<li><a href="#" class="btn-open-login">login</a></li>
 			<li><a href="#" class="btn-open-join">register</a></li>
 			<li><a href="#">products</a></li>
@@ -489,12 +473,9 @@ color: #fff; /* 텍스트 색상 설정 */
 			<li><a href="#">Docs</a></li>
 		</ul>
 		<div class="nav-icon">
-			<a href="#"></a>
-			<i class='bx bx-search'></i> 
-			<a href="#"></a>
-			<i class='bx bx-user'></i> 
-			<a href="login.jsp"></a>
-			<i class='bx bx-cart'></i>
+
+			<a href="#"></a><i class='bx bx-search'></i> <a href="mypage"></a><i
+				class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
 
 			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>
@@ -529,12 +510,11 @@ color: #fff; /* 텍스트 색상 설정 */
 		<div class="products">
 			<!-- 첫 번째 상품 -->
 			<div class="row">
-			<a href="detail">
-   			 <img src="image/1.jpg" alt="">
-			</a>
-			<div class="product-text">
-				<h5>Sale</h5>
-			</div>
+				<a href="detail"> <img src="image/1.jpg" alt="">
+				</a>
+				<div class="product-text">
+					<h5>Sale</h5>
+				</div>
 
 				<div class="heart-icon">
 					<i class='bx bx-heart'></i>
@@ -552,9 +532,8 @@ color: #fff; /* 텍스트 색상 설정 */
 			</div>
 			<!-- 2번쨰 상품 -->
 			<div class="row">
-				<a href="detail">
-   			 <img src="image/2.jpg" alt="">
-			</a>
+				<a href="detail"> <img src="image/2.jpg" alt="">
+				</a>
 				<div class="product-text">
 					<h5>New</h5>
 				</div>
@@ -575,9 +554,8 @@ color: #fff; /* 텍스트 색상 설정 */
 			</div>
 			<!-- 세번째 상품 -->
 			<div class="row">
-				<a href="detail">
-   			 <img src="image/3.jpg" alt="">
-			</a>
+				<a href="detail"> <img src="image/3.jpg" alt="">
+				</a>
 
 
 				<div class="heart-icon">
@@ -596,9 +574,8 @@ color: #fff; /* 텍스트 색상 설정 */
 			</div>
 			<!-- 4번 째 상품 -->
 			<div class="row">
-				<a href="detail">
-   			 <img src="image/4.jpg" alt="">
-			</a>
+				<a href="detail"> <img src="image/4.jpg" alt="">
+				</a>
 				<div class="product-text">
 					<h5>Hot</h5>
 				</div>
@@ -620,9 +597,8 @@ color: #fff; /* 텍스트 색상 설정 */
 			<!-- 다섯 번째 상품 -->
 
 			<div class="row">
-				<a href="detail">
-   			 <img src="image/5.jpg" alt="">
-			</a>
+				<a href="detail"> <img src="image/5.jpg" alt="">
+				</a>
 
 
 				<div class="heart-icon">
@@ -641,9 +617,8 @@ color: #fff; /* 텍스트 색상 설정 */
 			</div>
 			<!-- 여섯 번째 상품 -->
 			<div class="row">
-				<a href="detail">
-   			 <img src="image/6.jpg" alt="">
-			</a>
+				<a href="detail"> <img src="image/6.jpg" alt="">
+				</a>
 				<div class="product-text">
 					<h5>Hot</h5>
 				</div>
@@ -665,9 +640,8 @@ color: #fff; /* 텍스트 색상 설정 */
 
 			<!-- 일곱 번째 상품 -->
 			<div class="row">
-				<a href="detail">
-   			 <img src="image/7.jpg" alt="">
-			</a>
+				<a href="detail"> <img src="image/7.jpg" alt="">
+				</a>
 				<div class="product-text">
 					<h5>Sale</h5>
 				</div>
@@ -689,9 +663,8 @@ color: #fff; /* 텍스트 색상 설정 */
 
 			<!-- 여덟번 째 상품 -->
 			<div class="row">
-				<a href="detail">
-   			 <img src="image/8.jpg" alt="">
-			</a>
+				<a href="detail"> <img src="image/8.jpg" alt="">
+				</a>
 				<div class="product-text">
 					<h5>Sale</h5>
 				</div>
@@ -717,7 +690,8 @@ color: #fff; /* 텍스트 색상 설정 */
 
 
 	</section>
-	<button class= "upload_thing_btn" onclick="redirectToURL()">게시물 쓰기</button>
+	<button class="upload_thing_btn" onclick="redirectToURL()">게시물
+		쓰기</button>
 
 	<!-- 회원 리뷰 section -->
 	<section class="Client-reivews">
@@ -836,99 +810,107 @@ color: #fff; /* 텍스트 색상 설정 */
 				<p>Receive Updates, Hot deals, Discounts Sent Straight In Your
 					Inbox Daily</p>
 
-				</div>
 			</div>
+		</div>
 		</div>
 	</section>
 
 	<div class="modal" id="modal_join">
-        <!-- 모달 내용 -->
-        <div class="modal_body" > 
-                <form action="member/join" method = "post">
-                    <!-- 모달 헤더-->
-                    <div class="modal-header">
-                        <h2 class="modal-title">회원가입</h2>
-                    </div>
-                        <div class="main">
-                            <input id="email" name="email" type = "email" placeholder = "example@gmail.com" required>
-                        </div>
-                        <div class="main">
-                            <input id="pw" name = "pw" type = "password"  placeholder = "패스워드 입력" required>
-                        </div>
-                        <div class="main">
-                            <input id="name" name = "name" type = "text"  placeholder="이름을 입력" required>
-                        </div>
-                        <div class="main">
-                            <input id="nick" name = "nick" type = "text"  placeholder="닉네임을 입력" required>
-                        </div>
-                        <div class="main">
-                            <input id="address" name = "address" type = "text" placeholder = "주소 입력" required>
-                        </div>
-                        <div class="main">
-                            <input type='tel' id="tel" name='userPhoneNumber' placeholder="010-1234-5678" maxlength="3" required /> 
-                        </div>
-                    <div>
-                        <fieldset>
-                            <legend>관심 카테고리</legend>
-                            <div>
-                                <input type="checkbox" id="electro" name="interest" value="전자제품"/>
-                                <label for="electro">전자제품</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="daily" name="interest" value="생활용품"/>
-                                <label for="daily">생활용품</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="sport" name="interest" value="스포츠"/>
-                                <label for="sport">스포츠/레져</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="cloth" name="interest" value="의류"/>
-                                <label for="cloth">의류</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="book" name="interest" value="도서"/>
-                                <label for="book">도서</label>
-                            </div>
-                        </fieldset>
-                            <!-- 모달 푸터-->
-                            <div class="modal-footer">
-                                <button type="submit" id="join">회원가입</button>
-                                <button class="btn-close-popup">닫기</button>
-                            </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-		<div class="modal" id="modal_login">
-
-			<div class="modal_body"> 
-	
-				<form id="loginForm" action="member/login" method = "post">
-					<div class="modal-header">
-						<h2 class="modal-title">로그인</h2>
-					</div>
-	
-					<div class="main">
-						<input id="email" name="email" type = "email" placeholder = "example@gmail.com" required>
-					</div>
-	
-					<div class="main">
-						<input id="pw" name = "pw" type = "password"  placeholder = "패스워드 입력" required>
-					</div>
-	
+		<!-- 모달 내용 -->
+		<div class="modal_body">
+			<form action="member/join" method="post">
+				<!-- 모달 헤더-->
+				<div class="modal-header">
+					<h2 class="modal-title">회원가입</h2>
+				</div>
+				<div class="main">
+					<input id="email" name="email" type="email"
+						placeholder="example@gmail.com" required>
+				</div>
+				<div class="main">
+					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
+						required>
+				</div>
+				<div class="main">
+					<input id="name" name="name" type="text" placeholder="이름을 입력"
+						required>
+				</div>
+				<div class="main">
+					<input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
+						required>
+				</div>
+				<div class="main">
+					<input id="address" name="address" type="text" placeholder="주소 입력"
+						required>
+				</div>
+				<div class="main">
+					<input type='tel' id="tel" name='userPhoneNumber'
+						placeholder="010-1234-5678" maxlength="3" required />
+				</div>
+				<div>
+					<fieldset>
+						<legend>관심 카테고리</legend>
+						<div>
+							<input type="checkbox" id="electro" name="interest" value="전자제품" />
+							<label for="electro">전자제품</label>
+						</div>
+						<div>
+							<input type="checkbox" id="daily" name="interest" value="생활용품" />
+							<label for="daily">생활용품</label>
+						</div>
+						<div>
+							<input type="checkbox" id="sport" name="interest" value="스포츠" />
+							<label for="sport">스포츠/레져</label>
+						</div>
+						<div>
+							<input type="checkbox" id="cloth" name="interest" value="의류" /> <label
+								for="cloth">의류</label>
+						</div>
+						<div>
+							<input type="checkbox" id="book" name="interest" value="도서" /> <label
+								for="book">도서</label>
+						</div>
+					</fieldset>
+					<!-- 모달 푸터-->
 					<div class="modal-footer">
-						<button type="submit" id="login">로그인</button>
-						<button id="joinButton">회원가입</button>
+						<button type="submit" id="join">회원가입</button>
 						<button class="btn-close-popup">닫기</button>
 					</div>
-				</form>         
-			</div>
+				</div>
+			</form>
 		</div>
+	</div>
+
+	<div class="modal" id="modal_login">
+
+		<div class="modal_body">
+
+			<form id="loginForm" action="member/login" method="post">
+				<div class="modal-header">
+					<h2 class="modal-title">로그인</h2>
+				</div>
+
+				<div class="main">
+					<input id="email" name="email" type="email"
+						placeholder="example@gmail.com" required>
+				</div>
+
+				<div class="main">
+					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
+						required>
+				</div>
+
+				<div class="modal-footer">
+					<button type="submit" id="login">로그인</button>
+					<button id="joinButton">회원가입</button>
+					<button class="btn-close-popup">닫기</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 
-		<script>
+	<script>
 			const header = document.querySelector("header");
 		
 			window.addEventListener("scroll", function() {
