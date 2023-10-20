@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<<<<<<< HEAD
+<!-- </head>
+=======
 <style>
 
   .modal {
@@ -83,7 +86,22 @@
   
 </head>
 
+>>>>>>> refs/remotes/origin/kdh
 <body>
+<<<<<<< HEAD
+ action에 절대경로, 상대경로 사용 가능 절대경로 : localhost:8087~
+상대경로:  
+<form action="member/join" method = "post">
+
+<input type = "text" name = "email" placeholder = "이메일 입력"><br>
+<input type = "password" name = "pw" placeholder = "패스워드 입력"><br>
+<input type = "text" name = "tel" placeholder = "전화번호 입력"><br>
+<input type = "text" name = "address" placeholder = "집주소 입력"><br>
+<input type = "submit" value = "회원가입">
+
+</form>
+
+=======
     <div class="modal">
         <!-- 모달 내용 -->
         <div class="modal_body" > 
@@ -144,7 +162,11 @@
             </div>
         </div>
     <button class="btn-open-popup">회원가입</button>
+>>>>>>> refs/remotes/origin/kdh
 </body>
+<<<<<<< HEAD
+</html> -->
+=======
         <script>
             const modal = document.querySelector('.modal');
             const btnOpenPopup = document.querySelector('.btn-open-popup');
@@ -168,3 +190,4 @@
             });
         </script>
 </html>
+>>>>>>> refs/remotes/origin/kdh

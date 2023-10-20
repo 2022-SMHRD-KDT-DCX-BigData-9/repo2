@@ -381,36 +381,21 @@ header.sticky {
 }
  
 .modal {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
+
   width: 100%;
   height: 100%;
-  display: none; /* Hide the modal by default */
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(200, 200, 200, 0.8);
-  overflow: hidden;
+
+  display: none;
+
+   background-color: rgba(200, 200, 200, 0.8);
 }
 
 .modal.show {
-  display: flex;
+  display: block;
 }
-
-.modal-content {
-  position: relative;
-  top: 50%; 
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-height: 80%;
-  background-color: rgb(192, 192, 192);
-  border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-  padding: 20px;
-  overflow-y: auto;
-}
-
 
 .modal-header {
   position: relative;
@@ -430,7 +415,7 @@ header.sticky {
   left: 50%;
 
   width: 400px;
-  height: 680px;
+  height: 700px;
 
   padding: 40px;
 
@@ -447,7 +432,7 @@ header.sticky {
 }    
 
 .modal_body .main {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .modal_body .main input {
@@ -531,10 +516,12 @@ header.sticky {
 		<div class="products">
 			<!-- 첫 번째 상품 -->
 			<div class="row">
-				<img src="image/1.jpg" alt="">
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
+			<a href="detail">
+   			 <img src="image/1.jpg" alt="">
+			</a>
+			<div class="product-text">
+				<h5>Sale</h5>
+			</div>
 
 				<div class="heart-icon">
 					<i class='bx bx-heart'></i>
@@ -552,7 +539,9 @@ header.sticky {
 			</div>
 			<!-- 2번쨰 상품 -->
 			<div class="row">
-				<img src="image/2.jpg" alt="">
+				<a href="detail">
+   			 <img src="image/2.jpg" alt="">
+			</a>
 				<div class="product-text">
 					<h5>New</h5>
 				</div>
@@ -573,7 +562,9 @@ header.sticky {
 			</div>
 			<!-- 세번째 상품 -->
 			<div class="row">
-				<img src="image/3.jpg" alt="">
+				<a href="detail">
+   			 <img src="image/3.jpg" alt="">
+			</a>
 
 
 				<div class="heart-icon">
@@ -592,7 +583,9 @@ header.sticky {
 			</div>
 			<!-- 4번 째 상품 -->
 			<div class="row">
-				<img src="image/4.jpg" alt="">
+				<a href="detail">
+   			 <img src="image/4.jpg" alt="">
+			</a>
 				<div class="product-text">
 					<h5>Hot</h5>
 				</div>
@@ -614,7 +607,9 @@ header.sticky {
 			<!-- 다섯 번째 상품 -->
 
 			<div class="row">
-				<img src="image/5.jpg" alt="">
+				<a href="detail">
+   			 <img src="image/5.jpg" alt="">
+			</a>
 
 
 				<div class="heart-icon">
@@ -633,7 +628,9 @@ header.sticky {
 			</div>
 			<!-- 여섯 번째 상품 -->
 			<div class="row">
-				<img src="image/6.jpg" alt="">
+				<a href="detail">
+   			 <img src="image/6.jpg" alt="">
+			</a>
 				<div class="product-text">
 					<h5>Hot</h5>
 				</div>
@@ -655,7 +652,9 @@ header.sticky {
 
 			<!-- 일곱 번째 상품 -->
 			<div class="row">
-				<img src="image/7.jpg" alt="">
+				<a href="detail">
+   			 <img src="image/7.jpg" alt="">
+			</a>
 				<div class="product-text">
 					<h5>Sale</h5>
 				</div>
@@ -677,7 +676,9 @@ header.sticky {
 
 			<!-- 여덟번 째 상품 -->
 			<div class="row">
-				<img src="image/8.jpg" alt="">
+				<a href="detail">
+   			 <img src="image/8.jpg" alt="">
+			</a>
 				<div class="product-text">
 					<h5>Sale</h5>
 				</div>
@@ -958,4 +959,6 @@ header.sticky {
 </body>
 </html>
 
+>>>>>>> refs/remotes/origin/kdh
+>>>>>>> refs/remotes/origin/master
 <!-- ! 치고 enter치면 자동적으로 나옴 -->

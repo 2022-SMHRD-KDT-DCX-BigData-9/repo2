@@ -22,6 +22,13 @@ public class BoardController {
 		return "main";
 	}
 	
+	
+	@GetMapping("/detail")
+	public String detail() {
+		return "detail";
+	}
+	
+	
 	// 게시글 작성
 	@PostMapping("/boardWrite")
 	public String boardWrite(@ModelAttribute BoardInfo boardinfo) {
