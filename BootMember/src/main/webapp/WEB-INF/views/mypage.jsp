@@ -490,17 +490,14 @@ header.sticky {
             <p>점수 (거래 횟수)</p>
          </div>
 
-<<<<<<< HEAD
+
          <div class="profile-update">
             <li class="profileUpdate"><button
                class="btn-update-profile">회원정보 수정</button></li>
          </div>
-=======
-			<div class="profile-update">
-				<li class="profileUpdate"><a href="#"
-					class="btn-update-profile">회원정보 수정</a></li>
-			</div>
->>>>>>> refs/remotes/origin/master
+
+			
+
 
       </div>
    </section>
@@ -847,7 +844,7 @@ header.sticky {
 		</div>
 	</div>
 
-<<<<<<< HEAD
+
    <!-- 회원 정보 수정할 수 있는 모달창 -->
    <div class="modal" id="modal_update">
       <div class="modal_body">
@@ -878,16 +875,8 @@ header.sticky {
          </form>
       </div>
    </div>
-=======
-	<script>
-    	// 회원정보 수정 모달
-    	const modalUpdate = document.querySelector('#modal_update');
-    	// 회원정보 수정 버튼
-    	const btnUpdateProfile = document.querySelector('.btn-update-profile');
-    	const btnClosePopup = document.querySelector('.btn-close-popup');
->>>>>>> refs/remotes/origin/master
 
-<<<<<<< HEAD
+
    <script>
         //회원정보 수정 모달
        const modalUpdate = document.querySelector('#modal_update');
@@ -912,24 +901,7 @@ header.sticky {
            }
        });
    </script>
-=======
-    	// 회원 정보 수정 모달 열기
-    	btnUpdateProfile.addEventListener('click', () => {
-        	modalUpdate.style.display = 'block';
-    	});
 
-    	// 모달 닫기
-   		btnClosePopup.addEventListener('click', () => {
-        	modalUpdate.style.display = 'none';
-    	});
 
-    	// 모달 이외 창 추가해서 닫기
-    	modalUpdate.addEventListener('click', (e) => {
-        	if (e.target === modalUpdate) {
-            	modalUpdate.style.display = 'none';
-        	}
-    	});
-	</script>
->>>>>>> refs/remotes/origin/master
 </body>
 </html>
