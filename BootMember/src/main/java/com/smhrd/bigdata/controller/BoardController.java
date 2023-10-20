@@ -22,10 +22,10 @@ public class BoardController {
 		return "main";
 	}
 	
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
+	// @GetMapping("/login")
+	//public String login() {
+	//	return "login";
+	//}
 	
 	@GetMapping("/join")
 	public String join() {

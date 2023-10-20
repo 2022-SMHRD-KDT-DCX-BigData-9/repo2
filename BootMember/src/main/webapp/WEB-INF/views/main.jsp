@@ -846,7 +846,7 @@ header.sticky {
 				</div>
 				<div class="main">
 					<input type='tel' id="tel" name='userPhoneNumber'
-						placeholder="010-1234-5678" maxlength="3" required />
+						placeholder="010-1234-5678" maxlength="15" required />
 				</div>
 				<div>
 					<fieldset>
@@ -892,12 +892,12 @@ header.sticky {
 				</div>
 
 				<div class="main">
-					<input id="email" name="email" type="email"
+					<input id="user_email" name="user_email" type="email"
 						placeholder="example@gmail.com" required>
 				</div>
 
 				<div class="main">
-					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
+					<input id="user_pw" name="user_pw" type="password" placeholder="패스워드 입력"
 						required>
 				</div>
 

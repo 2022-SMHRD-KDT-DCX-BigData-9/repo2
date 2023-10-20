@@ -23,33 +23,30 @@ public class UserController {
 	
 	// 회원가입
 
-	@PostMapping("/join/success")
+	@PostMapping("/member/join")
 	public String join(@ModelAttribute UserInfo userinfo) {
 		int result = service.join(userinfo);
 		
 		if (result > 0) {
 			// 성공 했을 경우
-			return ""; // 메인페이지로 리턴한다
-		} else {
-			// 실패 했을 경우
-			return ""; // 다른 페이지로 리턴한다
+			return "main"; // 메인페이지로 리턴한다
 		}
+		return null;
 	}
 	
 	// 로그인
-
-	@RequestMapping(value = "/login/success", method = {RequestMethod.POST})
+	@PostMapping("/member/login")
 	public String login(UserInfo userinfo, HttpSession session) {
 		UserInfo result = service.login(userinfo);
 		
 		// 로그인이 성공 했을 경우
 		if (result != null) {
 			session.setAttribute("loginUser", result);
-			return ""; // 세션에 값 저장 및 페이지 리턴해준다
+			System.out.println("로그인 성공");
 		} else {
-			// 로그인이 실패 했을 경우
-			return ""; // 다른 페이지로 리턴한다
+			System.out.println("로그인 실패");
 		}
+		return "redirect:/";
 	}
 	
 	// 로그아웃
