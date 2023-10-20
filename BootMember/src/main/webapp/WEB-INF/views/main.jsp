@@ -381,21 +381,36 @@ header.sticky {
 }
  
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-
   width: 100%;
   height: 100%;
-
-  display: none;
-
-   background-color: rgba(200, 200, 200, 0.8);
+  display: none; /* Hide the modal by default */
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(200, 200, 200, 0.8);
+  overflow: hidden;
 }
 
 .modal.show {
-  display: block;
+  display: flex;
 }
+
+.modal-content {
+  position: relative;
+  top: 50%; /* Adjust the value to move the content down */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-height: 80%;
+  background-color: rgb(192, 192, 192);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  padding: 20px;
+  overflow-y: auto;
+}
+
 
 .modal-header {
   position: relative;
@@ -415,7 +430,7 @@ header.sticky {
   left: 50%;
 
   width: 400px;
-  height: 900px;
+  height: 680px;
 
   padding: 40px;
 
@@ -432,7 +447,7 @@ header.sticky {
 }    
 
 .modal_body .main {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .modal_body .main input {
