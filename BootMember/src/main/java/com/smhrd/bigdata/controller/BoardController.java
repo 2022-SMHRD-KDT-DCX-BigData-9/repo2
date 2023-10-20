@@ -21,19 +21,17 @@ public class BoardController {
 	public String main() {
 		return "main";
 	}
-<<<<<<< HEAD
 	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-=======
+
 	
 	// @GetMapping("/login")
 	//public String login() {
 	//	return "login";
 	//}
->>>>>>> refs/heads/pse
 	
 	@GetMapping("/join")
 	public String join() {
