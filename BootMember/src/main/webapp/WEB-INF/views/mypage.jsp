@@ -481,7 +481,8 @@ header.sticky {
 			</div>
 
 			<div class="profile-update">
-				<li class="profileUpdate"><a href="#">회원 정보 수정</a></li>
+				<li class="profileUpdate"><a href="#"
+					class="btn-update-profile">회원정보 수정</a></li>
 			</div>
 
 		</div>
@@ -697,15 +698,111 @@ header.sticky {
 		</div>
 	</section>
 
+	<!-- 회원 정보 수정할 수 있는 모달창 -->
+	<div class="modal" id="modal_update">
+		<div class="modal_body">
+			<form action="#" method="post">
+				<!-- 모달 헤더-->
+				<div class="modal-header">
+					<h2 class="modal-title">정보 수정</h2>
+				</div>
+				<div class="main">
+					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
+						required>
+				</div>
+				<div class="main">
+					<input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
+						required>
+				</div>
+				<div>
+					<fieldset>
+						<legend>관심 카테고리</legend>
+						<div>
+							<input type="checkbox" id="electro" name="interest" value="전자제품" />
+							<label for="electro">전자제품</label>
+						</div>
+						<div>
+							<input type="checkbox" id="daily" name="interest" value="생활용품" />
+							<label for="daily">생활용품</label>
+						</div>
+						<div>
+							<input type="checkbox" id="sport" name="interest" value="스포츠" />
+							<label for="sport">스포츠/레져</label>
+						</div>
+						<div>
+							<input type="checkbox" id="cloth" name="interest" value="의류" />
+							<label for="cloth">의류</label>
+						</div>
+						<div>
+							<input type="checkbox" id="book" name="interest" value="도서" /> <label
+								for="book">도서</label>
+						</div>
+					</fieldset>
+					<!-- 모달 푸터-->
+					<div class="modal-footer">
+						<button type="submit" id="update">수정하기</button>
+						<button class="btn-close-popup">닫기</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- 회원 정보 수정할 수 있는 모달창 -->
+	<div class="modal" id="modal_update">
+		<div class="modal_body">
+			<form action="#" method="post">
+				<!-- 모달 헤더 -->
+				<div class="modal-header">
+					<h2 class="modal-title">정보 수정</h2>
+				</div>
+				<div class="main">
+					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
+						required>
+				</div>
+				<div class="main">
+					<input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
+						required>
+				</div>
+				<div>
+					<fieldset>
+						<legend>관심 카테고리</legend>
+						<!-- ... (checkbox inputs) ... -->
+					</fieldset>
+					<!-- 모달 푸터 -->
+					<div class="modal-footer">
+						<button type="submit" id="update">수정하기</button>
+						<button class="btn-close-popup">닫기</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
 	<script>
-		const header = document.querySelector("header");
+    	// 회원정보 수정 모달
+    	const modalUpdate = document.querySelector('#modal_update');
+    	// 회원정보 수정 버튼
+    	const btnUpdateProfile = document.querySelector('.btn-update-profile');
+    	const btnClosePopup = document.querySelector('.btn-close-popup');
 
-		window.addEventListener("scroll", function() {
-			header.classList.toggle("sticky", this.window.scrollY > 0);
-		})
+    	// 회원 정보 수정 모달 열기
+    	btnUpdateProfile.addEventListener('click', () => {
+        	modalUpdate.style.display = 'block';
+    	});
+
+    	// 모달 닫기
+   		btnClosePopup.addEventListener('click', () => {
+        	modalUpdate.style.display = 'none';
+    	});
+
+    	// 모달 이외 창 추가해서 닫기
+    	modalUpdate.addEventListener('click', (e) => {
+        	if (e.target === modalUpdate) {
+            	modalUpdate.style.display = 'none';
+        	}
+    	});
 	</script>
 </body>
 </html>
-
-<!-- ! 치고 enter치면 자동적으로 나옴 -->
