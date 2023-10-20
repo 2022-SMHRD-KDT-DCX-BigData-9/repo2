@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+<!-- </head>
 <body>
-<!--  action에 절대경로, 상대경로 사용 가능 절대경로 : localhost:8087~ -->
-<!-- 상대경로:   -->
+ action에 절대경로, 상대경로 사용 가능 절대경로 : localhost:8087~
+상대경로:  
 <form action="member/join" method = "post">
 
 <input type = "text" name = "email" placeholder = "이메일 입력"><br>
@@ -20,4 +20,4 @@
 </form>
 
 </body>
-</html>
+</html> -->

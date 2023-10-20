@@ -391,8 +391,8 @@ header.sticky {
 			<li><a href="#">home</a></li>
 			<li><a href="#">shop</a></li>
 			<li><a href="#">products</a></li>
-			<li><a href="#">page</a></li>
-			<li><a href="#">Docs</a></li>
+			<li><a href="#">login</a></li>
+			<li><a href="#">Join</a></li>
 		</ul>
 		<div class="nav-icon">
 			<a href="#"></a><i class='bx bx-search'></i> <a href="#"></a><i
@@ -400,8 +400,21 @@ header.sticky {
 
 			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>
+		<div>
+		<br>
+		<br>
+		<br>
+		<ul class="navmenu">
+			<li><a href="#">sports</a></li>
+			<li><a href="#"></a></li>
+			<li><a href="#">products</a></li>
+			<li><a href="#">login</a></li>
+			<li><a href="#">Join</a></li>
+		</ul>
+		</div>
 
 	</header>
+	
 
 	<section class="main-home">
 		<div class="main-text">
