@@ -384,7 +384,7 @@ header.sticky {
 
 <body>
 	<header>
-		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
 			<c:choose>
 				<c:when test="${ empty loginUser }">

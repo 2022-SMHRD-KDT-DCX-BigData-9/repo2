@@ -467,7 +467,7 @@ header.sticky {
 <body>
 
 	<header>
-		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
 			<c:choose>
 				<c:when test="${ empty loginUser }">
@@ -535,7 +535,7 @@ header.sticky {
 	
 		<c:forEach items="${ boardRanking }" var="ranking">
 			<div class="row">
-				<a href="#"> <img src="image/7.jpg" alt=""></a>
+				<a href="board/${ ranking.board_idx }"> <img src="image/7.jpg" alt=""></a>
 
 				<div class="price">
 					<!-- 제목 -->
@@ -559,7 +559,7 @@ header.sticky {
 			<div class="products">
 				<!-- 첫 번째 상품 -->
 				<div class="row">
-					<a href="detail"> <img src="image/1.jpg" alt=""></a>
+					<a href="#"> <img src="image/1.jpg" alt=""></a>
 					<div class="product-text">
 						<h5>Sale</h5>
 					</div>

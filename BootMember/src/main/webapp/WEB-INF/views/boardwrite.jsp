@@ -498,7 +498,7 @@ table {
 <body>
 
     <header>
-		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
 			<li><a href="#" class="btn-open-login">login</a></li>
 			<li><a href="#" class="btn-open-join">register</a></li>

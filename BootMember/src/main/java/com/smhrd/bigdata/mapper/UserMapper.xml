@@ -47,12 +47,6 @@
 		select * from board_info where board_idx = #{board_idx}
 	</select>
 
-	<!-- 카테고리 별 게시물 출력 기능 -->
-	<select id="boardCategory"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category =
-		#{item_category}
-	</select>
 
 	<!-- 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능 -->
 	<select id="electronics"

@@ -54,7 +54,7 @@ public class BoardController {
 		}
 	}
 
-	// 게시글 리스트 출력 기능
+	// 게시글 리스트 출력 기능 ---- 필요 없는듯?
 	@GetMapping("/boardList")
 	public String boardInfo(Model model) {
 		List<BoardInfo> list = service.boardList();
@@ -66,61 +66,61 @@ public class BoardController {
 	}
 
 	// 게시글 상세 페이지 출력 기능
-	@GetMapping("/detailList")
-	public String boardDetail(int board_idx, Model model) {
+	@GetMapping("/board/{board_idx}")
+	public String boardDetail(@PathVariable Long board_idx, Model model) {
 		BoardInfo board = service.boardDetail(board_idx);
 
 		model.addAttribute("boardDetail", board);
 		// 페이지에 출력하기 위해 model에 저장하기
 
-		return "detail.jsp"; // 페이지 이동
+		return "detail"; // 페이지 이동
 	}
 
-	// 카테고리 별 게시물 출력 기능
+	// 카테고리 페이지 출력 기능
 	@GetMapping("/product")
-	public String boardCategory(String item_category, Model model) {
-		List<BoardInfo> list = service.boardCategory(item_category);
-
-		model.addAttribute("boardCategory", list);
-		model.addAttribute("category", item_category);
-		// 페이지에 출력하기 위해 model에 저장하기
-		System.out.println(list);
-
-		return "product"; // 페이지 이동
-	}
-
-	// 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능
-	@GetMapping("/{item_category}")
-	public String category(@PathVariable String item_category, Model model) {
+	public String boardCategory(HttpSession session) {
 		List<BoardInfo> list1 = service.electronics();
 		List<BoardInfo> list2 = service.books();
 		List<BoardInfo> list3 = service.sports();
 		List<BoardInfo> list4 = service.clothes();
 		List<BoardInfo> list5 = service.lifegoods();
 		
-		model.addAttribute("category", item_category);
+		session.setAttribute("electronics", list1);
+		session.setAttribute("books", list2);
+		session.setAttribute("sports", list3);
+		session.setAttribute("clothes", list4);
+		session.setAttribute("lifegoods", list5);
 		
-		model.addAttribute("electronics", list1);
-		model.addAttribute("books", list2);
-		model.addAttribute("sports", list3);
-		model.addAttribute("clothes", list4);
-		model.addAttribute("lifegoods", list5);
+		return "product"; // 페이지 이동
+	}
+
+	// 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능
+	@GetMapping("/{item_category}")
+	public String category(@PathVariable String item_category, HttpSession session) {
+		List<BoardInfo> list1 = service.electronics();
+		List<BoardInfo> list2 = service.books();
+		List<BoardInfo> list3 = service.sports();
+		List<BoardInfo> list4 = service.clothes();
+		List<BoardInfo> list5 = service.lifegoods();
 		
-		System.out.println(list1);
-		System.out.println(list2);
+		session.setAttribute("category", item_category);
+		
+		session.setAttribute("electronics", list1);
+		session.setAttribute("books", list2);
+		session.setAttribute("sports", list3);
+		session.setAttribute("clothes", list4);
+		session.setAttribute("lifegoods", list5);
 		
 		return item_category;
 	}
 	
-	
 
 	// 메인페이지에 조회수가 높은 상위 8개 출력
 	@GetMapping("/")
-	public String boardRanking(Model model, HttpSession session) {
+	public String boardRanking(HttpSession session) {
 		List<BoardInfo> boardRanking = service.boardRanking();
 		// 페이지에 출력하기 위해 model에 저장하기
-		model.addAttribute("boardRanking", boardRanking);
-		System.out.println(boardRanking);
+		session.setAttribute("boardRanking", boardRanking);
 
 		return "main"; // 페이지 이동
 	}

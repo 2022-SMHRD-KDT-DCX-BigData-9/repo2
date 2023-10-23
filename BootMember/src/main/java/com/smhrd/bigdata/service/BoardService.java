@@ -26,16 +26,16 @@ public class BoardService {
 	}
 	
 	// 게시글 상세 페이지 출력 -- 리턴타임 BoardInfo
-	public BoardInfo boardDetail(int board_idx) {
+	public BoardInfo boardDetail(Long board_idx) {
 		BoardInfo board = mapper.boardDetail(board_idx);
 		return board;
 	}
 	
 	// 카테고리 별 게시물 출력 -- 리턴타입 List<BoardInfo>
-	public List<BoardInfo> boardCategory(String item_category){
-		List<BoardInfo> list = mapper.boardCategory(item_category);
-		return list;
-	}
+//	public List<BoardInfo> boardCategory(){
+//		List<BoardInfo> list = mapper.boardCategory(item_category);
+//		return list;
+//	}
 	
 	public List<BoardInfo> electronics(){
 		List<BoardInfo> list = mapper.electronics();

@@ -450,7 +450,7 @@ header.sticky {
 <body>
 
 	<header>
-		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
 			<li><a href="login">login</a></li>
 			<li><a href="join">register</a></li>

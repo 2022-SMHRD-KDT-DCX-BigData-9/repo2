@@ -26,10 +26,10 @@ public interface UserMapper {
 	public List<BoardInfo> boardList();
 
 	// 게시글 상세 페이지 출력 기능 -- 리턴타입 BoardInfo
-	public BoardInfo boardDetail(int board_idx);
+	public BoardInfo boardDetail(Long board_idx);
 	
 	// 카테고리별 게시물 출력 기능  -- 리턴타입 List<BoardInfo>
-	public List<BoardInfo> boardCategory(String item_category);
+//	public List<BoardInfo> boardCategory();
 	
 	public List<BoardInfo> electronics();
 	public List<BoardInfo> books();
