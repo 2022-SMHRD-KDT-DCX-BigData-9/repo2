@@ -1,6 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -460,8 +460,8 @@ header.sticky {
 }
 /* 검색창 관련 css  */
 #search-box {
-            display: none;
-        }
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -469,34 +469,41 @@ header.sticky {
 	<header>
 		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
-
-			<li><a href="#" class="btn-open-login">login</a></li>
-			<li><a href="#" class="btn-open-join">register</a></li>
+			<c:choose>
+				<c:when test="${ empty loginUser }">
+					<li><a href="#" class="btn-open-login">login</a></li>
+					<li><a href="#" class="btn-open-join">register</a></li>
+				</c:when>
+				<c:otherwise>
+					<form method="get" action="logout">
+						<input type="submit" value="logout" style="border: 0 solid black">
+					</form>
+				</c:otherwise>
+			</c:choose>
 			<li><a href="product">products</a></li>
 			<li><a href="#">page</a></li>
 			<li><a href="#">Docs</a></li>
 		</ul>
 		<div class="nav-icon">
 			<a href="mypage"><i class='bx bx-user'></i></a>
-			
+
 			<!--  검색창 관련 코드 -->
-			<a href="#"><i class='bx bx-search' id="search-icon" onclick="toggleSearchBox()"></i></a>
-			<form action="product" method = "get">
-			<div id="search-box">
-        		<input type="text" placeholder="찾고 싶은 물품을 입력하세요" style = "width: 300px;" name = "item_name">
-        		<button onclick="performSearch()">Search</button>
-    		</div>
-    		</form>
-			 
-				 <a href="#"><i class='bx bx-cart'></i></a>
+			<a href="#"><i class='bx bx-search' id="search-icon"
+				onclick="toggleSearchBox()"></i></a>
+			<form action="product" method="get">
+				<div id="search-box">
+					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
+						style="width: 300px;" name="item_name">
+					<button onclick="performSearch()">Search</button>
+				</div>
+			</form>
+
+			<a href="#"><i class='bx bx-cart'></i></a>
 
 			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>
-		
+
 	</header>
-	
-	<br>
-	<p>hello</p>
 
 	<section class="main-home">
 		<div class="main-text">
@@ -517,198 +524,59 @@ header.sticky {
 		</div>
 	</section>
 
-	<!-- trending products-section -->
+	<!-- 조회수가 높은 상위 8개 게시물 출력하기 -->
 	<section class="trending product" id="trending">
 		<div class="center-text">
 			<h2>
 				Our Trending <span> Products </span>
 			</h2>
 		</div>
-		<div class="products">
-			<!-- 첫 번째 상품 -->
-			<div class="row">
-				<a href="detail"> <img src="image/1.jpg" alt="">
-				</a>
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
 
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
+		<c:forEach items="${ boardRanking }" var="ranking">
+			<div class="row">
+				<a href="#"> <img src="image/7.jpg" alt=""></a>
 
 				<div class="price">
-					<h4>Half Running Set</h4>
-					<p>$99 - $129</p>
+					<!-- 제목 -->
+					<h4>${ ranking.item_name }</h4>
+					<!-- 교환하고 싶은 카테고리 -->
+					<p>${ ranking.want_category }</p>
 				</div>
 			</div>
-			<!-- 2번쨰 상품 -->
-			<div class="row">
-				<a href="detail"> <img src="image/2.jpg" alt="">
-				</a>
-				<div class="product-text">
-					<h5>New</h5>
-				</div>
-
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
-
-				<div class="price">
-					<h4>Formal Men Lowers</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-			<!-- 세번째 상품 -->
-			<div class="row">
-				<a href="detail"> <img src="image/3.jpg" alt="">
-				</a>
-
-
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
-
-				<div class="price">
-					<h4>Half Running Suit</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-			<!-- 4번 째 상품 -->
-			<div class="row">
-				<a href="detail"> <img src="image/4.jpg" alt="">
-				</a>
-				<div class="product-text">
-					<h5>Hot</h5>
-				</div>
-
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
-
-				<div class="price">
-					<h4>Half Fancy Laday Dress</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-			<!-- 다섯 번째 상품 -->
-
-			<div class="row">
-				<a href="detail"> <img src="image/5.jpg" alt="">
-				</a>
-
-
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
-
-				<div class="price">
-					<h4>Flix Flox Jeans</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-			<!-- 여섯 번째 상품 -->
-			<div class="row">
-				<a href="detail"> <img src="image/6.jpg" alt="">
-				</a>
-				<div class="product-text">
-					<h5>Hot</h5>
-				</div>
-
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
-
-				<div class="price">
-					<h4>Fancy Salwar Suits</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-
-			<!-- 일곱 번째 상품 -->
-			<div class="row">
-				<a href="detail"> <img src="image/7.jpg" alt="">
-				</a>
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
-
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
-
-				<div class="price">
-					<h4>Printed Straight Kurta</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-
-			<!-- 여덟번 째 상품 -->
-			<div class="row">
-				<a href="detail"> <img src="image/8.jpg" alt="">
-				</a>
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
-
-				<div class="heart-icon">
-					<i class='bx bx-heart'></i>
-				</div>
-				<div class="ratting">
-					<i class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bx-star'></i> <i class='bx bx-star'></i> <i
-						class='bx bxs-star-half'></i>
-				</div>
-
-				<div class="price">
-					<h4>Collot Full Dress</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-
-
-
-		</div>
-
-
+		</c:forEach>
 	</section>
+
+	<!-- 사용자가 로그인 시 추천 카테고리 상품 출력 -->
+	<c:if test="${ !empty loginUser }">
+		<section class="trending product" id="trending">
+			<div class="center-text">
+				<h2>
+					Our Trending <span> Products </span>
+				</h2>
+			</div>
+
+			<div class="products">
+				<!-- 첫 번째 상품 -->
+				<div class="row">
+					<a href="detail"> <img src="image/1.jpg" alt=""></a>
+					<div class="product-text">
+						<h5>Sale</h5>
+					</div>
+					<div class="price">
+						<h4>Half Running Set</h4>
+						<p>$99 - $129</p>
+					</div>
+				</div>
+			</div>
+		</section>
+	</c:if>
+
 	<button class="upload_thing_btn" onclick="redirectToURL()">게시물
 		쓰기</button>
+
+
+
+
 
 	<!-- 회원 리뷰 section -->
 	<section class="Client-reivews">
@@ -842,51 +710,51 @@ header.sticky {
 					<h2 class="modal-title">회원가입</h2>
 				</div>
 				<div class="main">
-					<input id="email" name="email" type="email"
+					<input id="email" name="user_email" type="email"
 						placeholder="example@gmail.com" required>
 				</div>
 				<div class="main">
-					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
+					<input id="pw" name="user_pw" type="password" placeholder="패스워드 입력"
 						required>
 				</div>
 				<div class="main">
-					<input id="name" name="name" type="text" placeholder="이름을 입력"
+					<input id="name" name="user_name" type="text" placeholder="이름을 입력"
 						required>
 				</div>
 				<div class="main">
-					<input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
+					<input id="nick" name="user_nick" type="text" placeholder="닉네임을 입력"
 						required>
 				</div>
 				<div class="main">
-					<input id="address" name="address" type="text" placeholder="주소 입력"
-						required>
+					<input id="address" name="user_addr" type="text"
+						placeholder="주소 입력" required>
 				</div>
 				<div class="main">
-					<input type='tel' id="tel" name='userPhoneNumber'
+					<input type="tel" id="tel" name="user_phone"
 						placeholder="010-1234-5678" maxlength="15" required />
 				</div>
 				<div>
 					<fieldset>
 						<legend>관심 카테고리</legend>
 						<div>
-							<input type="checkbox" id="electro" name="interest" value="전자제품" />
-							<label for="electro">전자제품</label>
+							<input type="checkbox" id="electro" name="user_category"
+								value="전자제품" /> <label for="electro">전자제품</label>
 						</div>
 						<div>
-							<input type="checkbox" id="daily" name="interest" value="생활용품" />
-							<label for="daily">생활용품</label>
+							<input type="checkbox" id="daily" name="user_category"
+								value="생활용품" /> <label for="daily">생활용품</label>
 						</div>
 						<div>
-							<input type="checkbox" id="sport" name="interest" value="스포츠" />
-							<label for="sport">스포츠/레져</label>
+							<input type="checkbox" id="sport" name="user_category"
+								value="스포츠" /> <label for="sport">스포츠/레져</label>
 						</div>
 						<div>
-							<input type="checkbox" id="cloth" name="interest" value="의류" /> <label
-								for="cloth">의류</label>
+							<input type="checkbox" id="cloth" name="user_category" value="의류" />
+							<label for="cloth">의류</label>
 						</div>
 						<div>
-							<input type="checkbox" id="book" name="interest" value="도서" /> <label
-								for="book">도서</label>
+							<input type="checkbox" id="book" name="user_category" value="도서" />
+							<label for="book">도서</label>
 						</div>
 					</fieldset>
 					<!-- 모달 푸터-->
@@ -914,8 +782,8 @@ header.sticky {
 				</div>
 
 				<div class="main">
-					<input id="user_pw" name="user_pw" type="password" placeholder="패스워드 입력"
-						required>
+					<input id="user_pw" name="user_pw" type="password"
+						placeholder="패스워드 입력" required>
 				</div>
 
 				<div class="modal-footer">

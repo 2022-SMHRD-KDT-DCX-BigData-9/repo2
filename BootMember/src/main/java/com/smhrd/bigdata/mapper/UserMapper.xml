@@ -4,13 +4,15 @@
 	<!-- 회원가입 -->
 	<insert id="join"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		insert into user_info values (#{user_email}, #{user_pw},
-		#{user_name}, #{user_nick}, #{user_addr}, #{user_category},
-		#{user_phone})
+		insert into user_info (user_email, user_pw, user_name, user_nick, user_addr,
+		user_category, user_phone)
+		values (#{user_email}, #{user_pw}, #{user_name}, #{user_nick}, #{user_addr},
+		#{user_category}, #{user_phone})
 	</insert>
 
 	<!-- 로그인 -->
 	<select id="login"
+		parameterType="com.smhrd.bigdata.entity.UserInfo"
 		resultType="com.smhrd.bigdata.entity.UserInfo">
 		select * from user_info where user_email = #{user_email}
 		and user_pw = #{user_pw}
@@ -46,7 +48,8 @@
 	<!-- 카테고리 별 게시물 출력 기능 -->
 	<select id="boardCategory"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category = #{item_category}
+		select * from board_info where item_category =
+		#{item_category}
 	</select>
 
 	<!-- 후기 목록 출력 기능 -->
@@ -56,20 +59,22 @@
 	</select>
 
 	<!-- 제목으로 검색 할 수 있는 기능 -->
-	<select id="search" resultType="com.smhrd.bigdata.entity.BoardInfo">
+	<select id="search"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
 		select * from board_info where item_name like '%${search}%'
 	</select>
-	
+
 	<!-- 조회수 높은 순서대로 출력하는 기능 -->
-	<select id="boardRanking" resultType="com.smhrd.bigdata.entity.BoardInfo">
+	<select id="boardRanking"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
 		select * from board_info order by board_views desc limit 8
 	</select>
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	<!-- 마이페이지 출력 기능 -->
 	<select id="profile"
 		resultType="com.smhrd.bigdata.entity.UserInfo">
