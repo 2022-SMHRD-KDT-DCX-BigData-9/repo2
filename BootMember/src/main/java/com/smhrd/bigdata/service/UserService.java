@@ -8,6 +8,7 @@ import com.smhrd.bigdata.mapper.UserMapper;
 
 @Service
 public class UserService {
+	
 	@Autowired
 	UserMapper mapper;
 	
@@ -19,6 +20,7 @@ public class UserService {
 	
 	// 로그인
 	public UserInfo login(UserInfo userinfo) {
+		System.out.println(userinfo);
 		UserInfo user = mapper.login(userinfo);
 		return user;
 	}
