@@ -26,24 +26,27 @@ public interface UserMapper {
 	public List<BoardInfo> boardList();
 
 	// 게시글 상세 페이지 출력 기능 -- 리턴타입 BoardInfo
-	public BoardInfo boardDetail(int board_idx);
-	
-	// 카테고리별 게시물 출력 기능  -- 리턴타입 List<BoardInfo>
-	public List<BoardInfo> boardCategory(String item_category);
-	
+	public BoardInfo boardDetail(Long board_idx);
+
+	// 카테고리별 게시물 출력 기능 -- 리턴타입 List<BoardInfo>
+//	public List<BoardInfo> boardCategory();
+
 	public List<BoardInfo> electronics();
+
 	public List<BoardInfo> books();
+
 	public List<BoardInfo> sports();
+
 	public List<BoardInfo> clothes();
+
 	public List<BoardInfo> lifegoods();
-	
-	
-	// 후기 목록 출력 기능  -- 리턴타입 List<ReviewInfo>
+
+	// 후기 목록 출력 기능 -- 리턴타입 List<ReviewInfo>
 	public List<ReviewInfo> reviewList();
-	
-	// 검색 기능 
+
+	// 검색 기능
 	public List<BoardInfo> search(String search);
-	
+
 	// 조회수 높은 순서대로 출력하는 기능
 	public List<BoardInfo> boardRanking();
 }

@@ -23,10 +23,12 @@
 	<!-- 게시물 작성 -->
 	<insert id="boardWrite"
 		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		insert into board_info values (#{item_name},
-		#{board_content}, #{item_img}, #{item_category}, #{want_category},
-		#{item_place})
+		insert into board_info (item_name, board_content, user_email, item_category,
+		want_category, item_place, item_img)
+		values (#{item_name}, #{board_content}, #{user_email}, #{item_category},
+		#{want_category}, #{item_place}, #{item_img});
 	</insert>
+
 
 	<!-- 회원 정보 수정 -->
 	<update id="userUpdate"
@@ -47,12 +49,6 @@
 		select * from board_info where board_idx = #{board_idx}
 	</select>
 
-	<!-- 카테고리 별 게시물 출력 기능 -->
-	<select id="boardCategory"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category =
-		#{item_category}
-	</select>
 
 	<!-- 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능 -->
 	<select id="electronics"
@@ -94,11 +90,6 @@
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
 		select * from board_info order by board_views desc limit 8
 	</select>
-
-
-
-
-
 
 	<!-- 마이페이지 출력 기능 -->
 	<select id="profile"

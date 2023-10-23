@@ -451,8 +451,6 @@ header.sticky {
 
 .upload_thing_btn {
 	position: relative;
-	left: 1500px;
-	bottom: 150px;
 	width: 200px; /* 원하는 너비 설정 */
 	padding: 10px; /* 버튼 내부 여백 설정 */
 	background-color: #0074d9; /* 배경색 설정 */
@@ -462,12 +460,17 @@ header.sticky {
 #search-box {
 	display: none;
 }
+
+.uploadBtn {
+	
+}
+
 </style>
 </head>
 <body>
 
 	<header>
-		<a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
 			<c:choose>
 				<c:when test="${ empty loginUser }">
@@ -530,12 +533,12 @@ header.sticky {
 			Our Trending <span> Products </span>
 		</h2>
 	</div>
-	
+
 	<section class="trending products" id="trending">
-	
 		<c:forEach items="${ boardRanking }" var="ranking">
 			<div class="row">
-				<a href="#"> <img src="image/7.jpg" alt=""></a>
+				<a href="board/${ ranking.board_idx }"> <img src="image/7.jpg"
+					alt=""></a>
 
 				<div class="price">
 					<!-- 제목 -->
@@ -559,7 +562,7 @@ header.sticky {
 			<div class="products">
 				<!-- 첫 번째 상품 -->
 				<div class="row">
-					<a href="detail"> <img src="image/1.jpg" alt=""></a>
+					<a href="#"> <img src="image/1.jpg" alt=""></a>
 					<div class="product-text">
 						<h5>Sale</h5>
 					</div>
@@ -572,10 +575,10 @@ header.sticky {
 		</section>
 	</c:if>
 
-	<button class="upload_thing_btn" onclick="redirectToURL()">게시물
-		쓰기</button>
-
-
+	<div class="uploadBtn">
+		<button class="upload_thing_btn" onclick="redirectToURL()">게시물
+			쓰기</button>
+	</div>
 
 
 

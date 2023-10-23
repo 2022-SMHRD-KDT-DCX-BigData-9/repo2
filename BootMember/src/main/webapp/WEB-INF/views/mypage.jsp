@@ -459,6 +459,7 @@ header.sticky {
 </head>
 <body>
 
+<<<<<<< HEAD
    <header>
       <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
       <ul class="navmenu">
@@ -471,6 +472,20 @@ header.sticky {
       <div class="nav-icon">
          <a href="#"></a><i class='bx bx-search'></i> <a href="mypage"></a><i
             class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
+=======
+	<header>
+		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
+		<ul class="navmenu">
+			<li><a href="login">login</a></li>
+			<li><a href="join">register</a></li>
+			<li><a href="#">products</a></li>
+			<li><a href="#">page</a></li>
+			<li><a href="#">Docs</a></li>
+		</ul>
+		<div class="nav-icon">
+			<a href="#"></a><i class='bx bx-search'></i> <a href="mypage"></a><i
+				class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
+>>>>>>> refs/heads/pse
 
          <div class="bx bx-menu" id="menu-icon"></div>
       </div>
