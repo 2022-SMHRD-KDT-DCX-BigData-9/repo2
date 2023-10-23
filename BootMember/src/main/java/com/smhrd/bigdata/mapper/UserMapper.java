@@ -31,6 +31,13 @@ public interface UserMapper {
 	// 카테고리별 게시물 출력 기능  -- 리턴타입 List<BoardInfo>
 	public List<BoardInfo> boardCategory(String item_category);
 	
+	public List<BoardInfo> electronics();
+	public List<BoardInfo> books();
+	public List<BoardInfo> sports();
+	public List<BoardInfo> clothes();
+	public List<BoardInfo> lifegoods();
+	
+	
 	// 후기 목록 출력 기능  -- 리턴타입 List<ReviewInfo>
 	public List<ReviewInfo> reviewList();
 	
