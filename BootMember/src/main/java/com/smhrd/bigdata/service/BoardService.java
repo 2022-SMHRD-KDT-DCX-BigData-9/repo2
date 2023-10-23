@@ -37,6 +37,29 @@ public class BoardService {
 		return list;
 	}
 	
+	public List<BoardInfo> electronics(){
+		List<BoardInfo> list = mapper.electronics();
+		return list;
+	}
+	public List<BoardInfo> books(){
+		List<BoardInfo> list = mapper.books();
+		return list;
+	}
+	public List<BoardInfo> sports(){
+		List<BoardInfo> list = mapper.sports();
+		return list;
+	}
+	public List<BoardInfo> clothes(){
+		List<BoardInfo> list = mapper.clothes();
+		return list;
+	}
+	public List<BoardInfo> lifegoods(){
+		List<BoardInfo> list = mapper.lifegoods();
+		return list;
+	}
+	
+	
+	
 	// 조회수가 높은 상위 8개 출력
 	public List<BoardInfo> boardRanking(){
 		List<BoardInfo> list = mapper.boardRanking();

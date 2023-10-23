@@ -4,9 +4,11 @@
 	<!-- 회원가입 -->
 	<insert id="join"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		insert into user_info (user_email, user_pw, user_name, user_nick, user_addr,
+		insert into user_info (user_email, user_pw, user_name,
+		user_nick, user_addr,
 		user_category, user_phone)
-		values (#{user_email}, #{user_pw}, #{user_name}, #{user_nick}, #{user_addr},
+		values (#{user_email},
+		#{user_pw}, #{user_name}, #{user_nick}, #{user_addr},
 		#{user_category}, #{user_phone})
 	</insert>
 
@@ -51,6 +53,29 @@
 		select * from board_info where item_category =
 		#{item_category}
 	</select>
+
+	<!-- 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능 -->
+	<select id="electronics"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '전자기기'
+	</select>
+	<select id="books"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '도서'
+	</select>
+	<select id="clothes"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '의류'
+	</select>
+	<select id="sports"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '레저/스포츠'
+	</select>
+	<select id="lifegoods"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '생활용품'
+	</select>
+
 
 	<!-- 후기 목록 출력 기능 -->
 	<select id="reviewList"

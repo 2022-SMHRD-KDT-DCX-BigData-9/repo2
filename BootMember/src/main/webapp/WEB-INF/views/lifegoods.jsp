@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -420,112 +421,25 @@ header.sticky {
 		</ul>
 	</section>
 
-	<!-- 카테고리 별로 4개씩 출력하기 -->
-	<c:forEach items="${ boardCategory }" var="board">
+	<!-- Electronics 카테고리 게시글 출력 -->
+	<div class="center-text">
+		<h2>
+			Category : <span> ${ category } </span>
+		</h2>
+	</div>
 	<section class="trending products" id="trending">
-		<div class="center-text">
-			<!-- 카테고리를 선택할 수 있는 네브바를 하나 추가해야할 듯 -->
-			<h2>
-				Category : <span> ${ category } </span>
-			</h2>
-		</div>
-		<!-- 첫번째 카테고리 - 상품 4개 -->
-		<div class="products">
+		<c:forEach items="${ lifegoods }" var="boardCategory">
 			<div class="row">
 				<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
 				<a href="#"> <img src="image/1.jpg" alt=""></a>
 
 				<div class="price">
-					<h4><p>${ board.item_name }</p></h4>
-					<p>${ board.want_category }</p>
+					<h4>${ boardCategory.item_name }</h4>
+					<p>${ boardCategory.want_category }</p>
 				</div>
 			</div>
-		</div>
-
-		<div class="center-text">
-			<h2>
-				Category : <span> Books </span>
-			</h2>
-		</div>
-		<!-- 두번째 카테고리 - 상품 4개 -->
-		<div class="products">
-			<div class="row">
-				<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
-				<a href="#"> <img src="image/1.jpg" alt=""></a>
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
-
-				<div class="price">
-					<h4>Half Running Set</h4>
-					<p>$99 - $129</p>
-				</div>
 			</div>
-		</div>
-
-		<div class="center-text">
-			<h2>
-				Category : <span> Clothes </span>
-			</h2>
-		</div>
-		<!-- 세번째 카테고리 - 상품 4개 -->
-		<div class="products">
-			<div class="row">
-				<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
-				<a href="#"> <img src="image/1.jpg" alt=""></a>
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
-
-				<div class="price">
-					<h4>Half Running Set</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="center-text">
-			<h2>
-				Category : <span> Sports </span>
-			</h2>
-		</div>
-		<!-- 네번째 카테고리 - 상품 4개 -->
-		<div class="products">
-			<div class="row">
-				<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
-				<a href="#"> <img src="image/1.jpg" alt=""></a>
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
-
-				<div class="price">
-					<h4>Half Running Set</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="center-text">
-			<h2>
-				Category : <span> Lifegoods </span>
-			</h2>
-		</div>
-		<!-- 다섯번째 카테고리 - 상품 4개 -->
-		<div class="products">
-			<div class="row">
-				<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
-				<a href="#"> <img src="image/1.jpg" alt=""></a>
-				<div class="product-text">
-					<h5>Sale</h5>
-				</div>
-
-				<div class="price">
-					<h4>Half Running Set</h4>
-					<p>$99 - $129</p>
-				</div>
-			</div>
-		</div>
-
+		</c:forEach>
 	</section>
 
 </body>

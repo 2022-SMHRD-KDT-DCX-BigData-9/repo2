@@ -525,13 +525,14 @@ header.sticky {
 	</section>
 
 	<!-- 조회수가 높은 상위 8개 게시물 출력하기 -->
-	<section class="trending product" id="trending">
-		<div class="center-text">
-			<h2>
-				Our Trending <span> Products </span>
-			</h2>
-		</div>
-
+	<div class="center-text">
+		<h2>
+			Our Trending <span> Products </span>
+		</h2>
+	</div>
+	
+	<section class="trending products" id="trending">
+	
 		<c:forEach items="${ boardRanking }" var="ranking">
 			<div class="row">
 				<a href="#"> <img src="image/7.jpg" alt=""></a>

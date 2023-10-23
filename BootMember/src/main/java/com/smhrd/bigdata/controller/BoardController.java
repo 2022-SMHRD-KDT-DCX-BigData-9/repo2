@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.smhrd.bigdata.entity.BoardInfo;
@@ -24,12 +25,6 @@ public class BoardController {
 		return "login";
 	}
 
-
-	
-	// @GetMapping("/login")
-	//public String login() {
-	//	return "login";
-	//}
 	
 	@GetMapping("/join")
 	public String join() {
@@ -49,13 +44,6 @@ public class BoardController {
 	@GetMapping("/upload")
 	public String upload() {
 		return "boardwrite";
-	}
-
-	// 카테고리 클릭 시 게시글 출력
-	@GetMapping("/product")
-	public String product() {
-		
-		return "product";
 	}
 
 	// 게시글 작성
@@ -95,15 +83,42 @@ public class BoardController {
 	}
 
 	// 카테고리 별 게시물 출력 기능
-	@GetMapping("/boardCategory")
+	@GetMapping("/product")
 	public String boardCategory(String item_category, Model model) {
 		List<BoardInfo> list = service.boardCategory(item_category);
 
 		model.addAttribute("boardCategory", list);
+		model.addAttribute("category", item_category);
 		// 페이지에 출력하기 위해 model에 저장하기
+		System.out.println(list);
 
-		return ""; // 페이지 이동
+		return "product"; // 페이지 이동
 	}
+
+	// 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능
+	@GetMapping("/{item_category}")
+	public String category(@PathVariable String item_category, Model model) {
+		List<BoardInfo> list1 = service.electronics();
+		List<BoardInfo> list2 = service.books();
+		List<BoardInfo> list3 = service.sports();
+		List<BoardInfo> list4 = service.clothes();
+		List<BoardInfo> list5 = service.lifegoods();
+		
+		model.addAttribute("category", item_category);
+		
+		model.addAttribute("electronics", list1);
+		model.addAttribute("books", list2);
+		model.addAttribute("sports", list3);
+		model.addAttribute("clothes", list4);
+		model.addAttribute("lifegoods", list5);
+		
+		System.out.println(list1);
+		System.out.println(list2);
+		
+		return item_category;
+	}
+	
+	
 
 	// 메인페이지에 조회수가 높은 상위 8개 출력
 	@GetMapping("/")
