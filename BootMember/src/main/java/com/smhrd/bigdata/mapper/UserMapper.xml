@@ -57,7 +57,7 @@
 	</select>
 	<select id="books"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '도서'
+		select * from board_info where item_category like '책'
 	</select>
 	<select id="clothes"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">

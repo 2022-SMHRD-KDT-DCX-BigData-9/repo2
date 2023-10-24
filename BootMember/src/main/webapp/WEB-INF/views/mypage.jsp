@@ -1,5 +1,6 @@
-<<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -445,47 +446,36 @@ header.sticky {
 }
 
 #modal_update {
-
-			display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 1100px;
-            top: 200px;
-           
+   display: none;
+   position: fixed;
+   z-index: 1001;
+   left: 1100px;
+   top: 200px;
 }
 
 /* 스타일 끝 */
 </style>
 </head>
 <body>
-
-<<<<<<< HEAD
    <header>
-      <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+      <a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
       <ul class="navmenu">
-         <li><a href="login">login</a></li>
-         <li><a href="join">register</a></li>
-         <li><a href="#">products</a></li>
-         <li><a href="#">page</a></li>
-         <li><a href="#">Docs</a></li>
+         <c:choose>
+            <c:when test="${ empty loginUser }">
+               <li><a href="#" class="btn-open-login">login</a></li>
+               <li><a href="#" class="btn-open-join">register</a></li>
+            </c:when>
+            <c:otherwise>
+               <form method="get" action="logout">
+                  <input type="submit" value="logout" style="border: 0 solid black">
+               </form>
+            </c:otherwise>
+         </c:choose>
+         <li><a href="product">products</a></li>
       </ul>
       <div class="nav-icon">
          <a href="#"></a><i class='bx bx-search'></i> <a href="mypage"></a><i
             class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
-=======
-	<header>
-		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
-		<ul class="navmenu">
-			<li><a href="login">login</a></li>
-			<li><a href="join">register</a></li>
-			<li><a href="#">products</a></li>
-			<li><a href="#">page</a></li>
-			<li><a href="#">Docs</a></li>
-		</ul>
-		<div class="nav-icon">
-			<a href="#"></a><i class='bx bx-search'></i> <a href="mypage"></a><i
-				class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
->>>>>>> refs/heads/pse
 
          <div class="bx bx-menu" id="menu-icon"></div>
       </div>
@@ -500,127 +490,42 @@ header.sticky {
 
          <div class="main-text">
             <h1>
-               닉네임 출력 <br>
+               ${ loginUser.user_nick }님 <br>
             </h1>
             <p>점수 (거래 횟수)</p>
          </div>
 
-
          <div class="profile-update">
-            <li class="profileUpdate"><button
-               class="btn-update-profile">회원정보 수정</button></li>
+            <li class="profileUpdate"><button class="btn-update-profile">회원정보
+                  수정</button></li>
          </div>
-
-			
-
-
       </div>
    </section>
 
    <!-- trending products-section -->
    <section class="trending product" id="trending">
       <!-- 거래중 상품 목록 리스트 -->
-      <div class="productList1">
-         <div class="center-text">
-            <h2>
-               <span>거래중</span>
-            </h2>
-         </div>
-         <div class="products">
-            <!-- 첫 번째 상품 -->
-            <div class="row">
-               <img src="image/1.jpg" alt="">
-
-               <div class="price">
-                  <h4>Half Running Set</h4>
-                  <p>$99 - $129</p>
-               </div>
-            </div>
-            <!-- 2번쨰 상품 -->
-            <div class="row">
-               <img src="image/2.jpg" alt="">
-               <div class="product-text"></div>
-
-               <div class="price">
-                  <h4>Formal Men Lowers</h4>
-                  <p>$99 - $129</p>
-               </div>
-            </div>
-            <!-- 세번째 상품 -->
-            <div class="row">
-               <img src="image/3.jpg" alt="">
-
-               <div class="price">
-                  <h4>Half Running Suit</h4>
-                  <p>$99 - $129</p>
-               </div>
-            </div>
-            <!-- 4번 째 상품 -->
-            <div class="row">
-               <img src="image/4.jpg" alt="">
-               <div class="product-text"></div>
-
-               <div class="price">
-                  <h4>Half Fancy Laday Dress</h4>
-                  <p>$99 - $129</p>
-               </div>
-            </div>
-         </div>
+      <div class="center-text">
+         <h2>
+            <span>작성한 게시글</span>
+         </h2>
       </div>
-
-      <!-- 거래완료 상품 목록 리스트 -->
-      <div class="productList2">
-         <div class="center-text">
-            <h2>
-               <span>거래완료</span>
-            </h2>
-         </div>
-         <!-- 다섯 번째 상품 -->
-         <div class="products">
+      <section class="trending products" id="trending">
+         <c:forEach items="${ userBoard }" var="b">
+            <!-- 첫번째 카테고리 - 상품 4개 -->
             <div class="row">
-               <img src="image/5.jpg" alt="">
+               <!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+               <a href="board/${ b.board_idx }"> <img src="image/1.jpg" alt=""></a>
 
                <div class="price">
-                  <h4>Flix Flox Jeans</h4>
-                  <p>$99 - $129</p>
+                  <h4>
+                     <p>${ b.item_name }</p>
+                  </h4>
+                  <p>${ b.want_category }</p>
                </div>
             </div>
-            <!-- 여섯 번째 상품 -->
-            <div class="row">
-               <img src="image/6.jpg" alt="">
-               <div class="product-text"></div>
-
-               <div class="price">
-                  <h4>Fancy Salwar Suits</h4>
-                  <p>$99 - $129</p>
-               </div>
-            </div>
-
-            <!-- 일곱 번째 상품 -->
-            <div class="row">
-               <img src="image/7.jpg" alt="">
-               <div class="product-text"></div>
-
-               <div class="price">
-                  <h4>Printed Straight Kurta</h4>
-                  <p>$99 - $129</p>
-               </div>
-            </div>
-
-            <!-- 여덟번 째 상품 -->
-            <div class="row">
-               <img src="image/8.jpg" alt="">
-               <div class="product-text"></div>
-
-               <div class="price">
-                  <h4>Collot Full Dress</h4>
-                  <p>$99 - $129</p>
-               </div>
-            </div>
-         </div>
-      </div>
-
-      </div>
+         </c:forEach>
+      </section>
    </section>
 
    <!-- 회원 리뷰 section -->
@@ -727,170 +632,59 @@ header.sticky {
       </div>
    </section>
 
+
    <!-- 회원 정보 수정할 수 있는 모달창 -->
    <div class="modal" id="modal_update">
       <div class="modal_body">
-         <form action="#" method="post">
+         <form action="update" method="post">
             <!-- 모달 헤더-->
             <div class="modal-header">
                <h2 class="modal-title">정보 수정</h2>
             </div>
             <div class="main">
-               <input id="pw" name="pw" type="password" placeholder="패스워드 입력"
+               <input id="pw" name="user_pw" type="password" placeholder="패스워드 입력"
                   required>
             </div>
             <div class="main">
-               <input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
+               <input id="nick" name="user_nick" type="text" placeholder="닉네임을 입력"
                   required>
             </div>
             <div>
                <fieldset>
                   <legend>관심 카테고리</legend>
                   <div>
-                     <input type="checkbox" id="electro" name="interest" value="전자제품" />
-                     <label for="electro">전자제품</label>
+                     <input type="checkbox" id="electro" name="user_category"
+                        value="전자제품" onclick="category_check(this)" /> <label
+                        for="electro">전자제품</label>
                   </div>
                   <div>
-                     <input type="checkbox" id="daily" name="interest" value="생활용품" />
-                     <label for="daily">생활용품</label>
+                     <input type="checkbox" id="daily" name="user_category"
+                        value="생활용품" onclick="category_check(this)" /> <label
+                        for="daily">생활용품</label>
                   </div>
                   <div>
-                     <input type="checkbox" id="sport" name="interest" value="스포츠" />
-                     <label for="sport">스포츠/레져</label>
+                     <input type="checkbox" id="sport" name="user_category"
+                        value="스포츠" onclick="category_check(this)" /> <label
+                        for="sport">스포츠/레저</label>
                   </div>
                   <div>
-                     <input type="checkbox" id="cloth" name="interest" value="의류" />
-                     <label for="cloth">의류</label>
+                     <input type="checkbox" id="cloth" name="user_category" value="의류"
+                        onclick="category_check(this)" /> <label for="cloth">의류</label>
                   </div>
                   <div>
-                     <input type="checkbox" id="book" name="interest" value="도서" /> <label
-                        for="book">도서</label>
+                     <input type="checkbox" id="book" name="user_category" value="도서"
+                        onclick="category_check(this)" /> <label for="book">도서</label>
                   </div>
                </fieldset>
                <!-- 모달 푸터-->
                <div class="modal-footer">
-                  <button type="submit" id="update">수정하기</button>
+                  <input type="submit" value="수정하기">
                   <button class="btn-close-popup">닫기</button>
                </div>
             </div>
          </form>
       </div>
    </div>
-
-	<!-- 회원 정보 수정할 수 있는 모달창 -->
-	<div class="modal" id="modal_update">
-		<div class="modal_body">
-			<form action="#" method="post">
-				<!-- 모달 헤더-->
-				<div class="modal-header">
-					<h2 class="modal-title">정보 수정</h2>
-				</div>
-				<div class="main">
-					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
-						required>
-				</div>
-				<div>
-					<fieldset>
-						<legend>관심 카테고리</legend>
-						<div>
-							<input type="checkbox" id="electro" name="interest" value="전자제품" />
-							<label for="electro">전자제품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="daily" name="interest" value="생활용품" />
-							<label for="daily">생활용품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="sport" name="interest" value="스포츠" />
-							<label for="sport">스포츠/레져</label>
-						</div>
-						<div>
-							<input type="checkbox" id="cloth" name="interest" value="의류" />
-							<label for="cloth">의류</label>
-						</div>
-						<div>
-							<input type="checkbox" id="book" name="interest" value="도서" /> <label
-								for="book">도서</label>
-						</div>
-					</fieldset>
-					<!-- 모달 푸터-->
-					<div class="modal-footer">
-						<button type="submit" id="update">수정하기</button>
-						<button class="btn-close-popup">닫기</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-
-
-	<!-- 회원 정보 수정할 수 있는 모달창 -->
-	<div class="modal" id="modal_update">
-		<div class="modal_body">
-			<form action="#" method="post">
-				<!-- 모달 헤더 -->
-				<div class="modal-header">
-					<h2 class="modal-title">정보 수정</h2>
-				</div>
-				<div class="main">
-					<input id="pw" name="pw" type="password" placeholder="패스워드 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
-						required>
-				</div>
-				<div>
-					<fieldset>
-						<legend>관심 카테고리</legend>
-						<!-- ... (checkbox inputs) ... -->
-					</fieldset>
-					<!-- 모달 푸터 -->
-					<div class="modal-footer">
-						<button type="submit" id="update">수정하기</button>
-						<button class="btn-close-popup">닫기</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-
-
-   <!-- 회원 정보 수정할 수 있는 모달창 -->
-   <div class="modal" id="modal_update">
-      <div class="modal_body">
-         <form action="#" method="post">
-            <!-- 모달 헤더 -->
-            <div class="modal-header">
-               <h2 class="modal-title">정보 수정</h2>
-            </div>
-            <div class="main">
-               <input id="pw" name="pw" type="password" placeholder="패스워드 입력"
-                  required>
-            </div>
-            <div class="main">
-               <input id="nick" name="nick" type="text" placeholder="닉네임을 입력"
-                  required>
-            </div>
-            <div>
-               <fieldset>
-                  <legend>관심 카테고리</legend>
-                  <!-- ... (checkbox inputs) ... -->
-               </fieldset>
-               <!-- 모달 푸터 -->
-               <div class="modal-footer">
-                  <button type="submit" id="update">수정하기</button>
-                  <button class="btn-close-popup">닫기</button>
-               </div>
-            </div>
-         </form>
-      </div>
-   </div>
-
 
    <script>
         //회원정보 수정 모달
@@ -915,6 +709,20 @@ header.sticky {
                modalUpdate.style.display = 'none';
            }
        });
+   </script>
+
+   <!-- 체크박스 하나만 선택할 수 있게 하는 JS -->
+   <script>
+      function category_check(element) {
+         const checkboxes 
+            = document.getElementsByName("user_category");
+         
+         checkboxes.forEach((cb) => {
+             cb.checked = false;
+           })
+           
+           element.checked = true;
+      }
    </script>
 
 

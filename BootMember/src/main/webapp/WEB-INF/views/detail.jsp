@@ -633,7 +633,8 @@ header.sticky {
 
 			<ul>
 				<div class="img">
-					<img src="../image/4.jpg" alt="">
+					<img src = "data:image/png;base64,${boardDetail.item_img}" width = "300" height = "300" alt="">
+					<!-- ../image/4.jpg //  "data:image/png;base64,${board.img }" width = "300" height = "300" -->
 			</ul>
 		</div>
 	</div>
