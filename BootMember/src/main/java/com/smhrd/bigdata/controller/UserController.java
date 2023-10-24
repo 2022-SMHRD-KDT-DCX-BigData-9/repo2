@@ -27,7 +27,7 @@ public class UserController {
 		
 		if (result > 0) {
 			// 성공 했을 경우
-			return "redirect:/"; // 메인페이지로 리턴한다
+			System.out.println("회원가입 성공");; // 메인페이지로 리턴한다
 		}
 		return "redirect:/";
 	}
@@ -51,23 +51,25 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate(); // 세션에 저장된 유저 정보 삭제
+		System.out.println("로그아웃 성공");
 		return "redirect:/"; // 메인페이지로 리턴해주기
 	}
 	
 	// 회원정보 수정 기능
 	@PostMapping("/update")
-	public String userUpdate(@ModelAttribute UserInfo userinfo) {
+	public String userUpdate(@ModelAttribute UserInfo userinfo, HttpSession session) {
+		UserInfo currentUser = (UserInfo) session.getAttribute("loginUser");
+		
+		userinfo.setUser_email(currentUser.getUser_email());
+		
+		// 회원정보 수정
 		int result = service.userUpdate(userinfo);
+		System.out.println(result);
 		
 		if (result > 0) {
 			// 회원 정보 수정에 성공 했을 경우
-			return ""; // 마이페이지로 리턴한다
-		} else {
-			// 회원 정보 수정에 실패 했을 경우
-			return ""; // 다른 페이지로 리턴한다
+			System.out.println("수정 성공");
 		}
+		return "mypage";
 	}
-	
-	// 마이페이지 출력 기능
-	
 }

@@ -379,6 +379,11 @@ header.sticky {
 		transition: .4s;
 	}
 }
+
+/* 검색창 관련 css  */
+#search-box {
+	display: none;
+}
 </style>
 </head>
 
@@ -398,12 +403,22 @@ header.sticky {
 				</c:otherwise>
 			</c:choose>
 			<li><a href="product">products</a></li>
-			<li><a href="#">page</a></li>
-			<li><a href="#">Docs</a></li>
 		</ul>
 		<div class="nav-icon">
-			<a href="#"></a><i class='bx bx-search'></i> <a href="#"></a><i
-				class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
+			<a href="mypage"><i class='bx bx-user'></i></a>
+
+			<!--  검색창 관련 코드 -->
+			<a href="#"><i class='bx bx-search' id="search-icon"
+				onclick="toggleSearchBox()"></i></a>
+			<form action="product" method="get">
+				<div id="search-box">
+					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
+						style="width: 300px;" name="item_name">
+					<button onclick="performSearch()">Search</button>
+				</div>
+			</form>
+
+			<a href="#"><i class='bx bx-cart'></i></a>
 
 			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>
@@ -442,5 +457,62 @@ header.sticky {
 		</c:forEach>
 	</section>
 
+
+	<script>
+		const header = document.querySelector("header");
+	
+		window.addEventListener("scroll", function() {
+		header.classList.toggle("sticky", this.window.scrollY > 0);
+		})
+	
+		const modalJoin = document.querySelector('#modal_join');
+		const modalLogin = document.querySelector('#modal_login');
+		const btnOpenJoinPopup = document.querySelector('.btn-open-join');
+		const btnOpenLoginPopup = document.querySelector('.btn-open-login');
+		const btnClosePopup = document.querySelector('.btn-close-popup');
+	
+		// 회원가입 모달 열기
+		btnOpenJoinPopup.addEventListener('click', () => {
+			modalJoin.style.display = 'block';
+		});
+	
+		// 로그인 모달 열기
+		btnOpenLoginPopup.addEventListener('click', () => {
+			modalLogin.style.display = 'block';
+		});
+	
+		// 모달 닫기
+		btnClosePopup.addEventListener('click', () => {
+			modalJoin.style.display = 'none';
+			modalLogin.style.display = 'none';
+		});
+	
+		// 모달 이외 창 추가해서 닫기
+		modalJoin.addEventListener('click', (e) => {
+			if (e.target === modalJoin) {
+			modalJoin.style.display = 'none';
+			}
+		});
+	
+		modalLogin.addEventListener('click', (e) => {
+			if (e.target === modalLogin) {
+			modalLogin.style.display = 'none';
+			}
+		});
+		
+		function redirectToURL() {
+            // 원하는 URL로 이동
+            window.location.href = "upload";
+        }
+		
+		function toggleSearchBox() {
+            var searchBox = document.getElementById("search-box");
+            if (searchBox.style.display === "none" || searchBox.style.display === "") {
+                searchBox.style.display = "block";
+            } else {
+                searchBox.style.display = "none";
+            }
+        }
+	</script>
 </body>
 </html>
