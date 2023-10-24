@@ -27,9 +27,8 @@ public class UserService {
 	
 	// 회원정보 수정
 	public int userUpdate(UserInfo userinfo) {
-		int result = mapper.userupdate(userinfo);
+		int result = mapper.userUpdate(userinfo);
 		return result;
 	}
-	
 	
 }

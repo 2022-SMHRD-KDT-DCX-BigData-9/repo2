@@ -20,7 +20,7 @@ public interface UserMapper {
 	public int boardWrite(BoardInfo boardinfo);
 
 	// 회원정보 수정 -- 리턴타입 int
-	public int userupdate(UserInfo userinfo);
+	public int userUpdate(UserInfo userinfo);
 
 	// 게시글 리스트 출력 기능 -- 리턴타입 List<BoardInfo>
 	public List<BoardInfo> boardList();
@@ -29,7 +29,6 @@ public interface UserMapper {
 	public BoardInfo boardDetail(Long board_idx);
 
 	// 카테고리별 게시물 출력 기능 -- 리턴타입 List<BoardInfo>
-//	public List<BoardInfo> boardCategory();
 
 	public List<BoardInfo> electronics();
 
@@ -49,4 +48,10 @@ public interface UserMapper {
 
 	// 조회수 높은 순서대로 출력하는 기능
 	public List<BoardInfo> boardRanking();
+	
+	// 카테고리에 맞춰 추천하는 기능
+	public List<BoardInfo> recommendation(UserInfo userinfo);
+	
+	// 유저가 작성한 게시글 보여주는 기능
+	public List<BoardInfo> userBoard(UserInfo userinfo);
 }

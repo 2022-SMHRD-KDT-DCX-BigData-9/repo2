@@ -23,9 +23,11 @@
 	<!-- 게시물 작성 -->
 	<insert id="boardWrite"
 		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		insert into board_info (item_name, board_content, user_email, item_category,
+		insert into board_info (item_name, board_content,
+		user_email, item_category,
 		want_category, item_place, item_img)
-		values (#{item_name}, #{board_content}, #{user_email}, #{item_category},
+		values
+		(#{item_name}, #{board_content}, #{user_email}, #{item_category},
 		#{want_category}, #{item_place}, #{item_img});
 	</insert>
 
@@ -33,8 +35,9 @@
 	<!-- 회원 정보 수정 -->
 	<update id="userUpdate"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		update user_info set user_nick = #{user_nick}, user_pw =
-		#{user_pw}, user_category = #{user_category}
+		update user_info set user_pw = #{user_pw}, user_nick =
+		#{user_nick}, user_category = #{user_category}
+		where user_email = #{user_email}
 	</update>
 
 	<!-- 게시글 리스트 출력 -->
@@ -57,7 +60,7 @@
 	</select>
 	<select id="books"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '도서'
+		select * from board_info where item_category like '책'
 	</select>
 	<select id="clothes"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
@@ -95,4 +98,22 @@
 	<select id="profile"
 		resultType="com.smhrd.bigdata.entity.UserInfo">
 	</select>
+
+	<!-- 카테고리에 맞춰 추천하는 기능 -->
+	<select id="recommendation"
+		resultType="com.smhrd.bigdata.entity.BoardInfo"
+		parameterType="com.smhrd.bigdata.entity.BoardInfo">
+		select b.*
+		from board_info b
+		where b.item_category =
+		(select u.user_category from user_info u where
+		u.user_email =
+		#{user_email}) limit 8;
+	</select>
+	
+	<!-- 유저가 작성한 게시글 보여주는 기능 -->
+	<select id="userBoard" resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where user_email = #{user_email}
+	</select>
+	
 </mapper>

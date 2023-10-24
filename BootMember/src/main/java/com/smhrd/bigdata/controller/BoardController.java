@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.smhrd.bigdata.entity.BoardInfo;
+import com.smhrd.bigdata.entity.UserInfo;
+
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import com.smhrd.bigdata.service.BoardService;
@@ -35,7 +38,23 @@ public class BoardController {
 	}
 
 	@GetMapping("/mypage")
-	public String mypage() {
+	public String mypage(@ModelAttribute UserInfo userinfo, HttpSession session) {
+		// 세션에 저장되어있는 유저 정보 가져오기 (로그인 되어있는 값)
+		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
+		
+		// 로그인이 안되어있으면 main으로 돌아가기
+		if (currentLogin == null) {
+			return "main";
+		}
+		
+		userinfo.setUser_email(currentLogin.getUser_email());
+		
+		List<BoardInfo> list = service.userBoard(userinfo);
+		
+		System.out.println(list);
+		
+		session.setAttribute("userBoard", list);
+		
 		return "mypage";
 	}
 
@@ -73,17 +92,6 @@ public class BoardController {
 		return "redirect:/";
 	}
 
-	// 게시글 리스트 출력 기능 ---- 필요 없는듯?
-	@GetMapping("/boardList")
-	public String boardInfo(Model model) {
-		List<BoardInfo> list = service.boardList();
-
-		model.addAttribute("boardList", list);
-		// 페이지에 출력하기 위해 model에 저장하기
-
-		return ""; // 페이지 이동
-	}
-
 	// 게시글 상세 페이지 출력 기능
 	@GetMapping("/board/{board_idx}")
 	public String boardDetail(@PathVariable Long board_idx, Model model) {
@@ -92,8 +100,9 @@ public class BoardController {
 		model.addAttribute("boardDetail", board);
 		// 페이지에 출력하기 위해 model에 저장하기
 
-		return "detail"; // 페이지 이동
+		return "detail"; // 페이지 이동	
 	}
+
 
 	// 카테고리 페이지 출력 기능
 	@GetMapping("/product")
@@ -133,13 +142,24 @@ public class BoardController {
 		return item_category;
 	}
 
-	// 메인페이지에 조회수가 높은 상위 8개 출력
+	// 메인페이지에 
+	// 조회수가 높은 상위 8개 출력
+	// 추천 기능 출력
 	@GetMapping("/")
 	public String boardRanking(HttpSession session) {
 		List<BoardInfo> boardRanking = service.boardRanking();
 		// 페이지에 출력하기 위해 model에 저장하기
+		UserInfo result = (UserInfo) session.getAttribute("loginUser");
+		
+		// 세션에 저장되어있는 유저 정보 가져오기
+		if (result != null) {
+			List<BoardInfo> recommendation = service.recommendation(result);
+			session.setAttribute("recommendation", recommendation);
+		}
+	
+		// 조회수 높은 상위 8개 정보 세션에 저장
 		session.setAttribute("boardRanking", boardRanking);
-
+		
 		return "main"; // 페이지 이동
 	}
 }
