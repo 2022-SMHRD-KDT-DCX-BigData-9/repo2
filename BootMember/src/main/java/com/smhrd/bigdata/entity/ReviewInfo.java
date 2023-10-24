@@ -2,6 +2,13 @@ package com.smhrd.bigdata.entity;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewInfo {
 	// 후기점수
 
@@ -22,62 +29,4 @@ public class ReviewInfo {
 
 	// 후기 작성날짜
 	private Timestamp created_at;
-
-	public String getReviewIdx() {
-		return review_idx;
-	}
-
-	public void setReviewIdx(String reviewIdx) {
-		this.review_idx = review_idx;
-	}
-
-	public String getUserEmail() {
-		return user_email;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.user_email = user_email;
-	}
-
-	public Long getBoardIdx() {
-		return board_idx;
-	}
-
-	public void setBoardIdx(Long boardIdx) {
-		this.board_idx = board_idx;
-	}
-
-	public String getReviewContent() {
-		return review_content;
-	}
-
-	public void setReviewContent(String reviewContent) {
-		this.review_content = review_content;
-	}
-
-	public Integer getReviewRatings() {
-		return review_ratings;
-	}
-
-	public void setReviewRatings(Integer reviewRatings) {
-		this.review_ratings = review_ratings;
-	}
-
-	public Timestamp getCreatedAt() {
-		return created_at;
-	}
-
-	public void setCreatedAt(Timestamp createdAt) {
-		this.created_at = created_at;
-	}
-
-	// review_info 모델 복사
-	public void CopyData(ReviewInfo param) {
-		this.review_idx = param.getReviewIdx();
-		this.user_email = param.getUserEmail();
-		this.board_idx = param.getBoardIdx();
-		this.review_content = param.getReviewContent();
-		this.review_ratings = param.getReviewRatings();
-		this.created_at = param.getCreatedAt();
-	}
 }

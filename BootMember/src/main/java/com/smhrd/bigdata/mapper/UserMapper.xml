@@ -4,13 +4,17 @@
 	<!-- 회원가입 -->
 	<insert id="join"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		insert into user_info values (#{user_email}, #{user_pw},
-		#{user_name}, #{user_nick}, #{user_addr}, #{user_category},
-		#{user_phone})
+		insert into user_info (user_email, user_pw, user_name,
+		user_nick, user_addr,
+		user_category, user_phone)
+		values (#{user_email},
+		#{user_pw}, #{user_name}, #{user_nick}, #{user_addr},
+		#{user_category}, #{user_phone})
 	</insert>
 
 	<!-- 로그인 -->
 	<select id="login"
+		parameterType="com.smhrd.bigdata.entity.UserInfo"
 		resultType="com.smhrd.bigdata.entity.UserInfo">
 		select * from user_info where user_email = #{user_email}
 		and user_pw = #{user_pw}
@@ -19,16 +23,21 @@
 	<!-- 게시물 작성 -->
 	<insert id="boardWrite"
 		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		insert into board_info values (#{item_name},
-		#{board_content}, #{item_img}, #{item_category}, #{want_category},
-		#{item_place})
+		insert into board_info (item_name, board_content,
+		user_email, item_category,
+		want_category, item_place, item_img)
+		values
+		(#{item_name}, #{board_content}, #{user_email}, #{item_category},
+		#{want_category}, #{item_place}, #{item_img});
 	</insert>
+
 
 	<!-- 회원 정보 수정 -->
 	<update id="userUpdate"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		update user_info set user_nick = #{user_nick}, user_pw =
-		#{user_pw}, user_category = #{user_category}
+		update user_info set user_pw = #{user_pw}, user_nick =
+		#{user_nick}, user_category = #{user_category}
+		where user_email = #{user_email}
 	</update>
 
 	<!-- 게시글 리스트 출력 -->
@@ -43,18 +52,29 @@
 		select * from board_info where board_idx = #{board_idx}
 	</select>
 
-	<!-- 마이페이지 출력 기능 -->
-	<select id="profile"
-		resultType="com.smhrd.bigdata.entity.UserInfo">
 
-	</select>
-
-	<!-- 카테고리 별 게시물 출력 기능 -->
-	<select id="boardCategory"
+	<!-- 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능 -->
+	<select id="electronics"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category =
-		#{item_category}
+		select * from board_info where item_category like '전자기기'
 	</select>
+	<select id="books"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '책'
+	</select>
+	<select id="clothes"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '의류'
+	</select>
+	<select id="sports"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '레저/스포츠'
+	</select>
+	<select id="lifegoods"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where item_category like '생활용품'
+	</select>
+
 
 	<!-- 후기 목록 출력 기능 -->
 	<select id="reviewList"
@@ -63,7 +83,37 @@
 	</select>
 
 	<!-- 제목으로 검색 할 수 있는 기능 -->
-	<select id="search" resultType="com.smhrd.bigdata.entity.BoardInfo">
+	<select id="search"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
 		select * from board_info where item_name like '%${search}%'
 	</select>
+
+	<!-- 조회수 높은 순서대로 출력하는 기능 -->
+	<select id="boardRanking"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info order by board_views desc limit 8
+	</select>
+
+	<!-- 마이페이지 출력 기능 -->
+	<select id="profile"
+		resultType="com.smhrd.bigdata.entity.UserInfo">
+	</select>
+
+	<!-- 카테고리에 맞춰 추천하는 기능 -->
+	<select id="recommendation"
+		resultType="com.smhrd.bigdata.entity.BoardInfo"
+		parameterType="com.smhrd.bigdata.entity.BoardInfo">
+		select b.*
+		from board_info b
+		where b.item_category =
+		(select u.user_category from user_info u where
+		u.user_email =
+		#{user_email}) limit 8;
+	</select>
+	
+	<!-- 유저가 작성한 게시글 보여주는 기능 -->
+	<select id="userBoard" resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where user_email = #{user_email}
+	</select>
+	
 </mapper>

@@ -2,6 +2,13 @@ package com.smhrd.bigdata.entity;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardInfo {
     // 물품 글번호 
     private Long board_idx;
@@ -33,98 +40,4 @@ public class BoardInfo {
     // 물품 거래장소 
     private String item_place;
 
-    public Long getBoardIdx() {
-        return board_idx;
-    }
-
-    public void setBoardIdx(Long boardIdx) {
-        this.board_idx = board_idx;
-    }
-
-    public String getItemName() {
-        return item_name;
-    }
-
-    public void setItemName(String itemName) {
-        this.item_name = item_name;
-    }
-
-    public String getBoardContent() {
-        return board_content;
-    }
-
-    public void setBoardContent(String boardContent) {
-        this.board_content = board_content;
-    }
-
-    public String getUserEmail() {
-        return user_email;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.user_email = user_email;
-    }
-
-    public String getItemImg() {
-        return item_img;
-    }
-
-    public void setItemImg(String itemImg) {
-        this.item_img = item_img;
-    }
-
-    public String getItemCategory() {
-        return item_category;
-    }
-
-    public void setItemCategory(String itemCategory) {
-        this.item_category = item_category;
-    }
-
-    public String getWantCategory() {
-        return want_category;
-    }
-
-    public void setWantCategory(String wantCategory) {
-        this.want_category = want_category;
-    }
-
-    public Integer getBoardViews() {
-        return board_views;
-    }
-
-    public void setBoardViews(Integer boardViews) {
-        this.board_views = board_views;
-    }
-
-    public Timestamp getCreatedAt() {
-        return created_at;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.created_at = created_at;
-    }
-
-    public String getItemPlace() {
-        return item_place;
-    }
-
-    public void setItemPlace(String itemPlace) {
-        this.item_place = item_place;
-    }
-
-    // board_info 모델 복사
-    public void CopyData(BoardInfo param)
-    {
-        this.board_idx = param.getBoardIdx();
-        this.item_name = param.getItemName();
-        this.board_content = param.getBoardContent();
-        this.user_email = param.getUserEmail();
-        this.item_img = param.getItemImg();
-        this.item_category = param.getItemCategory();
-        this.want_category = param.getWantCategory();
-        this.board_views = param.getBoardViews();
-        this.created_at = param.getCreatedAt();
-        this.item_place = param.getItemPlace();
-    }
 }

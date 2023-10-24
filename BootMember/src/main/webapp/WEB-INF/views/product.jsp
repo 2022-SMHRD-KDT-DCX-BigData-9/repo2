@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--this is a test-->
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" conetent="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ecommerce Responsive full website</title>
 <!-- CSS-link -->
@@ -195,8 +194,7 @@ header.sticky {
 
 .products {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, auto)); 
-	/* repeat(auto-fit, minmax(260px, auto)); */
+	grid-template-columns: repeat(auto-fit, minmax(260px, auto));
 	gap: 2rem;
 }
 
@@ -463,8 +461,8 @@ header.sticky {
 }
 </style>
 </head>
-<body>
 
+<body>
 	<header>
 		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
 		<ul class="navmenu">
@@ -502,245 +500,180 @@ header.sticky {
 
 	</header>
 
-	<section class="main-home">
-		<div class="main-text">
-			<h5>Winter Collection</h5>
-			<h1>
-				New Winter <br> Collection 2022
-			</h1>
-			<p>There's Nothing like Trend</p>
-
-			<a href="#" class="main-btn"> Shop Now <i
-				class='bx bx-right-arrow-alt'></i>
-			</a>
-		</div>
-
-		<div class="down-arrow">
-			<a href="#trending" class="down"> <i class='bx bx-down-arrow-alt'></i>
-			</a>
-		</div>
+	<section class="trending product" id="trending">
+		<!-- 상단에 카테고리 5개 출력하기 -->
+		<ul class="navmenu">
+			<li><a href="electronics">Electronics</a></li>
+			<li><a href="books">Books</a></li>
+			<li><a href="clothes">Clothes</a></li>
+			<li><a href="sports">Sports</a></li>
+			<li><a href="lifegoods">Lifegoods</a></li>
+		</ul>
 	</section>
 
-	<!-- 사용자가 로그인 시 추천 카테고리 상품 출력 -->
-	<c:if test="${ !empty loginUser }">
-		<div class="center-text">
-			<h2>
-				Our Product <span> Recommendations </span>
-			</h2>
-		</div>
-
-		<section class="trending products" id="trending">
-			<c:forEach items="${ recommendation }" var="rec">
-				<div class="row">
-					<a href="board/${ rec.board_idx }"> <img src="image/7.jpg"
-						alt=""></a>
-
-					<div class="price">
-						<!-- 제목 -->
-						<h4>${ rec.item_name }</h4>
-						<!-- 교환하고 싶은 카테고리 -->
-						<p>${ rec.want_category }</p>
-					</div>
-				</div>
-			</c:forEach>
-		</section>
-	</c:if>
-
-
-	<!-- 조회수가 높은 상위 8개 게시물 출력하기 -->
+	<!-- 카테고리 별로 4개씩 출력하기 -->
 	<div class="center-text">
 		<h2>
-			Our Trending <span> Products </span>
+			Category : <span> Electronics </span>
 		</h2>
 	</div>
-
 	<section class="trending products" id="trending">
-		<c:forEach items="${ boardRanking }" var="ranking">
+		<c:forEach items="${electronics}" var="boardCategory" begin="0"
+			end="3" step="1">
+			<!-- 첫번째 카테고리 - 상품 4개 -->
 			<div class="products">
-				<a href="http://localhost:8087/bigdata/board/${ranking.board_idx}">
-                <img src="data:image/png;base64,${ranking.item_img}" width="300" height="300" alt=""></a>
-					
-				<%-- <a href="board/${ ranking.board_idx }"> <img src="image/7.jpg"
-					alt=""></a> --%>
+				<div class="row">
+					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
+					<a href="board/${ boardCategory.board_idx }"> <img
+						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+>>>>>>> refs/remotes/origin/sw
 
-				<div class="price">
-					<!-- 제목 -->
-					<h4>${ ranking.item_name }</h4>
-					<!-- 교환하고 싶은 카테고리 -->
-					<p>${ ranking.want_category }</p>
+					<div class="price">
+						<h4>
+							<p>${ boardCategory.item_name }</p>
+						</h4>
+						<p>${ boardCategory.want_category }</p>
+					</div>
 				</div>
 			</div>
 		</c:forEach>
 	</section>
 
-	<c:if test="${ !empty loginUser }">
-		<div class="uploadBtn">
-			<button class="upload_thing_btn" onclick="redirectToURL()">게시물
-				쓰기</button>
-		</div>
-	</c:if>
 
 
-	<!-- Contact section -> 담당자  전화번호, 이메일 -->
-	<section class="contact">
-		<div class="contact-info">
-			<div class="first-info">
-				<img src="image/logo.png" alt="">
 
-				<p>
-					3245 Grant Street Longview, <br> TX United Kingdom 765378
-				</p>
-				<p>01049096453</p>
-				<p>deer2073@naver.com</p>
+	<div class="center-text">
+		<h2>
+			Category : <span> Books </span>
+		</h2>
+	</div>
+	<section class="trending products" id="trending">
+		<c:forEach items="${ books }" var="boardCategory" begin="0" end="3"
+			step="1">
+			<!-- 첫번째 카테고리 - 상품 4개 -->
+			<div class="products">
+				<div class="row">
+					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
+					<a href="board/${ boardCategory.board_idx }"> <img
+						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt="">
+                    <!-- <img src="image/1.jpg" alt=""> -->
+                </a>
+>>>>>>> refs/remotes/origin/sw
 
-				<div class="social-icon">
-					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i
-						class='bx bxl-twitter'></i></a> <a href="#"><i
-						class='bx bxl-instagram'></i></a> <a href="#"><i
-						class='bx bxl-youtube'></i></a> <a href="#"><i
-						class='bx bxl-linkedin'></i></a>
-
-				</div>
-			</div>
-
-			<div class="second-info">
-				<h4>Support</h4>
-				<p>Contact us</p>
-				<p>About page</p>
-				<p>Size Guide</p>
-				<p>Shopping & Resturns</p>
-				<p>Privacy</p>
-			</div>
-
-			<div class="thrid-info">
-				<h4>Shop</h4>
-				<p>Men's Shopping</p>
-				<p>Women's Shopping</p>
-				<p>Kid's Shopping</p>
-				<p>Furniture</p>
-				<p>Discount</p>
-			</div>
-
-
-			<div class="fourth-info">
-				<h4>Company</h4>
-				<p>About</p>
-				<p>Blog</p>
-				<p>Affiliate</p>
-				<p>Login</p>
-			</div>
-
-			<div class="five">
-				<h4>Subscribe</h4>
-				<p>Receive updates, Hot Deals, Discounts Sent Sent Straight in
-					your Inbox Daily</p>
-				<p>Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit. Eum,
-					Debitis.</p>
-				<p>Receive Updates, Hot deals, Discounts Sent Straight In Your
-					Inbox Daily</p>
-
-			</div>
-		</div>
-		</div>
-	</section>
-
-	<!-- 회원가입 모달 -->
-	<div class="modal" id="modal_join">
-		<!-- 모달 내용 -->
-		<div class="modal_body">
-			<form action="member/join" method="post">
-				<!-- 모달 헤더-->
-				<div class="modal-header">
-					<h2 class="modal-title">회원가입</h2>
-				</div>
-				<div class="main">
-					<input id="email" name="user_email" type="email"
-						placeholder="example@gmail.com" required>
-				</div>
-				<div class="main">
-					<input id="pw" name="user_pw" type="password" placeholder="패스워드 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="name" name="user_name" type="text" placeholder="이름을 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="nick" name="user_nick" type="text" placeholder="닉네임을 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="address" name="user_addr" type="text"
-						placeholder="주소 입력" required>
-				</div>
-				<div class="main">
-					<input type="tel" id="tel" name="user_phone"
-						placeholder="010-1234-5678" maxlength="15" required />
-				</div>
-				<div>
-					<fieldset>
-						<legend>관심 카테고리</legend>
-						<div>
-							<input type="checkbox" id="electro" name="user_category"
-								value="전자제품" onclick="category_check(this)" /> <label
-								for="electro">전자제품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="daily" name="user_category"
-								value="생활용품" onclick="category_check(this)" /> <label
-								for="daily">생활용품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="sport" name="user_category"
-								value="스포츠/레저" onclick="category_check(this)" /> <label
-								for="sport">스포츠/레저</label>
-						</div>
-						<div>
-							<input type="checkbox" id="cloth" name="user_category" value="의류"
-								onclick="category_check(this)" /> <label for="cloth">의류</label>
-						</div>
-						<div>
-							<input type="checkbox" id="book" name="user_category" value="도서"
-								onclick="category_check(this)" /> <label for="book">도서</label>
-						</div>
-					</fieldset>
-					<!-- 모달 푸터-->
-					<div class="modal-footer">
-						<button type="submit" id="join">회원가입</button>
-						<button class="btn-close-popup">닫기</button>
+					<div class="price">
+						<h4>
+							<p>${ boardCategory.item_name }</p>
+						</h4>
+						<p>${ boardCategory.want_category }</p>
 					</div>
 				</div>
-			</form>
-		</div>
+			</div>
+		</c:forEach>
+	</section>
+
+	<div class="center-text">
+		<h2>
+			Category : <span> Clothes </span>
+		</h2>
 	</div>
+	<section class="trending products" id="trending">
+		<c:forEach items="${ clothes }" var="boardCategory" begin="0" end="3"
+			step="1">
+			<!-- 첫번째 카테고리 - 상품 4개 -->
+			<div class="products">
+				<div class="row">
+					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
+					<a href="board/${ boardCategory.board_idx }"> <img
+						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt="">
+                    <!-- <img src="image/1.jpg" alt=""> -->
+                </a>
+					<%-- <a href="board/${ boardCategory.board_idx }"> <img src="image/1.jpg" alt=""></a> --%>
+>>>>>>> refs/remotes/origin/sw
 
-	<div class="modal" id="modal_login">
-
-		<div class="modal_body">
-
-			<form id="loginForm" action="member/login" method="post">
-				<div class="modal-header">
-					<h2 class="modal-title">로그인</h2>
+					<div class="price">
+						<h4>
+							<p>${ boardCategory.item_name }</p>
+						</h4>
+						<p>${ boardCategory.want_category }</p>
+					</div>
 				</div>
+			</div>
+		</c:forEach>
+	</section>
 
-				<div class="main">
-					<input id="user_email" name="user_email" type="email"
-						placeholder="example@gmail.com" required>
-				</div>
-
-				<div class="main">
-					<input id="user_pw" name="user_pw" type="password"
-						placeholder="패스워드 입력" required>
-				</div>
-
-				<div class="modal-footer">
-					<button type="submit" id="login">로그인</button>
-					<button id="joinButton">회원가입</button>
-					<button class="btn-close-popup">닫기</button>
-				</div>
-			</form>
-		</div>
+	<div class="center-text">
+		<h2>
+			Category : <span> Sports </span>
+		</h2>
 	</div>
+	<section class="trending products" id="trending">
+		<c:forEach items="${ sports }" var="boardCategory" begin="0" end="3"
+			step="1">
+			<!-- 첫번째 카테고리 - 상품 4개 -->
+			<div class="products">
+				<div class="row">
+					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
+					<a href="board/${ boardCategory.board_idx }"> <img
+						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+>>>>>>> refs/remotes/origin/sw
+
+					<div class="price">
+						<h4>
+							<p>${ boardCategory.item_name }</p>
+						</h4>
+						<p>${ boardCategory.want_category }</p>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</section>
+
+	<div class="center-text">
+		<h2>
+			Category : <span> Life Goods </span>
+		</h2>
+	</div>
+	<section class="trending products" id="trending">
+		<c:forEach items="${ lifegoods }" var="boardCategory" begin="0"
+			end="3" step="1">
+			<!-- 첫번째 카테고리 - 상품 4개 -->
+			<div class="products">
+				<div class="row">
+					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
+					<a href="board/${ boardCategory.board_idx }"> <img
+						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+>>>>>>> refs/remotes/origin/sw
+
+					<div class="price">
+						<h4>
+							<p>${ boardCategory.item_name }</p>
+						</h4>
+						<p>${ boardCategory.want_category }</p>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</section>
 
 
 	<script>
@@ -799,18 +732,5 @@ header.sticky {
             }
         }
 	</script>
-	<!-- 체크박스 하나만 선택할 수 있게 하는 JS -->
-	<script>
-	   function category_check(element) {
-		   const checkboxes 
-		      = document.getElementsByName("user_category");
-		   
-		   checkboxes.forEach((cb) => {
-			    cb.checked = false;
-			  })
-			  
-			  element.checked = true;
-		}
-   </script>
 </body>
 </html>
