@@ -561,6 +561,8 @@ header.sticky {
 				</c:otherwise>
 			</c:choose>
 			<li><a href="product">products</a></li>
+			<li><a href="#">page</a></li>
+			<li><a href="#">Docs</a></li>
 		</ul>
 		<div class="nav-icon">
 			<a href="#"></a><i class='bx bx-search'></i> <a href="#"></a><i

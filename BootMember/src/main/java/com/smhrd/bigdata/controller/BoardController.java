@@ -57,6 +57,12 @@ public class BoardController {
 		System.out.println(list);
 
 		session.setAttribute("userBoard", list);
+		
+		return "mypage";
+	}
+
+
+	public String mypage() {
 
 		return "mypage";
 	}
@@ -96,7 +102,20 @@ public class BoardController {
 		return "redirect:/";
 	}
 
+
 	// --------------------------------------------------------------------------------------------------------------------------
+
+	// 게시글 리스트 출력 기능 ---- 필요 없는듯?
+	@GetMapping("/boardList")
+	public String boardInfo(Model model) {
+		List<BoardInfo> list = service.boardList();
+
+		model.addAttribute("boardList", list);
+		// 페이지에 출력하기 위해 model에 저장하기
+
+		return ""; // 페이지 이동
+	}
+
 
 	// 게시글 상세 페이지 출력 기능
 	@GetMapping("/board/{board_idx}")
@@ -118,7 +137,10 @@ public class BoardController {
 		return "detail"; // 페이지 이동
 	}
 
+
 //-------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 	// 카테고리 페이지 출력 기능
 	@GetMapping("/product")
@@ -325,6 +347,7 @@ public class BoardController {
 		return item_category;
 	}
 
+
 	// 메인페이지에
 	// 조회수가 높은 상위 8개 출력
 	// 추천 기능 출력
@@ -332,9 +355,13 @@ public class BoardController {
 	// 메인페이지에 조회수가 높은 상위 8개
 	// 출력---------------------------------------------------------------------------------------------------------------
 
+
+	// 메인페이지에 조회수가 높은 상위 8개 출력
+
 	@GetMapping("/")
 	public String boardRanking(HttpSession session, Model model) throws IOException {
 		List<BoardInfo> boardRanking = service.boardRanking();
+
 		ArrayList<BoardInfo> nboardRanking = new ArrayList<BoardInfo>();
 		for (BoardInfo b : boardRanking) {
 
@@ -361,5 +388,11 @@ public class BoardController {
 			return "main"; // 페이지 이동
 		}
 		return "main";
+
+		// 페이지에 출력하기 위해 model에 저장하기
+		session.setAttribute("boardRanking", boardRanking);
+
+		return "main"; // 페이지 이동
+
 	}
 }

@@ -35,9 +35,8 @@
 	<!-- 회원 정보 수정 -->
 	<update id="userUpdate"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		update user_info set user_pw = #{user_pw}, user_nick =
-		#{user_nick}, user_category = #{user_category}
-		where user_email = #{user_email}
+		update user_info set user_nick = #{user_nick}, user_pw =
+		#{user_pw}, user_category = #{user_category}
 	</update>
 
 	<!-- 게시글 리스트 출력 -->
@@ -60,7 +59,7 @@
 	</select>
 	<select id="books"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '책'
+		select * from board_info where item_category like '도서'
 	</select>
 	<select id="clothes"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
@@ -99,21 +98,11 @@
 		resultType="com.smhrd.bigdata.entity.UserInfo">
 	</select>
 
-	<!-- 카테고리에 맞춰 추천하는 기능 -->
-	<select id="recommendation"
-		resultType="com.smhrd.bigdata.entity.BoardInfo"
-		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		select b.*
-		from board_info b
-		where b.item_category =
-		(select u.user_category from user_info u where
-		u.user_email =
-		#{user_email}) limit 8;
-	</select>
-	
 	<!-- 유저가 작성한 게시글 보여주는 기능 -->
-	<select id="userBoard" resultType="com.smhrd.bigdata.entity.BoardInfo">
+	<select id="userBoard"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
 		select * from board_info where user_email = #{user_email}
 	</select>
-	
+
+
 </mapper>

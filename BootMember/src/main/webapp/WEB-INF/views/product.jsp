@@ -379,86 +379,6 @@ header.sticky {
 		transition: .4s;
 	}
 }
-
-.modal {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: none;
-	background-color: rgba(200, 200, 200, 0.8);
-}
-
-.modal.show {
-	display: block;
-}
-
-.modal-header {
-	position: relative;
-	top: 50%;
-	left: 50%;
-	text-align: center;
-	transform: translateX(-50%) translateY(-50%);
-	margin-bottom: 20px;
-}
-
-.modal_body {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 400px;
-	height: 700px;
-	padding: 40px;
-	text-align: center;
-	background-color: rgb(192, 192, 192);
-	border-radius: 10px;
-	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-	transform: translateX(-50%) translateY(-50%);
-	margin-top: 20px;
-	border: 2px solid #000;
-}
-
-.modal_body .main {
-	margin-bottom: 30px;
-}
-
-.modal_body .main input {
-	width: 80%;
-	padding: 10px;
-}
-
-.modal_body fieldset {
-	background-color: rgba(255, 255, 204, 0.7);
-	margin-top: 20px;
-	border: 2px solid #000;
-}
-
-.modal_body fieldset input[type="checkbox"] {
-	width: 20px;
-	height: 20px;
-	margin-right: 10px;
-}
-
-.modal-footer {
-	position: relative;
-	bottom: 0;
-	left: 50%;
-	transform: translateX(-50%) translateY(0);
-	margin-top: 20px;
-}
-
-.upload_thing_btn {
-	position: relative;
-	width: 200px; /* 원하는 너비 설정 */
-	padding: 10px; /* 버튼 내부 여백 설정 */
-	background-color: #0074d9; /* 배경색 설정 */
-	color: #fff; /* 텍스트 색상 설정 */
-}
-/* 검색창 관련 css  */
-#search-box {
-	display: none;
-}
 </style>
 </head>
 
@@ -478,22 +398,12 @@ header.sticky {
 				</c:otherwise>
 			</c:choose>
 			<li><a href="product">products</a></li>
+			<li><a href="#">page</a></li>
+			<li><a href="#">Docs</a></li>
 		</ul>
 		<div class="nav-icon">
-			<a href="mypage"><i class='bx bx-user'></i></a>
-
-			<!--  검색창 관련 코드 -->
-			<a href="#"><i class='bx bx-search' id="search-icon"
-				onclick="toggleSearchBox()"></i></a>
-			<form action="product" method="get">
-				<div id="search-box">
-					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
-						style="width: 300px;" name="item_name">
-					<button onclick="performSearch()">Search</button>
-				</div>
-			</form>
-
-			<a href="#"><i class='bx bx-cart'></i></a>
+			<a href="#"></a><i class='bx bx-search'></i> <a href="#"></a><i
+				class='bx bx-user'></i> <a href="#"></a><i class='bx bx-cart'></i>
 
 			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>
@@ -529,6 +439,8 @@ header.sticky {
                 <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
 
 
+					<a href="board/${ boardCategory.board_idx }"> <img src="image/1.jpg" alt=""></a>
+
 					<div class="price">
 						<h4>
 							<p>${ boardCategory.item_name }</p>
@@ -539,8 +451,8 @@ header.sticky {
 			</div>
 		</c:forEach>
 	</section>
-
-
+	
+	
 
 
 	<div class="center-text">
@@ -549,18 +461,22 @@ header.sticky {
 		</h2>
 	</div>
 	<section class="trending products" id="trending">
-		<c:forEach items="${ books }" var="boardCategory" begin="0" end="3"
-			step="1">
+		<c:forEach items="${ books }" var="boardCategory" begin="0"
+			end="3" step="1">
 			<!-- 첫번째 카테고리 - 상품 4개 -->
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+
 					<a href="board/${ boardCategory.board_idx }"> <img
 						src="image/1.jpg" alt=""></a>
 					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
                 <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt="">
                     <!-- <img src="image/1.jpg" alt=""> -->
                 </a>
+
+					<a href="board/${ boardCategory.board_idx }"> <img src="image/1.jpg" alt=""></a>
+
 
 					<div class="price">
 						<h4>
@@ -579,14 +495,13 @@ header.sticky {
 		</h2>
 	</div>
 	<section class="trending products" id="trending">
-		<c:forEach items="${ clothes }" var="boardCategory" begin="0" end="3"
-			step="1">
+		<c:forEach items="${ clothes }" var="boardCategory" begin="0"
+			end="3" step="1">
 			<!-- 첫번째 카테고리 - 상품 4개 -->
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
-					<a href="board/${ boardCategory.board_idx }"> <img
-						src="image/1.jpg" alt=""></a>
+					<a href="board/${ boardCategory.board_idx }"> <img src="image/1.jpg" alt=""></a>
 
 					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
                 <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt="">
@@ -609,15 +524,19 @@ header.sticky {
 		</h2>
 	</div>
 	<section class="trending products" id="trending">
-		<c:forEach items="${ sports }" var="boardCategory" begin="0" end="3"
-			step="1">
+		<c:forEach items="${ sports }" var="boardCategory" begin="0"
+			end="3" step="1">
 			<!-- 첫번째 카테고리 - 상품 4개 -->
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
 
+
 					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
                 <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+
+					<a href="board/${ boardCategory.board_idx }"> <img src="image/1.jpg" alt=""></a>
+
 
 					<div class="price">
 						<h4>
@@ -642,8 +561,12 @@ header.sticky {
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+
 					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
                 <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+
+					<a href="board/${ boardCategory.board_idx }"> <img src="image/1.jpg" alt=""></a>
+
 
 					<div class="price">
 						<h4>
@@ -655,63 +578,5 @@ header.sticky {
 			</div>
 		</c:forEach>
 	</section>
-
-
-	<script>
-		const header = document.querySelector("header");
-	
-		window.addEventListener("scroll", function() {
-		header.classList.toggle("sticky", this.window.scrollY > 0);
-		})
-	
-		const modalJoin = document.querySelector('#modal_join');
-		const modalLogin = document.querySelector('#modal_login');
-		const btnOpenJoinPopup = document.querySelector('.btn-open-join');
-		const btnOpenLoginPopup = document.querySelector('.btn-open-login');
-		const btnClosePopup = document.querySelector('.btn-close-popup');
-	
-		// 회원가입 모달 열기
-		btnOpenJoinPopup.addEventListener('click', () => {
-			modalJoin.style.display = 'block';
-		});
-	
-		// 로그인 모달 열기
-		btnOpenLoginPopup.addEventListener('click', () => {
-			modalLogin.style.display = 'block';
-		});
-	
-		// 모달 닫기
-		btnClosePopup.addEventListener('click', () => {
-			modalJoin.style.display = 'none';
-			modalLogin.style.display = 'none';
-		});
-	
-		// 모달 이외 창 추가해서 닫기
-		modalJoin.addEventListener('click', (e) => {
-			if (e.target === modalJoin) {
-			modalJoin.style.display = 'none';
-			}
-		});
-	
-		modalLogin.addEventListener('click', (e) => {
-			if (e.target === modalLogin) {
-			modalLogin.style.display = 'none';
-			}
-		});
-		
-		function redirectToURL() {
-            // 원하는 URL로 이동
-            window.location.href = "upload";
-        }
-		
-		function toggleSearchBox() {
-            var searchBox = document.getElementById("search-box");
-            if (searchBox.style.display === "none" || searchBox.style.display === "") {
-                searchBox.style.display = "block";
-            } else {
-                searchBox.style.display = "none";
-            }
-        }
-	</script>
 </body>
 </html>
