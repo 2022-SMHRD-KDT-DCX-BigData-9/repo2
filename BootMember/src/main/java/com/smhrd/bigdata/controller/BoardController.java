@@ -352,18 +352,12 @@ public class BoardController {
 			  session.setAttribute("boardRanking", boardRanking);
 		// 페이지에 출력하기 위해 model에 저장하기
 
-		UserInfo result = (UserInfo) session.getAttribute("loginUser");
 		
-		// 세션에 저장되어있는 유저 정보 가져오기
-		if (result != null) {
-			List<BoardInfo> recommendation = service.recommendation(result);
-			session.setAttribute("recommendation", recommendation);
-		}
 	
 		// 조회수 높은 상위 8개 정보 세션에 저장
-		session.setAttribute("boardRanking", boardRanking);
 		
-		return "main"; // 페이지 이동
+		
+		
 
 		
 
@@ -371,6 +365,14 @@ public class BoardController {
 
 
 	}
+		UserInfo result = (UserInfo) session.getAttribute("loginUser");
+		
+		// 세션에 저장되어있는 유저 정보 가져오기
+		if (result != null) {
+			List<BoardInfo> recommendation = service.recommendation(result);
+			session.setAttribute("recommendation", recommendation);
+		}
+		session.setAttribute("boardRanking", boardRanking);
 		return "main";
 }
 }
