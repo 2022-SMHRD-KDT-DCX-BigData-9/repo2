@@ -195,7 +195,8 @@ header.sticky {
 
 .products {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, auto));
+	grid-template-columns: repeat(auto-fit, minmax(260px, auto)); 
+	/* repeat(auto-fit, minmax(260px, auto)); */
 	gap: 2rem;
 }
 
@@ -555,9 +556,12 @@ header.sticky {
 
 	<section class="trending products" id="trending">
 		<c:forEach items="${ boardRanking }" var="ranking">
-			<div class="row">
-				<a href="board/${ ranking.board_idx }"> <img src="image/7.jpg"
-					alt=""></a>
+			<div class="products">
+				<a href="http://localhost:8087/bigdata/board/${ranking.board_idx}">
+                <img src="data:image/png;base64,${ranking.item_img}" width="300" height="300" alt=""></a>
+					
+				<%-- <a href="board/${ ranking.board_idx }"> <img src="image/7.jpg"
+					alt=""></a> --%>
 
 				<div class="price">
 					<!-- 제목 -->

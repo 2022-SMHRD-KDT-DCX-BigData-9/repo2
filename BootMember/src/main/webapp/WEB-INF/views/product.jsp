@@ -518,14 +518,19 @@ header.sticky {
 		</h2>
 	</div>
 	<section class="trending products" id="trending">
-		<c:forEach items="${ electronics }" var="boardCategory" begin="0"
+		<c:forEach items="${electronics}" var="boardCategory" begin="0"
 			end="3" step="1">
 			<!-- 첫번째 카테고리 - 상품 4개 -->
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
 					<a href="board/${ boardCategory.board_idx }"> <img
 						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+>>>>>>> refs/remotes/origin/sw
 
 					<div class="price">
 						<h4>
@@ -553,8 +558,15 @@ header.sticky {
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
 					<a href="board/${ boardCategory.board_idx }"> <img
 						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt="">
+                    <!-- <img src="image/1.jpg" alt=""> -->
+                </a>
+>>>>>>> refs/remotes/origin/sw
 
 					<div class="price">
 						<h4>
@@ -579,8 +591,16 @@ header.sticky {
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
 					<a href="board/${ boardCategory.board_idx }"> <img
 						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt="">
+                    <!-- <img src="image/1.jpg" alt=""> -->
+                </a>
+					<%-- <a href="board/${ boardCategory.board_idx }"> <img src="image/1.jpg" alt=""></a> --%>
+>>>>>>> refs/remotes/origin/sw
 
 					<div class="price">
 						<h4>
@@ -605,8 +625,13 @@ header.sticky {
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
 					<a href="board/${ boardCategory.board_idx }"> <img
 						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+>>>>>>> refs/remotes/origin/sw
 
 					<div class="price">
 						<h4>
@@ -631,8 +656,13 @@ header.sticky {
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+<<<<<<< HEAD
 					<a href="board/${ boardCategory.board_idx }"> <img
 						src="image/1.jpg" alt=""></a>
+=======
+					<a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt=""></a>
+>>>>>>> refs/remotes/origin/sw
 
 					<div class="price">
 						<h4>
