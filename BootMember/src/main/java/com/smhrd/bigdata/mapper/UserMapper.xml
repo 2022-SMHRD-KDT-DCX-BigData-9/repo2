@@ -94,8 +94,21 @@
 	</select>
 
 	<!-- 마이페이지 출력 기능 -->
-	<select id="profile"
+<!-- 	<select id="profile"
 		resultType="com.smhrd.bigdata.entity.UserInfo">
+	</select> -->
+
+
+	<!-- 카테고리에 맞춰 추천하는 기능 -->
+	<select id="recommendation"
+		resultType="com.smhrd.bigdata.entity.BoardInfo"
+		parameterType="com.smhrd.bigdata.entity.BoardInfo">
+		select b.*
+		from board_info b
+		where b.item_category =
+		(select u.user_category from user_info u where
+		u.user_email =
+		#{user_email}) limit 8;
 	</select>
 
 	<!-- 유저가 작성한 게시글 보여주는 기능 -->

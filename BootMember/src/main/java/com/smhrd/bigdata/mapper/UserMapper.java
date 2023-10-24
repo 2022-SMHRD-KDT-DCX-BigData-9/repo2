@@ -47,6 +47,9 @@ public interface UserMapper {
 	// 조회수 높은 순서대로 출력하는 기능
 	public List<BoardInfo> boardRanking();
 
+	// 카테고리에 맞춰 추천하는 기능
+	public List<BoardInfo> recommendation(UserInfo userinfo);
+
 	// 유저가 작성한 게시글 보여주는 기능
 	public List<BoardInfo> userBoard(UserInfo userinfo);
 

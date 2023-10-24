@@ -389,10 +389,5 @@ public class BoardController {
 		}
 		return "main";
 
-		// 페이지에 출력하기 위해 model에 저장하기
-		session.setAttribute("boardRanking", boardRanking);
-
-		return "main"; // 페이지 이동
-
 	}
 }
