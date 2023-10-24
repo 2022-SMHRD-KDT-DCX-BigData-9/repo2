@@ -44,20 +44,20 @@ public class BoardController {
 	public String mypage(@ModelAttribute UserInfo userinfo, HttpSession session) {
 		// 세션에 저장되어있는 유저 정보 가져오기 (로그인 되어있는 값)
 		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
-		
+
 		// 로그인이 안되어있으면 main으로 돌아가기
 		if (currentLogin == null) {
 			return "main";
 		}
-		
+
 		userinfo.setUser_email(currentLogin.getUser_email());
-		
+
 		List<BoardInfo> list = service.userBoard(userinfo);
-		
+
 		System.out.println(list);
-		
+
 		session.setAttribute("userBoard", list);
-		
+
 		return "mypage";
 	}
 
@@ -71,7 +71,8 @@ public class BoardController {
 		return "boardwrite";
 	}
 
-	// 게시글 작성 --------------------------------------------------------------------------------------------------------------------------
+	// 게시글 작성
+	// --------------------------------------------------------------------------------------------------------------------------
 	@PostMapping("/boardWrite")
 	public String boardWrite(BoardInfo b, @RequestPart("photo") MultipartFile photo) {
 		// 파일 이름이 겹치지 않도록 -> UUID (시스템 적으로 절대 겹치지 않는 문자열 생성)
@@ -96,13 +97,10 @@ public class BoardController {
 	}
 
 	// --------------------------------------------------------------------------------------------------------------------------
-	
-
 
 	// 게시글 상세 페이지 출력 기능
 	@GetMapping("/board/{board_idx}")
 	public String content(@PathVariable("board_idx") long board_idx, Model model) throws IOException {
-		BoardInfo board = service.boardDetail(board_idx);
 
 		BoardInfo b = service.boardDetail(board_idx);
 
@@ -117,11 +115,8 @@ public class BoardController {
 		System.out.println(b);
 		// 페이지에 출력하기 위해 model에 저장하기
 
-		return "detail"; // 페이지 이동	
+		return "detail"; // 페이지 이동
 	}
-
-
-
 
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -225,18 +220,18 @@ public class BoardController {
 
 		return "product"; // 페이지 이동
 	}
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 	// 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능
 	@GetMapping("/{item_category}")
 	public String category(@PathVariable String item_category, HttpSession session, Model model) throws IOException {
-
 
 		List<BoardInfo> list1 = service.electronics();
 
 		ArrayList<BoardInfo> nlist1 = new ArrayList<BoardInfo>();
 
 		for (BoardInfo b : list1) {
-			
+
 			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
@@ -247,7 +242,6 @@ public class BoardController {
 
 		}
 
-//		
 		List<BoardInfo> list2 = service.books();
 
 		ArrayList<BoardInfo> nlist2 = new ArrayList<BoardInfo>();
@@ -319,7 +313,6 @@ public class BoardController {
 			model.addAttribute("boardDetail", b);
 
 		}
-		
 
 		session.setAttribute("category", item_category);
 
@@ -332,45 +325,41 @@ public class BoardController {
 		return item_category;
 	}
 
-
-	// 메인페이지에 
+	// 메인페이지에
 	// 조회수가 높은 상위 8개 출력
 	// 추천 기능 출력
 
-	// 메인페이지에 조회수가 높은 상위 8개 출력---------------------------------------------------------------------------------------------------------------
+	// 메인페이지에 조회수가 높은 상위 8개
+	// 출력---------------------------------------------------------------------------------------------------------------
 
 	@GetMapping("/")
 	public String boardRanking(HttpSession session, Model model) throws IOException {
 		List<BoardInfo> boardRanking = service.boardRanking();
 		ArrayList<BoardInfo> nboardRanking = new ArrayList<BoardInfo>();
 		for (BoardInfo b : boardRanking) {
-			  
-			  File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"+ b.getItem_img());
-			  ImageConverter<File, String> converter = new
-			  ImageToBase64(); String fileStringValue = converter.convert(file);
-			  b.setItem_img(fileStringValue); nboardRanking.add(b);
-			  session.setAttribute("boardRanking", boardRanking);
-		// 페이지에 출력하기 위해 model에 저장하기
 
-		UserInfo result = (UserInfo) session.getAttribute("loginUser");
-		
-		// 세션에 저장되어있는 유저 정보 가져오기
-		if (result != null) {
-			List<BoardInfo> recommendation = service.recommendation(result);
-			session.setAttribute("recommendation", recommendation);
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
+					+ b.getItem_img());
+			ImageConverter<File, String> converter = new ImageToBase64();
+			String fileStringValue = converter.convert(file);
+			b.setItem_img(fileStringValue);
+			nboardRanking.add(b);
+			session.setAttribute("boardRanking", boardRanking);
+			// 페이지에 출력하기 위해 model에 저장하기
+
+			UserInfo result = (UserInfo) session.getAttribute("loginUser");
+
+			// 세션에 저장되어있는 유저 정보 가져오기
+			if (result != null) {
+				List<BoardInfo> recommendation = service.recommendation(result);
+				session.setAttribute("recommendation", recommendation);
+			}
+
+			// 조회수 높은 상위 8개 정보 세션에 저장
+			session.setAttribute("boardRanking", boardRanking);
+
+			return "main"; // 페이지 이동
 		}
-	
-		// 조회수 높은 상위 8개 정보 세션에 저장
-		session.setAttribute("boardRanking", boardRanking);
-		
-		return "main"; // 페이지 이동
-
-		
-
-		
-
-
-	}
 		return "main";
-}
+	}
 }
