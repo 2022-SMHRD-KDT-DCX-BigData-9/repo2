@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--this is a test-->
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" conetent="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ecommerce Responsive full website</title>
 <!-- CSS-link -->
@@ -13,16 +14,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
-	href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700&display=swap"
-	rel="stylesheet">
+   href="https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700&display=swap"
+   rel="stylesheet">
 
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-	integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+   integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+   crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <link rel="stylesheet"
-	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+   href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
 <style>
 * {
@@ -459,163 +460,60 @@ header.sticky {
 	display: none;
 }
 </style>
-
 </head>
+
 <body>
+   <header>
+      <a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
+      <ul class="navmenu">
+         <c:choose>
+            <c:when test="${ empty loginUser }">
+               <li><a href="#" class="btn-open-login">login</a></li>
+               <li><a href="#" class="btn-open-join">register</a></li>
+            </c:when>
+            <c:otherwise>
+               <form method="get" action="logout">
+                  <input type="submit" value="logout" style="border: 0 solid black">
+               </form>
+            </c:otherwise>
+         </c:choose>
+         <li><a href="product">products</a></li>
+      </ul>
+      <div class="nav-icon">
+         <a href="mypage"><i class='bx bx-user'></i></a>
 
-	<header>
-		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
-		<ul class="navmenu">
-			<c:choose>
-				<c:when test="${ empty loginUser }">
-					<li><a href="#" class="btn-open-login">login</a></li>
-					<li><a href="#" class="btn-open-join">register</a></li>
-				</c:when>
-				<c:otherwise>
-					<form method="get" action="logout">
-						<input type="submit" value="logout" style="border: 0 solid black">
-					</form>
-				</c:otherwise>
-			</c:choose>
-			<li><a href="product">products</a></li>
-		</ul>
-
-		<div class="nav-icon">
-			<a href="mypage"><i class='bx bx-user'></i></a>
-
-			<!--  검색창 관련 코드 -->
-			<a href="#"><i class='bx bx-search' id="search-icon"
-				onclick="toggleSearchBox()"></i></a>
-			<form action="search" method="get">
-				<div id="search-box">
-					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
-						style="width: 300px;" name="item_name">
-					<button onclick="performSearch()">Search</button>
-				</div>
-			</form>
-		</div>
-
-	</header>
-
-	<form action="boardWrite" method="post" enctype="multipart/form-data">
-		<div class="container">
-			<table>
-				<tr>
-					<td><br></td>
-				</tr>
-
-				<tr>
-					<td><span><b>물품 이름</b></span></td>
-				</tr>
-
-				<tr>
-					<td><input type="text" placeholder="제목을 입력해주세요"
-						name="item_name"></td>
-				</tr>
-
-				<tr>
-					<td><br></td>
-				</tr>
-
-				<tr>
-					<td><span><b>user_email(id)</b></span></td>
-				</tr>
-
-				<tr>
-					<td><input type="email" name="user_email"
-						placeholder="예- hongildong@naver.com"></td>
-				</tr>
-
-				<tr>
-					<td><br></td>
-				</tr>
-
-
-				<tr>
-					<td><span><b>물품 카테고리</b></span></td>
-				</tr>
-
-				<tr>
-					<td><select name="item_category" id="item_category">
-							<option value="전자기기">전자기기</option>
-							<option value="의류">의류</option>
-							<option value="책">책</option>
-							<option value="레저/스포츠">레저/스포츠</option>
-							<option value="생활용품">생활용품</option>
-					</select></td>
-				</tr>
-
-				<tr>
-					<td><br></td>
-				</tr>
-
-				<tr>
-					<td><span><b>교환 희망 카테고리</b></span></td>
-				</tr>
-
-
-				<tr>
-					<td><select name="want_category" id="want_category">
-							<option value="전자기기">전자기기</option>
-							<option value="의류">의류</option>
-							<option value="도서">도서</option>
-							<option value="레저/스포츠">레저/스포츠</option>
-							<option value="생활용품">생활용품</option>
-					</select></td>
-				</tr>
-
-				<tr>
-					<td><br></td>
-				</tr>
-
-				<tr>
-					<td><span><b>약속 희망 장소</b></span></td>
-				</tr>
-
-				<tr>
-					<td><input type="text" placeholder="약속 장소" name="item_place"></td>
-				</tr>
-
-				<tr>
-					<td><br></td>
-				</tr>
-
-				<tr>
-					<td><span><b>비고</b></span></td>
-				</tr>
-
-				<tr>
-					<td><textarea name="board_content" id="board_content"
-							cols="30" rows="10" style="width: 300px;"></textarea></td>
-				</tr>
-
-				<tr>
-					<td><br></td>
-				</tr>
-
-				<tr>
-					<td><span><b>이미지 파일 업로드</b></span></td>
-				</tr>
-
-				<tr>
-					<td><input type="file" id="photo" name="photo"
-						enctype="multipart/form-data"></td>
-				</tr>
-
-				<tr>
-
-					<td><img id="preImage" width="500" height="400"
-						src="https://dummyimage.com/500x500/ffffff/000000.png&text=preview+image"></td>
-				</tr>
-
-				<tr>
-					<td><input type="submit" value="게시물 업로드" class="upload_btn"></td>
-				</tr>
-
-			</table>
-		</div>
-	</form>
-
+         <!--  검색창 관련 코드 -->
+         <a href="#"><i class='bx bx-search' id="search-icon"
+            onclick="toggleSearchBox()"></i></a>
+         <form action="search" method="get">
+            <div id="search-box">
+               <input type="text" placeholder="찾고 싶은 물품을 입력하세요"
+                  style="width: 300px;" name="item_name">
+               <button onclick="performSearch()">Search</button>
+            </div>
+         </form>
+      </div>
+   </header>
+   
+   
+   <section class="trending products" id="trending">
+      <c:forEach items="${search_value}" var="boardCategory">
+         <div class="row">
+            <!-- 누르면 상세 페이지로 이동하게 설정하기 -->
+            <a href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
+                <img src="data:image/png;base64,${boardCategory.item_img}" width="300" height="300" alt="">
+                    <!-- <img src="image/1.jpg" alt=""> -->
+                </a>
+            <div class="price">
+               <h4>${ boardCategory.item_name }</h4>
+               <p>${ boardCategory.want_category }</p>
+            </div>
+         </div>
+         </div>
+      </c:forEach>
+   </section>
+   
+   
 	<!-- 회원가입 모달 -->
 	<div class="modal" id="modal_join">
 		<!-- 모달 내용 -->
@@ -713,34 +611,6 @@ header.sticky {
 		</div>
 	</div>
 
-
-	<script type="text/javascript">
-		/* id가 preImage인 img 태그 가져오기 */
-		let preImage = document.getElementById("preImage");
-		let photo = document.getElementById("photo"); // input tag
-		// photo(input)에 이벤트(파일 선택, 변경)가 발생했을 때 img의 src 속성값을 변경
-		photo.addEventListener("change", e => {
-		   setImage(e.target) /*  실제 첨부된 이미지 다룰 수 있다*/
-		})
-		
-		function setImage(input) { //input : 첨부된 파일을 포함한 input 태그 요소
-		   
-		   // input 태그에 추가된 파일이 있는지!
-		   if (input.files && input.files[0]) {
-		      console.log(input.files)
-		      // e -> 발생한 모든 이벤트
-		      // FileReader 생성
-		       const reader = new FileReader
-		      reader.readAsDataURL(input.files[0]) // filereader 생성이 되었는지 확인
-		         
-		      reader.onload = e => {
-		         console.log(e)
-		         preImage.src = e.target.result
-		      }
-		   }
-		}
-	</script>
-
 	<script>
       const header = document.querySelector("header");
    
@@ -811,6 +681,5 @@ header.sticky {
            element.checked = true;
       }
    </script>
-
-</body>
+   </body>
 </html>

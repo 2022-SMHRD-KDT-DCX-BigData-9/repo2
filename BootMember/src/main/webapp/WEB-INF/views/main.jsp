@@ -195,8 +195,7 @@ header.sticky {
 
 .products {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, auto)); 
-	/* repeat(auto-fit, minmax(260px, auto)); */
+	grid-template-columns: repeat(auto-fit, minmax(260px, auto));
 	gap: 2rem;
 }
 
@@ -457,15 +456,16 @@ header.sticky {
 	background-color: #0074d9; /* 배경색 설정 */
 	color: #fff; /* 텍스트 색상 설정 */
 }
+
+.uploadBtn {
+	display: flex;
+	justify-content: center;
+	padding-bottom: 20px;
+}
 /* 검색창 관련 css  */
 #search-box {
 	display: none;
 }
-
-.uploadBtn {
-	
-}
-
 </style>
 </head>
 <body>
@@ -485,26 +485,21 @@ header.sticky {
 				</c:otherwise>
 			</c:choose>
 			<li><a href="product">products</a></li>
-			<li><a href="#">page</a></li>
-			<li><a href="#">Docs</a></li>
 		</ul>
+
 		<div class="nav-icon">
 			<a href="mypage"><i class='bx bx-user'></i></a>
 
 			<!--  검색창 관련 코드 -->
 			<a href="#"><i class='bx bx-search' id="search-icon"
 				onclick="toggleSearchBox()"></i></a>
-			<form action="product" method="get">
+			<form action="search" method="get">
 				<div id="search-box">
 					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
 						style="width: 300px;" name="item_name">
 					<button onclick="performSearch()">Search</button>
 				</div>
 			</form>
-
-			<a href="#"><i class='bx bx-cart'></i></a>
-
-			<div class="bx bx-menu" id="menu-icon"></div>
 		</div>
 
 	</header>
@@ -528,6 +523,34 @@ header.sticky {
 		</div>
 	</section>
 
+	<!-- 사용자가 로그인 시 추천 카테고리 상품 출력 -->
+	<c:if test="${ !empty loginUser }">
+		<div class="center-text">
+			<h2>
+				Our Product <span> Recommendations </span>
+			</h2>
+		</div>
+
+		<section class="trending products" id="trending">
+			<c:forEach items="${ recommendation }" var="rec">
+				<div class="row">
+					<a href="http://localhost:8087/bigdata/board/${rec.board_idx}">
+						<img src="data:image/png;base64,${rec.item_img}" width="300"
+						height="300" alt="">
+					</a>
+
+					<div class="price">
+						<!-- 제목 -->
+						<h4>${ rec.item_name }</h4>
+						<!-- 교환하고 싶은 카테고리 -->
+						<p>${ rec.want_category }</p>
+					</div>
+				</div>
+			</c:forEach>
+		</section>
+	</c:if>
+
+
 	<!-- 조회수가 높은 상위 8개 게시물 출력하기 -->
 	<div class="center-text">
 		<h2>
@@ -537,12 +560,11 @@ header.sticky {
 
 	<section class="trending products" id="trending">
 		<c:forEach items="${ boardRanking }" var="ranking">
-			<div class="products">
+			<div class="row">
 				<a href="http://localhost:8087/bigdata/board/${ranking.board_idx}">
-                <img src="data:image/png;base64,${ranking.item_img}" width="300" height="300" alt=""></a>
-					
-				<%-- <a href="board/${ ranking.board_idx }"> <img src="image/7.jpg"
-					alt=""></a> --%>
+					<img src="data:image/png;base64,${ranking.item_img}" width="300"
+					height="300" alt="">
+				</a>
 
 				<div class="price">
 					<!-- 제목 -->
@@ -554,159 +576,12 @@ header.sticky {
 		</c:forEach>
 	</section>
 
-	<!-- 사용자가 로그인 시 추천 카테고리 상품 출력 -->
 	<c:if test="${ !empty loginUser }">
-		<section class="trending product" id="trending">
-			<div class="center-text">
-				<h2>
-					Our Trending <span> Products </span>
-				</h2>
-			</div>
-
-			<div class="products">
-				<!-- 첫 번째 상품 -->
-				<div class="row">
-					<a href="#"> <img src="image/1.jpg" alt=""></a>
-					<div class="product-text">
-						<h5>Sale</h5>
-					</div>
-					<div class="price">
-						<h4>Half Running Set</h4>
-						<p>$99 - $129</p>
-					</div>
-				</div>
-			</div>
-		</section>
+		<div class="uploadBtn">
+			<button class="upload_thing_btn" onclick="redirectToURL()">게시물
+				쓰기</button>
+		</div>
 	</c:if>
-
-	<div class="uploadBtn">
-		<button class="upload_thing_btn" onclick="redirectToURL()">게시물
-			쓰기</button>
-	</div>
-
-
-
-	<!-- 회원 리뷰 section -->
-	<section class="Client-reivews">
-		<div class="reviews">
-
-			<h3>Client Reviews</h3>
-			<img src="image/team-1.jpg" alt="">
-			<p>맨투맨 느므느므 예쁨 쿠폰 다운받고 적립금 알차게 써서 적당한 가격에 구매했어요 리뷰에 세탁 한 번 돌렸더니 목
-				늘어났단 말이 많아서 저는 손빨래 하겠습니다 ,,, 날이ㅡ춥기도하고 부들거리는 느낌을 좋아해서 기모 추가했는데 하길 잘 한
-				것 같아요 검은색 맨투맨이라 칙칙할 수 있지만 가운데 자수가 너무 예뻐서 아주 굿이고 어떻게 코디해도 다 잘 어울려요 근데
-				기모치곤 살짝 얇은 편인 것 같긴해요 맨살이나 반팔에 입으면 지금 날씨에 쌀쌀 or 추움 그래서 어제 히트택이랑 같이
-				입었네요 아무튼 너무 예쁨 여기 브랜드 다 이쁜 듯</p>
-
-			<h2>Mark Jevenue</h2>
-			<p>Ceo of Addle</p>
-
-
-		</div>
-	</section>
-
-	<section class="Update-news">
-		<div class="up-center-text">
-			<h2>New Updates</h2>
-		</div>
-
-		<div class="update-cart">
-			<div class="cart">
-				<img src="image/bl-1.png" alt="">
-				<h5>26 jan 2022</h5>
-				<h4>Let's Start bring sale on this Summer Vacation</h4>
-				<p>일부 상품의 경우 주식회사 무신사는 통신판매의 당사자가 아닌 통신판매중개자로서 상품, 상품정보, 거래에 대한
-					책임이 제한될 수 있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기 바랍니다. 당사는 고객님이 현금 결제한 금액에
-					대해 우리은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.</p>
-				<h6>Continue Reading...</h6>
-			</div>
-
-			<div class="cart">
-				<img src="image/bl-2.png" alt="">
-				<h5>26 jan 2022</h5>
-				<h4>Let's Start bring sale on this Summer Vacation</h4>
-				<p>일부 상품의 경우 주식회사 무신사는 통신판매의 당사자가 아닌 통신판매중개자로서 상품, 상품정보, 거래에 대한
-					책임이 제한될 수 있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기 바랍니다. 당사는 고객님이 현금 결제한 금액에
-					대해 우리은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.</p>
-				<h6>Continue Reading...</h6>
-			</div>
-
-			<div class="cart">
-				<img src="image/bl-3.png" alt="">
-				<h5>26 jan 2022</h5>
-				<h4>Let's Start bring sale on this Summer Vacation</h4>
-				<p>일부 상품의 경우 주식회사 무신사는 통신판매의 당사자가 아닌 통신판매중개자로서 상품, 상품정보, 거래에 대한
-					책임이 제한될 수 있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기 바랍니다. 당사는 고객님이 현금 결제한 금액에
-					대해 우리은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다.</p>
-				<h6>Continue Reading...</h6>
-			</div>
-
-
-		</div>
-	</section>
-
-	<!-- Contact section -> 담당자  전화번호, 이메일 -->
-	<section class="contact">
-		<div class="contact-info">
-			<div class="first-info">
-				<img src="image/logo.png" alt="">
-
-				<p>
-					3245 Grant Street Longview, <br> TX United Kingdom 765378
-				</p>
-				<p>01049096453</p>
-				<p>deer2073@naver.com</p>
-
-				<div class="social-icon">
-					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i
-						class='bx bxl-twitter'></i></a> <a href="#"><i
-						class='bx bxl-instagram'></i></a> <a href="#"><i
-						class='bx bxl-youtube'></i></a> <a href="#"><i
-						class='bx bxl-linkedin'></i></a>
-
-				</div>
-			</div>
-
-			<div class="second-info">
-				<h4>Support</h4>
-				<p>Contact us</p>
-				<p>About page</p>
-				<p>Size Guide</p>
-				<p>Shopping & Resturns</p>
-				<p>Privacy</p>
-			</div>
-
-			<div class="thrid-info">
-				<h4>Shop</h4>
-				<p>Men's Shopping</p>
-				<p>Women's Shopping</p>
-				<p>Kid's Shopping</p>
-				<p>Furniture</p>
-				<p>Discount</p>
-			</div>
-
-
-			<div class="fourth-info">
-				<h4>Company</h4>
-				<p>About</p>
-				<p>Blog</p>
-				<p>Affiliate</p>
-				<p>Login</p>
-			</div>
-
-			<div class="five">
-				<h4>Subscribe</h4>
-				<p>Receive updates, Hot Deals, Discounts Sent Sent Straight in
-					your Inbox Daily</p>
-				<p>Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit. Eum,
-					Debitis.</p>
-				<p>Receive Updates, Hot deals, Discounts Sent Straight In Your
-					Inbox Daily</p>
-
-			</div>
-		</div>
-		</div>
-	</section>
 
 	<!-- 회원가입 모달 -->
 	<div class="modal" id="modal_join">
@@ -746,23 +621,26 @@ header.sticky {
 						<legend>관심 카테고리</legend>
 						<div>
 							<input type="checkbox" id="electro" name="user_category"
-								value="전자제품" /> <label for="electro">전자제품</label>
+								value="전자제품" onclick="category_check(this)" /> <label
+								for="electro">전자제품</label>
 						</div>
 						<div>
 							<input type="checkbox" id="daily" name="user_category"
-								value="생활용품" /> <label for="daily">생활용품</label>
+								value="생활용품" onclick="category_check(this)" /> <label
+								for="daily">생활용품</label>
 						</div>
 						<div>
 							<input type="checkbox" id="sport" name="user_category"
-								value="스포츠" /> <label for="sport">스포츠/레져</label>
+								value="스포츠/레저" onclick="category_check(this)" /> <label
+								for="sport">스포츠/레저</label>
 						</div>
 						<div>
-							<input type="checkbox" id="cloth" name="user_category" value="의류" />
-							<label for="cloth">의류</label>
+							<input type="checkbox" id="cloth" name="user_category" value="의류"
+								onclick="category_check(this)" /> <label for="cloth">의류</label>
 						</div>
 						<div>
-							<input type="checkbox" id="book" name="user_category" value="도서" />
-							<label for="book">도서</label>
+							<input type="checkbox" id="book" name="user_category" value="책"
+								onclick="category_check(this)" /> <label for="book">책</label>
 						</div>
 					</fieldset>
 					<!-- 모달 푸터-->
@@ -805,62 +683,73 @@ header.sticky {
 
 
 	<script>
-			const header = document.querySelector("header");
+		const header = document.querySelector("header");
+	
+		window.addEventListener("scroll", function() {
+		header.classList.toggle("sticky", this.window.scrollY > 0);
+		})
+	
+		const modalJoin = document.querySelector('#modal_join');
+		const modalLogin = document.querySelector('#modal_login');
+		const btnOpenJoinPopup = document.querySelector('.btn-open-join');
+		const btnOpenLoginPopup = document.querySelector('.btn-open-login');
+		const btnClosePopup = document.querySelector('.btn-close-popup');
+	
+		// 회원가입 모달 열기
+		btnOpenJoinPopup.addEventListener('click', () => {
+			modalJoin.style.display = 'block';
+		});
+	
+		// 로그인 모달 열기
+		btnOpenLoginPopup.addEventListener('click', () => {
+			modalLogin.style.display = 'block';
+		});
+	
+		// 모달 닫기
+		btnClosePopup.addEventListener('click', () => {
+			modalJoin.style.display = 'none';
+			modalLogin.style.display = 'none';
+		});
+	
+		// 모달 이외 창 추가해서 닫기
+		modalJoin.addEventListener('click', (e) => {
+			if (e.target === modalJoin) {
+			modalJoin.style.display = 'none';
+			}
+		});
+	
+		modalLogin.addEventListener('click', (e) => {
+			if (e.target === modalLogin) {
+			modalLogin.style.display = 'none';
+			}
+		});
 		
-			window.addEventListener("scroll", function() {
-			header.classList.toggle("sticky", this.window.scrollY > 0);
-			})
+		function redirectToURL() {
+            // 원하는 URL로 이동
+            window.location.href = "upload";
+        }
 		
-			const modalJoin = document.querySelector('#modal_join');
-			const modalLogin = document.querySelector('#modal_login');
-			const btnOpenJoinPopup = document.querySelector('.btn-open-join');
-			const btnOpenLoginPopup = document.querySelector('.btn-open-login');
-			const btnClosePopup = document.querySelector('.btn-close-popup');
-		
-			// 회원가입 모달 열기
-			btnOpenJoinPopup.addEventListener('click', () => {
-				modalJoin.style.display = 'block';
-			});
-		
-			// 로그인 모달 열기
-			btnOpenLoginPopup.addEventListener('click', () => {
-				modalLogin.style.display = 'block';
-			});
-		
-			// 모달 닫기
-			btnClosePopup.addEventListener('click', () => {
-				modalJoin.style.display = 'none';
-				modalLogin.style.display = 'none';
-			});
-		
-			// 모달 이외 창 추가해서 닫기
-			modalJoin.addEventListener('click', (e) => {
-				if (e.target === modalJoin) {
-				modalJoin.style.display = 'none';
-				}
-			});
-		
-			modalLogin.addEventListener('click', (e) => {
-				if (e.target === modalLogin) {
-				modalLogin.style.display = 'none';
-				}
-			});
-			
-			function redirectToURL() {
-	            // 원하는 URL로 이동
-	            window.location.href = "upload";
-	        }
-			
-			function toggleSearchBox() {
-	            var searchBox = document.getElementById("search-box");
-	            if (searchBox.style.display === "none" || searchBox.style.display === "") {
-	                searchBox.style.display = "block";
-	            } else {
-	                searchBox.style.display = "none";
-	            }
-	        }
-
-	       
-		</script>
+		function toggleSearchBox() {
+            var searchBox = document.getElementById("search-box");
+            if (searchBox.style.display === "none" || searchBox.style.display === "") {
+                searchBox.style.display = "block";
+            } else {
+                searchBox.style.display = "none";
+            }
+        }
+	</script>
+	<!-- 체크박스 하나만 선택할 수 있게 하는 JS -->
+	<script>
+	   function category_check(element) {
+		   const checkboxes 
+		      = document.getElementsByName("user_category");
+		   
+		   checkboxes.forEach((cb) => {
+			    cb.checked = false;
+			  })
+			  
+			  element.checked = true;
+		}
+   </script>
 </body>
 </html>

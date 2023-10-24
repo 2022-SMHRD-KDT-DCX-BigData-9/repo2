@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smhrd.bigdata.converter.ImageConverter;
 import com.smhrd.bigdata.converter.ImageToBase64;
@@ -41,7 +43,8 @@ public class BoardController {
 	}
 
 	@GetMapping("/mypage")
-	public String mypage(@ModelAttribute UserInfo userinfo, HttpSession session) {
+	public String mypage(@ModelAttribute UserInfo userinfo, HttpSession session,
+			@RequestParam(name = "page", defaultValue = "1") int page, Model model) throws IOException {
 		// 세션에 저장되어있는 유저 정보 가져오기 (로그인 되어있는 값)
 		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
 
@@ -52,18 +55,37 @@ public class BoardController {
 
 		userinfo.setUser_email(currentLogin.getUser_email());
 
-		List<BoardInfo> list = service.userBoard(userinfo);
+		// 페이징 기능
+		int postsPerPage = 8; // 한 페이지에 출력할 게시글 갯수
+		int offset = (page - 1) * postsPerPage; // 어디서 부터 가져올지 설정하는 값; limit와 함께 쓰임
 
-		System.out.println(list);
+		List<BoardInfo> list = service.getUserPostsByPage(userinfo, offset, postsPerPage);
 
-		session.setAttribute("userBoard", list);
+		for (BoardInfo b : list) {
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
+					+ b.getItem_img());
+			ImageConverter<File, String> converter = new ImageToBase64();
+			String fileStringValue = converter.convert(file);
+			b.setItem_img(fileStringValue);
+			model.addAttribute("userBoard", list);
+		}
+
+		// 사용자의 총 게시글 수 가져오기
+		int totalUserPosts = service.getTotalUserPosts(userinfo);
+		System.out.println(totalUserPosts);
+
+		// 페이지 갯수 계산하는 식
+		int totalPages = (int) Math.ceil((double) totalUserPosts / postsPerPage);
+		System.out.println(totalPages);
 		
+		model.addAttribute("userBoard", list);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
+
 		return "mypage";
 	}
 
-
 	public String mypage() {
-
 		return "mypage";
 	}
 
@@ -102,20 +124,7 @@ public class BoardController {
 		return "redirect:/";
 	}
 
-
 	// --------------------------------------------------------------------------------------------------------------------------
-
-	// 게시글 리스트 출력 기능 ---- 필요 없는듯?
-	@GetMapping("/boardList")
-	public String boardInfo(Model model) {
-		List<BoardInfo> list = service.boardList();
-
-		model.addAttribute("boardList", list);
-		// 페이지에 출력하기 위해 model에 저장하기
-
-		return ""; // 페이지 이동
-	}
-
 
 	// 게시글 상세 페이지 출력 기능
 	@GetMapping("/board/{board_idx}")
@@ -123,9 +132,8 @@ public class BoardController {
 
 		BoardInfo b = service.boardDetail(board_idx);
 
-		File file = new File(
-				"c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\" + b.getItem_img());
-//		c:\\uploadImage\\
+		File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
+				+ b.getItem_img());
 		ImageConverter<File, String> converter = new ImageToBase64();
 		String fileStringValue = converter.convert(file);
 
@@ -137,10 +145,7 @@ public class BoardController {
 		return "detail"; // 페이지 이동
 	}
 
-
 //-------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 	// 카테고리 페이지 출력 기능
 	@GetMapping("/product")
@@ -153,7 +158,7 @@ public class BoardController {
 			/*
 			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
 			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
@@ -171,7 +176,7 @@ public class BoardController {
 			/*
 			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
 			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
@@ -183,53 +188,38 @@ public class BoardController {
 
 //		-----------------------------------------------------------------------------------------------
 		List<BoardInfo> list3 = service.sports();
-		ArrayList<BoardInfo> nlist3 = new ArrayList<BoardInfo>();
 
 		for (BoardInfo b : list3) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist3.add(b);
 			model.addAttribute("boardDetail", b);
 
 		}
 
 //		-----------------------------------------------------------------------------------------------
 		List<BoardInfo> list4 = service.clothes();
-		ArrayList<BoardInfo> nlist4 = new ArrayList<BoardInfo>();
 
 		for (BoardInfo b : list4) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist4.add(b);
 			model.addAttribute("boardDetail", b);
 
 		}
 		// -----------------------------------------------------------
 
 		List<BoardInfo> list5 = service.lifegoods();
-		ArrayList<BoardInfo> nlist5 = new ArrayList<BoardInfo>();
 		for (BoardInfo b : list5) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist5.add(b);
 			model.addAttribute("boardDetail", b);
 
 		}
@@ -250,88 +240,59 @@ public class BoardController {
 
 		List<BoardInfo> list1 = service.electronics();
 
-		ArrayList<BoardInfo> nlist1 = new ArrayList<BoardInfo>();
-
 		for (BoardInfo b : list1) {
 
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist1.add(b);
 			model.addAttribute("boardDetail", b);
 
 		}
 
 		List<BoardInfo> list2 = service.books();
 
-		ArrayList<BoardInfo> nlist2 = new ArrayList<BoardInfo>();
-
 		for (BoardInfo b : list2) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist2.add(b);
 			model.addAttribute("boardDetail", b);
 
 		}
 
 		List<BoardInfo> list3 = service.sports();
 
-		ArrayList<BoardInfo> nlist3 = new ArrayList<BoardInfo>();
-
 		for (BoardInfo b : list3) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist3.add(b);
 			model.addAttribute("boardDetail", b);
-
 		}
 
 		List<BoardInfo> list4 = service.clothes();
 
-		ArrayList<BoardInfo> nlist4 = new ArrayList<BoardInfo>();
-
 		for (BoardInfo b : list4) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist4.add(b);
 			model.addAttribute("boardDetail", b);
-
 		}
 
 		List<BoardInfo> list5 = service.lifegoods();
 
-		ArrayList<BoardInfo> nlist5 = new ArrayList<BoardInfo>();
-
 		for (BoardInfo b : list5) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
-			File file = new File("c:\\Users\\smhrd\\git\\project\\BootMember\\src\\main\\resources\\static\\image\\"
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nlist5.add(b);
 			model.addAttribute("boardDetail", b);
 
 		}
@@ -347,22 +308,29 @@ public class BoardController {
 		return item_category;
 	}
 
-
-	// 메인페이지에
-	// 조회수가 높은 상위 8개 출력
-	// 추천 기능 출력
-
-	// 메인페이지에 조회수가 높은 상위 8개
-	// 출력---------------------------------------------------------------------------------------------------------------
-
-
-	// 메인페이지에 조회수가 높은 상위 8개 출력
-
+	// 메인페이지에 조회수가 높은 상위 8개 + 추천 기능 출력
+// ---------------------------------------------------------------------------------------------------------------
 	@GetMapping("/")
-	public String boardRanking(HttpSession session, Model model) throws IOException {
+	public String boardRanking(@ModelAttribute UserInfo userinfo, HttpSession session) throws IOException {
 		List<BoardInfo> boardRanking = service.boardRanking();
 
-		ArrayList<BoardInfo> nboardRanking = new ArrayList<BoardInfo>();
+		UserInfo result = (UserInfo) session.getAttribute("loginUser");
+		System.out.println(result);
+		// 세션에 저장되어있는 유저 정보 가져오기
+		if (result != null) {
+			List<BoardInfo> recommendation = service.recommendation(result);
+			System.out.println(recommendation);
+			for (BoardInfo r : recommendation) {
+				File file = new File(
+						"c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
+								+ r.getItem_img());
+				ImageConverter<File, String> converter = new ImageToBase64();
+				String fileStringValue = converter.convert(file);
+				r.setItem_img(fileStringValue);
+			}
+			session.setAttribute("recommendation", recommendation);
+		}
+
 		for (BoardInfo b : boardRanking) {
 
 			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
@@ -370,24 +338,35 @@ public class BoardController {
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			nboardRanking.add(b);
-			session.setAttribute("boardRanking", boardRanking);
 			// 페이지에 출력하기 위해 model에 저장하기
-
-			UserInfo result = (UserInfo) session.getAttribute("loginUser");
-
-			// 세션에 저장되어있는 유저 정보 가져오기
-			if (result != null) {
-				List<BoardInfo> recommendation = service.recommendation(result);
-				session.setAttribute("recommendation", recommendation);
-			}
-
-			// 조회수 높은 상위 8개 정보 세션에 저장
-			session.setAttribute("boardRanking", boardRanking);
-
-			return "main"; // 페이지 이동
 		}
-		return "main";
+		// 조회수 높은 상위 8개 정보 세션에 저장
+		session.setAttribute("boardRanking", boardRanking);
 
+		// 페이지 이동
+		return "main";
 	}
+
+// ---------------------------------------------------------------------------------------------------------------
+	// 검색 기능
+	@RequestMapping("/search")
+	public String m1(@RequestParam(value = "item_name", required = false) String no, Model model) throws IOException {
+		System.out.println(no);
+		List<BoardInfo> list = service.search(no);
+		System.out.println(list);
+
+		for (BoardInfo b : list) {
+
+			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
+					+ b.getItem_img());
+			ImageConverter<File, String> converter = new ImageToBase64();
+			String fileStringValue = converter.convert(file);
+			b.setItem_img(fileStringValue);
+
+		}
+
+		model.addAttribute("search_value", list);
+		return "search";
+	}
+
 }
