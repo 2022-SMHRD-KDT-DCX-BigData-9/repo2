@@ -282,11 +282,10 @@ public class BoardController {
 		List<BoardInfo> boardRanking = service.boardRanking();
 
 		UserInfo result = (UserInfo) session.getAttribute("loginUser");
-		System.out.println(result);
+
 		// 세션에 저장되어있는 유저 정보 가져오기
 		if (result != null) {
 			List<BoardInfo> recommendation = service.recommendation(result);
-			System.out.println(recommendation);
 			for (BoardInfo r : recommendation) {
 				File file = new File(
 						"c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
@@ -307,9 +306,9 @@ public class BoardController {
 			b.setItem_img(fileStringValue);
 			// 페이지에 출력하기 위해 model에 저장하기
 		}
+		
 		// 조회수 높은 상위 8개 정보 세션에 저장
 		session.setAttribute("boardRanking", boardRanking);
-
 		// 페이지 이동
 		return "main";
 	}

@@ -96,7 +96,8 @@
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
+						<p>${ boardCategory.want_category }</p>
+						<span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -114,20 +115,20 @@
 			<!-- 첫번째 카테고리 - 상품 4개 -->
 			<div class="products">
 				<div class="row">
-					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
 
+					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
 					<a
 						href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
 						<img src="data:image/png;base64,${boardCategory.item_img}"
 						width="300" height="300" alt=""> <!-- <img src="image/1.jpg" alt=""> -->
 					</a>
 
-
 					<div class="price">
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
+						<p>${ boardCategory.want_category }</p>
+						<span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -156,7 +157,8 @@
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
+						<p>${ boardCategory.want_category }</p>
+						<span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -175,7 +177,6 @@
 			<div class="products">
 				<div class="row">
 					<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
-
 					<a
 						href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
 						<img src="data:image/png;base64,${boardCategory.item_img}"
@@ -187,7 +188,8 @@
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
+						<p>${ boardCategory.want_category }</p>
+						<span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -216,7 +218,8 @@
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
+						<p>${ boardCategory.want_category }</p>
+						<span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
