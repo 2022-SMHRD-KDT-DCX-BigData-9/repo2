@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.bigdata.mapper.UserMapper">
+
 	<!-- 회원가입 -->
 	<insert id="join"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
@@ -37,7 +38,8 @@
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
 		update user_info set user_pw = #{user_pw}, user_nick =
 		#{user_nick}, user_category = #{user_category}
-		where user_email = #{user_email}
+		where user_email =
+		#{user_email}
 	</update>
 
 	<!-- 게시글 리스트 출력 -->
@@ -56,7 +58,7 @@
 	<!-- 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능 -->
 	<select id="electronics"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '전자기기'
+		select * from board_info where item_category like '전자제품'
 	</select>
 	<select id="books"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
@@ -68,7 +70,7 @@
 	</select>
 	<select id="sports"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '레저/스포츠'
+		select * from board_info where item_category like '스포츠/레저'
 	</select>
 	<select id="lifegoods"
 		resultType="com.smhrd.bigdata.entity.BoardInfo">
@@ -80,12 +82,6 @@
 	<select id="reviewList"
 		resultType="com.smhrd.bigdata.entity.ReviewInfo">
 		select * from review_info
-	</select>
-
-	<!-- 제목으로 검색 할 수 있는 기능 -->
-	<select id="search"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_name like '%${search}%'
 	</select>
 
 	<!-- 조회수 높은 순서대로 출력하는 기능 -->
@@ -102,7 +98,7 @@
 	<!-- 카테고리에 맞춰 추천하는 기능 -->
 	<select id="recommendation"
 		resultType="com.smhrd.bigdata.entity.BoardInfo"
-		parameterType="com.smhrd.bigdata.entity.BoardInfo">
+		parameterType="com.smhrd.bigdata.entity.UserInfo">
 		select b.*
 		from board_info b
 		where b.item_category =
@@ -110,10 +106,42 @@
 		u.user_email =
 		#{user_email}) limit 8;
 	</select>
-	
+
 	<!-- 유저가 작성한 게시글 보여주는 기능 -->
-	<select id="userBoard" resultType="com.smhrd.bigdata.entity.BoardInfo">
+	<select id="userBoard"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
 		select * from board_info where user_email = #{user_email}
 	</select>
-	
+
+	<!-- 페이징 기능 -->
+	<select id="countUserPosts"
+		parameterType="com.smhrd.bigdata.entity.BoardInfo" resultType="int">
+		select
+		count(*) from board_info where user_email = #{user_email}
+	</select>
+
+	<select id="getUserPostsByPage" parameterType="map"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where user_email = #{user_email}
+		limit #{limit} offset #{offset}
+	</select>
+
+
+	<!-- 검색 기능 -->
+	<select id="search"
+		resultType="com.smhrd.bigdata.entity.BoardInfo" parameterType="String">
+		SELECT *
+		FROM board_info where item_name LIKE CONCAT('%',#{item_name},'%')
+		or
+		item_category LIKE CONCAT('%',#{item_name},'%');
+	</select>
+
+	<!-- 조회수 기능 -->
+	<update id="view_increase"
+		parameterType="com.smhrd.bigdata.entity.BoardInfo">
+		UPDATE board_info SET board_views = board_views + 1 where board_idx =
+		#{board_idx}
+	</update>
+
+
 </mapper>

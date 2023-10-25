@@ -3,6 +3,7 @@ package com.smhrd.bigdata.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.smhrd.bigdata.entity.BoardInfo;
 import com.smhrd.bigdata.entity.ReviewInfo;
@@ -28,8 +29,6 @@ public interface UserMapper {
 	// 게시글 상세 페이지 출력 기능 -- 리턴타입 BoardInfo
 	public BoardInfo boardDetail(Long board_idx);
 
-	// 카테고리별 게시물 출력 기능 -- 리턴타입 List<BoardInfo>
-
 	public List<BoardInfo> electronics();
 
 	public List<BoardInfo> books();
@@ -43,15 +42,23 @@ public interface UserMapper {
 	// 후기 목록 출력 기능 -- 리턴타입 List<ReviewInfo>
 	public List<ReviewInfo> reviewList();
 
-	// 검색 기능
-	public List<BoardInfo> search(String search);
-
 	// 조회수 높은 순서대로 출력하는 기능
 	public List<BoardInfo> boardRanking();
-	
+
 	// 카테고리에 맞춰 추천하는 기능
 	public List<BoardInfo> recommendation(UserInfo userinfo);
-	
+
 	// 유저가 작성한 게시글 보여주는 기능
 	public List<BoardInfo> userBoard(UserInfo userinfo);
+	
+	// 페이징 기능
+	public int countUserPosts(String user_email);
+	public List<BoardInfo> getUserPostsByPage(@Param("user_email") String user_email, @Param("offset") int offset, @Param("limit") int limit);
+	
+	// 검색 기능
+	public List<BoardInfo> search(String item_name);
+	
+	// 조회수 기능
+	public int view_increase(BoardInfo b);
+
 }
