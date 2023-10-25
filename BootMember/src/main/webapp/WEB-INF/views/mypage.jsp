@@ -525,7 +525,7 @@ header.sticky {
 					<h4>
 						<p>${ b.item_name }</p>
 					</h4>
-					<p>${ b.want_category }</p>
+					<p>${ b.want_category }</p><span><b>views</b>: ${b.board_views}</span>
 				</div>
 			</div>
 		</c:forEach>

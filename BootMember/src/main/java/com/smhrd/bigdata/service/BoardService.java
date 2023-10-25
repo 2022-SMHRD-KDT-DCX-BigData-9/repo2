@@ -78,7 +78,7 @@ public class BoardService {
 	// 페이징 기능
 	public List<BoardInfo> getUserPostsByPage(UserInfo userinfo, int offset, int limit) {
 		List<BoardInfo> userPosts = mapper.getUserPostsByPage(userinfo.getUser_email(), offset, limit);
-	    return userPosts;
+		return userPosts;
 	}
 
 	public int getTotalUserPosts(UserInfo userinfo) {
@@ -91,6 +91,12 @@ public class BoardService {
 	public List<BoardInfo> search(String item_name) {
 		List<BoardInfo> list = mapper.search(item_name);
 		return list;
+	}
+
+	// 조회수 기능
+	public int view_increase(BoardInfo b) {
+		int result = mapper.view_increase(b);
+		return result;
 	}
 
 }

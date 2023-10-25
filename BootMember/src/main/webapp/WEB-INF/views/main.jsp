@@ -543,7 +543,7 @@ header.sticky {
 						<!-- 제목 -->
 						<h4>${ rec.item_name }</h4>
 						<!-- 교환하고 싶은 카테고리 -->
-						<p>${ rec.want_category }</p>
+						<p><b>${ rec.want_category }</b></p> <span><b>views</b>: ${rec.board_views}</span>
 					</div>
 				</div>
 			</c:forEach>
@@ -570,7 +570,7 @@ header.sticky {
 					<!-- 제목 -->
 					<h4>${ ranking.item_name }</h4>
 					<!-- 교환하고 싶은 카테고리 -->
-					<p>${ ranking.want_category }</p>
+					<p><b>${ ranking.want_category }</b></p> <span><b>views</b>: ${ranking.board_views}</span>
 				</div>
 			</div>
 		</c:forEach>

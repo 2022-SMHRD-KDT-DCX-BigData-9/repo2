@@ -57,5 +57,8 @@ public interface UserMapper {
 	
 	// 검색 기능
 	public List<BoardInfo> search(String item_name);
+	
+	// 조회수 기능
+	public int view_increase(BoardInfo b);
 
 }

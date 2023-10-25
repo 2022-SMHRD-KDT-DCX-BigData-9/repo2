@@ -550,7 +550,7 @@ header.sticky {
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p>
+						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -581,7 +581,7 @@ header.sticky {
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p>
+						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -610,7 +610,7 @@ header.sticky {
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p>
+						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -641,7 +641,7 @@ header.sticky {
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p>
+						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>
@@ -670,7 +670,7 @@ header.sticky {
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p>
+						<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>
 			</div>

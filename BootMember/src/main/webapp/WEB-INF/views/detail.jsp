@@ -642,16 +642,16 @@ header.sticky {
 					</form>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="product">products</a></li>
+			<li><a href="../product">products</a></li>
 		</ul>
 
 		<div class="nav-icon">
-			<a href="mypage"><i class='bx bx-user'></i></a>
+			<a href="../mypage"><i class='bx bx-user'></i></a>
 
 			<!--  검색창 관련 코드 -->
 			<a href="#"><i class='bx bx-search' id="search-icon"
 				onclick="toggleSearchBox()"></i></a>
-			<form action="search" method="get">
+			<form action="../search" method="get">
 				<div id="search-box">
 					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
 						style="width: 300px;" name="item_name">

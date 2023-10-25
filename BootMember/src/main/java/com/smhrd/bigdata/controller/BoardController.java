@@ -77,7 +77,7 @@ public class BoardController {
 		// 페이지 갯수 계산하는 식
 		int totalPages = (int) Math.ceil((double) totalUserPosts / postsPerPage);
 		System.out.println(totalPages);
-		
+
 		model.addAttribute("userBoard", list);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
@@ -99,8 +99,8 @@ public class BoardController {
 		return "boardwrite";
 	}
 
+// --------------------------------------------------------------------------------------------------------------------------
 	// 게시글 작성
-	// --------------------------------------------------------------------------------------------------------------------------
 	@PostMapping("/boardWrite")
 	public String boardWrite(BoardInfo b, @RequestPart("photo") MultipartFile photo) {
 		// 파일 이름이 겹치지 않도록 -> UUID (시스템 적으로 절대 겹치지 않는 문자열 생성)
@@ -124,8 +124,7 @@ public class BoardController {
 		return "redirect:/";
 	}
 
-	// --------------------------------------------------------------------------------------------------------------------------
-
+// --------------------------------------------------------------------------------------------------------------------------
 	// 게시글 상세 페이지 출력 기능
 	@GetMapping("/board/{board_idx}")
 	public String content(@PathVariable("board_idx") long board_idx, Model model) throws IOException {
@@ -139,14 +138,14 @@ public class BoardController {
 
 		b.setItem_img(fileStringValue);
 		model.addAttribute("boardDetail", b);
-		System.out.println(b);
 		// 페이지에 출력하기 위해 model에 저장하기
+
+		int result = service.view_increase(b);
 
 		return "detail"; // 페이지 이동
 	}
 
-//-------------------------------------------------------------------------------------------------------------------------------------------
-
+// --------------------------------------------------------------------------------------------------------------------------
 	// 카테고리 페이지 출력 기능
 	@GetMapping("/product")
 	public String boardCategory(HttpSession session, Model model) throws IOException {
@@ -155,9 +154,6 @@ public class BoardController {
 		ArrayList<BoardInfo> nlist1 = new ArrayList<BoardInfo>();
 
 		for (BoardInfo b : list1) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
 			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
@@ -168,14 +164,11 @@ public class BoardController {
 
 		}
 
-// -----------------------------------------------------------
+		// -----------------------------------------------------------
 		List<BoardInfo> list2 = service.books();
 		ArrayList<BoardInfo> nlist2 = new ArrayList<BoardInfo>();
 
 		for (BoardInfo b : list2) {
-			/*
-			 * long num = 100541759498485809L; if (b.getBoard_idx() == num) {
-			 */
 			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
@@ -186,7 +179,7 @@ public class BoardController {
 
 		}
 
-//		-----------------------------------------------------------------------------------------------
+		// -----------------------------------------------------------
 		List<BoardInfo> list3 = service.sports();
 
 		for (BoardInfo b : list3) {
@@ -199,7 +192,7 @@ public class BoardController {
 
 		}
 
-//		-----------------------------------------------------------------------------------------------
+		// -----------------------------------------------------------
 		List<BoardInfo> list4 = service.clothes();
 
 		for (BoardInfo b : list4) {
@@ -212,7 +205,6 @@ public class BoardController {
 
 		}
 		// -----------------------------------------------------------
-
 		List<BoardInfo> list5 = service.lifegoods();
 		for (BoardInfo b : list5) {
 			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
@@ -223,7 +215,7 @@ public class BoardController {
 			model.addAttribute("boardDetail", b);
 
 		}
-
+		// -----------------------------------------------------------
 		session.setAttribute("electronics", list1);
 		session.setAttribute("books", list2);
 		session.setAttribute("sports", list3);
@@ -236,80 +228,58 @@ public class BoardController {
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 	// 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능
 	@GetMapping("/{item_category}")
-	public String category(@PathVariable String item_category, HttpSession session, Model model) throws IOException {
+	public String category(@PathVariable String item_category, HttpSession session,
+			@RequestParam(name = "page", defaultValue = "1") int page, Model model) throws IOException {
 
-		List<BoardInfo> list1 = service.electronics();
+		// 선택된 카테고리를 담는 List<BoardInfo>
+		List<BoardInfo> categoryList = null;
 
-		for (BoardInfo b : list1) {
+		// 카테고리 선택시 해당 카테고리 관련된 메소드 불러오기
+		if ("electronics".equals(item_category)) {
+			categoryList = service.electronics();
+		} else if ("books".equals(item_category)) {
+			categoryList = service.books();
+		} else if ("sports".equals(item_category)) {
+			categoryList = service.sports();
+		} else if ("clothes".equals(item_category)) {
+			categoryList = service.clothes();
+		} else if ("lifegoods".equals(item_category)) {
+			categoryList = service.lifegoods();
+		}
 
+		// 페이징 관련 식 계산
+		int postsPerPage = 8; // 페이지 당 게시글 수
+		int offset = (page - 1) * postsPerPage; // 어디서 부터 가져올지 설정하는 값; limit와 함께 쓰인다
+
+		// 선택된 카테고리 페이지에 해당하는 List<BoardInfo> 추출하기
+		int fromIndex = offset; // 시작 인덱스
+		int toIndex = Math.min(offset + postsPerPage, categoryList.size()); // 가장 작은 값을 반환한다
+		List<BoardInfo> paginatedList = categoryList.subList(fromIndex, toIndex); // fromIndex부터 toIndex까지 반환한다
+
+		// 사진 출력 관련 for문
+		for (BoardInfo b : paginatedList) {
 			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
 					+ b.getItem_img());
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			model.addAttribute("boardDetail", b);
-
 		}
 
-		List<BoardInfo> list2 = service.books();
+		// 카테고리와 페이징 기능이 적용된 게시글 리스트 저장
+		model.addAttribute("category", item_category);
+		model.addAttribute("categoryList", paginatedList);
 
-		for (BoardInfo b : list2) {
-			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
-					+ b.getItem_img());
-			ImageConverter<File, String> converter = new ImageToBase64();
-			String fileStringValue = converter.convert(file);
-			b.setItem_img(fileStringValue);
-			model.addAttribute("boardDetail", b);
-
-		}
-
-		List<BoardInfo> list3 = service.sports();
-
-		for (BoardInfo b : list3) {
-			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
-					+ b.getItem_img());
-			ImageConverter<File, String> converter = new ImageToBase64();
-			String fileStringValue = converter.convert(file);
-			b.setItem_img(fileStringValue);
-			model.addAttribute("boardDetail", b);
-		}
-
-		List<BoardInfo> list4 = service.clothes();
-
-		for (BoardInfo b : list4) {
-			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
-					+ b.getItem_img());
-			ImageConverter<File, String> converter = new ImageToBase64();
-			String fileStringValue = converter.convert(file);
-			b.setItem_img(fileStringValue);
-			model.addAttribute("boardDetail", b);
-		}
-
-		List<BoardInfo> list5 = service.lifegoods();
-
-		for (BoardInfo b : list5) {
-			File file = new File("c:\\Users\\smhrd\\git\\project_1\\BootMember\\src\\main\\resources\\static\\image\\"
-					+ b.getItem_img());
-			ImageConverter<File, String> converter = new ImageToBase64();
-			String fileStringValue = converter.convert(file);
-			b.setItem_img(fileStringValue);
-			model.addAttribute("boardDetail", b);
-
-		}
-
-		session.setAttribute("category", item_category);
-
-		session.setAttribute("electronics", list1);
-		session.setAttribute("books", list2);
-		session.setAttribute("sports", list3);
-		session.setAttribute("clothes", list4);
-		session.setAttribute("lifegoods", list5);
+		// 페이징 자체 설정
+		int totalPosts = categoryList.size(); // 전체 게시글 수
+		int totalPages = (int) Math.ceil((double) totalPosts / postsPerPage); // 페이징 갯수
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", totalPages);
 
 		return item_category;
 	}
 
-	// 메인페이지에 조회수가 높은 상위 8개 + 추천 기능 출력
 // ---------------------------------------------------------------------------------------------------------------
+	// 메인페이지에 조회수가 높은 상위 8개 + 추천 기능 출력
 	@GetMapping("/")
 	public String boardRanking(@ModelAttribute UserInfo userinfo, HttpSession session) throws IOException {
 		List<BoardInfo> boardRanking = service.boardRanking();

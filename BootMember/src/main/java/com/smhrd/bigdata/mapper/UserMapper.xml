@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.bigdata.mapper.UserMapper">
+
 	<!-- 회원가입 -->
 	<insert id="join"
 		parameterType="com.smhrd.bigdata.entity.UserInfo">
@@ -115,7 +116,8 @@
 	<!-- 페이징 기능 -->
 	<select id="countUserPosts"
 		parameterType="com.smhrd.bigdata.entity.BoardInfo" resultType="int">
-		select count(*) from board_info where user_email = #{user_email}
+		select
+		count(*) from board_info where user_email = #{user_email}
 	</select>
 
 	<select id="getUserPostsByPage" parameterType="map"
@@ -133,6 +135,13 @@
 		or
 		item_category LIKE CONCAT('%',#{item_name},'%');
 	</select>
+
+	<!-- 조회수 기능 -->
+	<update id="view_increase"
+		parameterType="com.smhrd.bigdata.entity.BoardInfo">
+		UPDATE board_info SET board_views = board_views + 1 where board_idx =
+		#{board_idx}
+	</update>
 
 
 </mapper>

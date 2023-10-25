@@ -459,6 +459,7 @@ header.sticky {
 #search-box {
 	display: none;
 }
+
 .categorynavmenu {
 	display: flex;
 	justify-content: center;
@@ -497,7 +498,7 @@ header.sticky {
 			</c:choose>
 			<li><a href="product">products</a></li>
 		</ul>
-		
+
 		<div class="nav-icon">
 			<a href="mypage"><i class='bx bx-user'></i></a>
 
@@ -532,22 +533,64 @@ header.sticky {
 		</h2>
 	</div>
 	<section class="trending products" id="trending">
-		<c:forEach items="${ sports }" var="boardCategory">
+		<c:forEach items="${ categoryList }" var="boardCategory">
 			<div class="row">
 				<!-- 누르면 상세 페이지로 이동하게 설정하기 -->
 				<a
 					href="http://localhost:8087/bigdata/board/${boardCategory.board_idx}">
 					<img src="data:image/png;base64,${boardCategory.item_img}"
-					width="300" height="300" alt=""> <!-- <img src="image/1.jpg" alt=""> -->
+					width="300" height="300" alt="">
 				</a>
 				<div class="price">
 					<h4>${ boardCategory.item_name }</h4>
-					<p>${ boardCategory.want_category }</p>
+					<p>${ boardCategory.want_category }</p><span><b>views</b>: ${boardCategory.board_views}</span>
 				</div>
 			</div>
 			</div>
 		</c:forEach>
 	</section>
+
+	<!-- 페이징 기능 -->
+	<div class="pagination" style="text-align: center">
+		<c:set var="itemsPerPage" value="8" />
+		<c:set var="currentPage" value="${param.page}" />
+
+		<!-- 이전 페이지 -->
+		<c:choose>
+			<c:when test="${currentPage > 1}">
+				<a href="?page=${currentPage - 1}">Previous</a>
+			</c:when>
+			<c:otherwise>
+				<span>Previous</span>
+			</c:otherwise>
+		</c:choose>
+
+		<!-- 페이지 숫자 부분 -->
+		<c:forEach begin="1" end="${totalPages}" var="page">
+			<c:choose>
+				<c:when test="${page == currentPage}">
+					<span>${page}</span>
+				</c:when>
+				<c:otherwise>
+					<a href="?page=${page}">${page}</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+
+		<!-- 다음 페이지 -->
+		<c:choose>
+			<c:when test="${currentPage < totalPages}">
+				<a href="?page=${currentPage + 1}">Next</a>
+			</c:when>
+			<c:otherwise>
+				<span>Next</span>
+			</c:otherwise>
+		</c:choose>
+	</div>
+
+	<br>
+	<br>
+	<br>
 
 
 	<!-- 회원가입 모달 -->

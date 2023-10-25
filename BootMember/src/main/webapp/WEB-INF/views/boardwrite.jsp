@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +37,7 @@
 }
 
 header {
-	position: fixed;
+	/* position: fixed; */
 	width: 100%;
 	top: 0;
 	right: 0;
@@ -447,8 +448,27 @@ header.sticky {
 	margin-top: 20px;
 }
 
-.upload_thing_btn {
+.container {
 	position: relative;
+	display: flex;
+	top: 100px;
+	justify-content: center;
+}
+
+table {
+	border-collapse: collapse; /* 테두리 간격 제거 */
+	border: 2px solid black; /* 표의 바깥 테두리 스타일 설정 */
+	width: 500px;
+	text-align: center;
+	border-radius: 10px;
+}
+
+td {
+	padding: 8px; /* 셀 내부 여백 설정 */
+	text-align: center;
+}
+
+.upload_btn {
 	width: 200px; /* 원하는 너비 설정 */
 	padding: 10px; /* 버튼 내부 여백 설정 */
 	background-color: #0074d9; /* 배경색 설정 */
@@ -494,7 +514,6 @@ header.sticky {
 				</div>
 			</form>
 		</div>
-
 	</header>
 
 	<form action="boardWrite" method="post" enctype="multipart/form-data">
@@ -508,6 +527,7 @@ header.sticky {
 					<td><span><b>물품 이름</b></span></td>
 				</tr>
 
+
 				<tr>
 					<td><input type="text" placeholder="제목을 입력해주세요"
 						name="item_name"></td>
@@ -516,6 +536,7 @@ header.sticky {
 				<tr>
 					<td><br></td>
 				</tr>
+
 
 				<tr>
 					<td><span><b>user_email(id)</b></span></td>
@@ -537,7 +558,7 @@ header.sticky {
 
 				<tr>
 					<td><select name="item_category" id="item_category">
-							<option value="전자기기">전자기기</option>
+							<option value="전자제품">전자제품</option>
 							<option value="의류">의류</option>
 							<option value="책">책</option>
 							<option value="레저/스포츠">레저/스포츠</option>
@@ -573,11 +594,20 @@ header.sticky {
 				</tr>
 
 				<tr>
-					<td><input type="text" placeholder="약속 장소" name="item_place"></td>
+					<td><input type="text" id="sample5_address" placeholder="주소"
+						name="item_place"> <input type="button"
+						onclick="sample5_execDaumPostcode()" value="주소 검색"></td>
 				</tr>
 
 				<tr>
-					<td><br></td>
+
+					<td>
+						<center>
+							<div id="map"
+								style="width: 300px; height: 300px; margin-top: 10px; display: none"></div>
+						</center>
+					</td>
+
 				</tr>
 
 				<tr>
@@ -611,205 +641,102 @@ header.sticky {
 				<tr>
 					<td><input type="submit" value="게시물 업로드" class="upload_btn"></td>
 				</tr>
-
 			</table>
 		</div>
+
 	</form>
 
-	<!-- 회원가입 모달 -->
-	<div class="modal" id="modal_join">
-		<!-- 모달 내용 -->
-		<div class="modal_body">
-			<form action="member/join" method="post">
-				<!-- 모달 헤더-->
-				<div class="modal-header">
-					<h2 class="modal-title">회원가입</h2>
-				</div>
-				<div class="main">
-					<input id="email" name="user_email" type="email"
-						placeholder="example@gmail.com" required>
-				</div>
-				<div class="main">
-					<input id="pw" name="user_pw" type="password" placeholder="패스워드 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="name" name="user_name" type="text" placeholder="이름을 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="nick" name="user_nick" type="text" placeholder="닉네임을 입력"
-						required>
-				</div>
-				<div class="main">
-					<input id="address" name="user_addr" type="text"
-						placeholder="주소 입력" required>
-				</div>
-				<div class="main">
-					<input type="tel" id="tel" name="user_phone"
-						placeholder="010-1234-5678" maxlength="15" required />
-				</div>
-				<div>
-					<fieldset>
-						<legend>관심 카테고리</legend>
-						<div>
-							<input type="checkbox" id="electro" name="user_category"
-								value="전자제품" onclick="category_check(this)" /> <label
-								for="electro">전자제품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="daily" name="user_category"
-								value="생활용품" onclick="category_check(this)" /> <label
-								for="daily">생활용품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="sport" name="user_category"
-								value="스포츠/레저" onclick="category_check(this)" /> <label
-								for="sport">스포츠/레저</label>
-						</div>
-						<div>
-							<input type="checkbox" id="cloth" name="user_category" value="의류"
-								onclick="category_check(this)" /> <label for="cloth">의류</label>
-						</div>
-						<div>
-							<input type="checkbox" id="book" name="user_category" value="책"
-								onclick="category_check(this)" /> <label for="book">책</label>
-						</div>
-					</fieldset>
-					<!-- 모달 푸터-->
-					<div class="modal-footer">
-						<button type="submit" id="join">회원가입</button>
-						<button class="btn-close-popup">닫기</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<div class="modal" id="modal_login">
-		<div class="modal_body">
-
-			<form id="loginForm" action="member/login" method="post">
-				<div class="modal-header">
-					<h2 class="modal-title">로그인</h2>
-				</div>
-
-				<div class="main">
-					<input id="user_email" name="user_email" type="email"
-						placeholder="example@gmail.com" required>
-				</div>
-
-				<div class="main">
-					<input id="user_pw" name="user_pw" type="password"
-						placeholder="패스워드 입력" required>
-				</div>
-
-				<div class="modal-footer">
-					<button type="submit" id="login">로그인</button>
-					<button id="joinButton">회원가입</button>
-					<button class="btn-close-popup">닫기</button>
-				</div>
-			</form>
-		</div>
-	</div>
-
-
-	<script type="text/javascript">
-		/* id가 preImage인 img 태그 가져오기 */
-		let preImage = document.getElementById("preImage");
-		let photo = document.getElementById("photo"); // input tag
-		// photo(input)에 이벤트(파일 선택, 변경)가 발생했을 때 img의 src 속성값을 변경
-		photo.addEventListener("change", e => {
-		   setImage(e.target) /*  실제 첨부된 이미지 다룰 수 있다*/
-		})
-		
-		function setImage(input) { //input : 첨부된 파일을 포함한 input 태그 요소
-		   
-		   // input 태그에 추가된 파일이 있는지!
-		   if (input.files && input.files[0]) {
-		      console.log(input.files)
-		      // e -> 발생한 모든 이벤트
-		      // FileReader 생성
-		       const reader = new FileReader
-		      reader.readAsDataURL(input.files[0]) // filereader 생성이 되었는지 확인
-		         
-		      reader.onload = e => {
-		         console.log(e)
-		         preImage.src = e.target.result
-		      }
-		   }
-		}
+	<script>
+	    function toggleSearchBox() {
+	        var searchBox = document.getElementById("search-box");
+	        if (searchBox.style.display === "none" || searchBox.style.display === "") {
+	            searchBox.style.display = "block";
+	        } else {
+	            searchBox.style.display = "none";
+	        }
+	    }
 	</script>
 
+	<!-- 카카오맵 API -->
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- 우편번호 받는 API -->
+	<script
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=324cfea6807033dd3befc76ec00f2537&libraries=services"></script>
+
 	<script>
-      const header = document.querySelector("header");
+       var mapContainer = document.getElementById('map'), // 지도를 표시할 div   
+           mapOption = {
+               center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+               level: 5 // 지도의 확대 레벨
+           };
    
-      window.addEventListener("scroll", function() {
-      header.classList.toggle("sticky", this.window.scrollY > 0);
-      })
+       //지도를 미리 생성
+       var map = new daum.maps.Map(mapContainer, mapOption);
+       //주소-좌표 변환 객체를 생성
+       var geocoder = new daum.maps.services.Geocoder();
+       //마커를 미리 생성
+       var marker = new daum.maps.Marker({
+           position: new daum.maps.LatLng(37.537187, 127.005476), // 중심좌표에 마커 생성
+           map: map
+       });
    
-      const modalJoin = document.querySelector('#modal_join');
-      const modalLogin = document.querySelector('#modal_login');
-      const btnOpenJoinPopup = document.querySelector('.btn-open-join');
-      const btnOpenLoginPopup = document.querySelector('.btn-open-login');
-      const btnClosePopup = document.querySelector('.btn-close-popup');
+      // 버튼 클릭 시 작동하는 function()
+       function sample5_execDaumPostcode() {
+           new daum.Postcode({
+               oncomplete: function(data) {
+                   var addr = data.address; // 최종 주소 변수
    
-      // 회원가입 모달 열기
-      btnOpenJoinPopup.addEventListener('click', () => {
-         modalJoin.style.display = 'block';
-      });
+                   // 입력한 주소 가져오기
+                   document.getElementById("sample5_address").value = addr;
+                   // 주소로 상세 정보를 검색
+                   geocoder.addressSearch(data.address, function(results, status) {
+                       // 정상적으로 검색이 완료됐으면
+                       if (status === daum.maps.services.Status.OK) {
    
-      // 로그인 모달 열기
-      btnOpenLoginPopup.addEventListener('click', () => {
-         modalLogin.style.display = 'block';
-      });
+                           var result = results[0]; //첫번째 결과의 값을 활용
    
-      // 모달 닫기
-      btnClosePopup.addEventListener('click', () => {
-         modalJoin.style.display = 'none';
-         modalLogin.style.display = 'none';
-      });
-   
-      // 모달 이외 창 추가해서 닫기
-      modalJoin.addEventListener('click', (e) => {
-         if (e.target === modalJoin) {
-         modalJoin.style.display = 'none';
-         }
-      });
-   
-      modalLogin.addEventListener('click', (e) => {
-         if (e.target === modalLogin) {
-         modalLogin.style.display = 'none';
-         }
-      });
-      
-      function redirectToURL() {
-            // 원하는 URL로 이동
-            window.location.href = "upload";
-        }
-      
-      function toggleSearchBox() {
-            var searchBox = document.getElementById("search-box");
-            if (searchBox.style.display === "none" || searchBox.style.display === "") {
-                searchBox.style.display = "block";
-            } else {
-                searchBox.style.display = "none";
-            }
-        }
+                           // 해당 주소에 대한 좌표를 coords에 저장
+                           var coords = new daum.maps.LatLng(result.y, result.x);
+                           // 지도를 보여준다.
+                           mapContainer.style.display = "block";
+                           map.relayout();
+                           // 지도 중심을 변경한다.
+                           map.setCenter(coords);
+                           // 마커를 결과값으로 받은 위치로 옮긴다.
+                           marker.setPosition(coords)
+                       }
+                   });
+               }
+           }).open();
+       }
    </script>
 
-	<!-- 체크박스 하나만 선택할 수 있게 하는 JS -->
-	<script>
-      function category_check(element) {
-         const checkboxes 
-            = document.getElementsByName("user_category");
+	<script type="text/javascript">
+      /* id가 preImage인 img 태그 가져오기 */
+      let preImage = document.getElementById("preImage");
+      let photo = document.getElementById("photo"); // input tag
+      // photo(input)에 이벤트(파일 선택, 변경)가 발생했을 때 img의 src 속성값을 변경
+      photo.addEventListener("change", e => {
+         setImage(e.target) /*  실제 첨부된 이미지 다룰 수 있다*/
+      })
+      
+      function setImage(input) { //input : 첨부된 파일을 포함한 input 태그 요소
          
-         checkboxes.forEach((cb) => {
-             cb.checked = false;
-           })
-           
-           element.checked = true;
-      }
+         // input 태그에 추가된 파일이 있는지!
+         if (input.files && input.files[0]) {
+            console.log(input.files)
+            // e -> 발생한 모든 이벤트
+            // FileReader 생성
+             const reader = new FileReader
+            reader.readAsDataURL(input.files[0]) // filereader 생성이 되었는지 확인
+               
+            reader.onload = e => {
+               console.log(e)
+               preImage.src = e.target.result
+               }
+            }
+         }
    </script>
 
 </body>
