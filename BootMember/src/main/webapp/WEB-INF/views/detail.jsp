@@ -29,7 +29,7 @@
 </head>
 <body>
 	<header>
-		<a href="/bigdata" class="logo"><img src="../image/logo.png"
+		<a href="/bigdata" class="logo"><img src="../image/logo1.png"
 			alt=""></a>
 		<ul class="navmenu">
 			<c:choose>

@@ -31,7 +31,7 @@
 <body>
 
 	<header>
-		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
+		<a href="/bigdata" class="logo"><img src="image/logo1.png" alt=""></a>
 		<ul class="navmenu">
 			<c:choose>
 				<c:when test="${ empty loginUser }">
@@ -68,9 +68,9 @@
 		<div class="main-text">
 			<h5>Winter Collection</h5>
 			<h1>
-				New Winter <br> Collection 2022
+				<span>No</span>Pay<br> 
 			</h1>
-			<p>There's Nothing like Trend</p>
+			<p>Things For Exchange</p>
 
 			<a href="#" class="main-btn"> Shop Now <i
 				class='bx bx-right-arrow-alt'></i>

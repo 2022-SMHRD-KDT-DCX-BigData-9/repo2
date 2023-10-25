@@ -431,4 +431,29 @@ header.sticky {
 	display: none;
 }
 
-/* 스타일 끝 */
+/* 페이징 컨테이너 스타일 */
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* 이전/다음 링크 스타일 */
+  .pagination a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  /* 활성 페이지 번호 스타일 */
+  .pagination span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 5px;
+  }

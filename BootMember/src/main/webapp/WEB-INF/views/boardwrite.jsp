@@ -31,7 +31,7 @@
 <body>
 
 	<header>
-		<a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
+		<a href="/bigdata" class="logo"><img src="image/logo1.png" alt=""></a>
 		<ul class="navmenu">
 			<c:choose>
 				<c:when test="${ empty loginUser }">
@@ -65,7 +65,7 @@
 
 	<form action="boardWrite" method="post" enctype="multipart/form-data">
 		<div class="container">
-			<table>
+			<table class="table_info">
 				<tr>
 					<td><br></td>
 				</tr>
@@ -75,7 +75,7 @@
 				</tr>
 
 
-				<tr>
+				<tr class="table_box">
 					<td><input type="text" placeholder="제목을 입력해주세요"
 						name="item_name"></td>
 				</tr>
@@ -89,7 +89,7 @@
 					<td><span><b>user_email(id)</b></span></td>
 				</tr>
 
-				<tr>
+				<tr class="table_box">
 					<td><input type="email" name="user_email"
 						placeholder="예- hongildong@naver.com"></td>
 				</tr>

@@ -30,7 +30,7 @@
 
 <body>
    <header>
-      <a href="/bigdata" class="logo"><img src="image/logo.png" alt=""></a>
+      <a href="/bigdata" class="logo"><img src="image/logo1.png" alt=""></a>
       <ul class="navmenu">
          <c:choose>
             <c:when test="${ empty loginUser }">
