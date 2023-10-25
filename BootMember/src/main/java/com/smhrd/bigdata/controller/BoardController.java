@@ -72,11 +72,9 @@ public class BoardController {
 
 		// 사용자의 총 게시글 수 가져오기
 		int totalUserPosts = service.getTotalUserPosts(userinfo);
-		System.out.println(totalUserPosts);
 
 		// 페이지 갯수 계산하는 식
 		int totalPages = (int) Math.ceil((double) totalUserPosts / postsPerPage);
-		System.out.println(totalPages);
 
 		model.addAttribute("userBoard", list);
 		model.addAttribute("currentPage", page);
@@ -189,7 +187,6 @@ public class BoardController {
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
 			model.addAttribute("boardDetail", b);
-
 		}
 
 		// -----------------------------------------------------------
@@ -332,7 +329,6 @@ public class BoardController {
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-
 		}
 
 		model.addAttribute("search_value", list);
