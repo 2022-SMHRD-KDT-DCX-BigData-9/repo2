@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.smhrd.bigdata.entity.BoardInfo;
 import com.smhrd.bigdata.entity.CommentInfo;
+import com.smhrd.bigdata.entity.ReviewInfo;
 import com.smhrd.bigdata.entity.UserInfo;
 import com.smhrd.bigdata.mapper.UserMapper;
 
@@ -99,15 +100,32 @@ public class BoardService {
 		int result = mapper.view_increase(b);
 		return result;
 	}
-	
+
 	// 댓글 추가 기능
 	public int insert_comment(CommentInfo commentInfo) {
 		int result = mapper.insert_comment(commentInfo);
 		return result;
 	}
-	
+
 	// 댓글 출력 기능
 	public List<CommentInfo> getCommentsForBoard(Long board_idx) {
-	    return mapper.getCommentsForBoard(board_idx);
+		return mapper.getCommentsForBoard(board_idx);
 	}
+
+	// 거래 후기 기능
+	public int review_author(String user_emailone, String user_emailtwo) {
+		int result = mapper.review_author(user_emailone, user_emailtwo);
+		return result;
+	}
+
+	public int review_noauthor(String user_email) {
+		int result = mapper.review_noauthor(user_email);
+		return result;
+	}
+
+	public int review_save(ReviewInfo reviewinfo) {
+		int result = mapper.review_save(reviewinfo);
+		return result;
+	}
+
 }

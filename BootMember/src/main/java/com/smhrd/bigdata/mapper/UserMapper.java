@@ -67,4 +67,10 @@ public interface UserMapper {
 	
 	// 댓글 불러오기 기능
 	public List<CommentInfo> getCommentsForBoard(Long board_idx);
+	
+	// 거래 후기 기능
+	public int review_author(String user_emailone, String user_emailtwo);
+	public int review_noauthor(String user_email);
+	public int review_save(ReviewInfo reviewinfo);
+
 }

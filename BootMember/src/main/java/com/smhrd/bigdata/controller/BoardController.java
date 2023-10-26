@@ -24,6 +24,7 @@ import com.smhrd.bigdata.converter.ImageConverter;
 import com.smhrd.bigdata.converter.ImageToBase64;
 import com.smhrd.bigdata.entity.BoardInfo;
 import com.smhrd.bigdata.entity.CommentInfo;
+import com.smhrd.bigdata.entity.ReviewInfo;
 import com.smhrd.bigdata.entity.UserInfo;
 
 import org.springframework.web.bind.annotation.RequestPart;
@@ -285,9 +286,10 @@ public class BoardController {
 	public String boardRanking(@ModelAttribute UserInfo userinfo, HttpSession session) throws IOException {
 		List<BoardInfo> boardRanking = service.boardRanking();
 
+		// 세션에 저장되어있는 유저 정보 가져오기
 		UserInfo result = (UserInfo) session.getAttribute("loginUser");
 		System.out.println(result);
-		// 세션에 저장되어있는 유저 정보 가져오기
+
 		if (result != null) {
 			List<BoardInfo> recommendation = service.recommendation(result);
 			System.out.println(recommendation);
@@ -309,7 +311,6 @@ public class BoardController {
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			// 페이지에 출력하기 위해 model에 저장하기
 		}
 		// 조회수 높은 상위 8개 정보 세션에 저장
 		session.setAttribute("boardRanking", boardRanking);
@@ -343,29 +344,52 @@ public class BoardController {
 	// 댓글 작성 기능
 	@PostMapping("/submit_comment")
 	public ResponseEntity<List<CommentInfo>> submitComment(@ModelAttribute CommentInfo commentInfo,
-	        HttpSession session) {
-	    // 현재 로그인한 사용자의 이메일 주소를 세션에서 가져와 CommentInfo 객체에 저장한다
+			HttpSession session) {
+		// 현재 로그인한 사용자의 이메일 주소를 세션에서 가져와 CommentInfo 객체에 저장한다
 		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
-	    commentInfo.setUser_email(currentLogin.getUser_email());
-	    
-	    // 댓글 추가 메소드
-	    int result = service.insert_comment(commentInfo);
+		commentInfo.setUser_email(currentLogin.getUser_email());
 
-	    // 댓글 목록을 다시 불러오고 반환
-	    List<CommentInfo> comments = service.getCommentsForBoard(commentInfo.getBoard_idx());
+		// 댓글 추가 메소드
+		int result = service.insert_comment(commentInfo);
 
-	    // HttpStatus.OK와 함께 댓글 목록을 반환
-	    return new ResponseEntity<>(comments, HttpStatus.OK);
+		// 댓글 목록을 다시 불러오고 반환
+		List<CommentInfo> comments = service.getCommentsForBoard(commentInfo.getBoard_idx());
+
+		// HttpStatus.OK와 함께 댓글 목록을 반환
+		// ResponseEntity : 응답에 포함할 데이터 (여기서는 댓글 목록)를 명시적으로 설정할 수 있음
+		return new ResponseEntity<>(comments, HttpStatus.OK);
 	}
 
 	// 댓글 조회
-    @GetMapping("/{board_idx}/comments")
-    @ResponseBody // 댓글 목록을 JSON 형식으로 응답하고, 이 응답은 클라이언트에서 처리된다
-    public List<CommentInfo> getCommentsForBoard(@PathVariable Long board_idx) {
-    	// board_idx에 해당하는 게시물에 대한 댓글 목록을 DB에서 가져온다
-    	List<CommentInfo> comments = service.getCommentsForBoard(board_idx);
-        
-        return comments;
-    }
+	@GetMapping("/{board_idx}/comments")
+	@ResponseBody // 댓글 목록을 JSON 형식으로 응답하고, 이 응답은 클라이언트에서 처리된다
+	public List<CommentInfo> getCommentsForBoard(@PathVariable Long board_idx) {
+		// board_idx에 해당하는 게시물에 대한 댓글 목록을 DB에서 가져온다
+		List<CommentInfo> comments = service.getCommentsForBoard(board_idx);
+
+		return comments;
+	}
+
+// ---------------------------------------------------------------------------------------------------------------
+	// 거래 완료를 누르면 두 사람에게 review_authority를 줌
+	@GetMapping("/review_ok")
+	public String review_author(String user_emailone, String user_emailtwo) {
+		/* System.out.println(user_email); */
+		System.out.println(user_emailone);
+		System.out.println(user_emailtwo);
+		int result = service.review_author(user_emailone, user_emailtwo);
+		System.out.println(result);
+		return "redirect:/";
+	}
+
+	// 후기 작성 완료시 후기 내용 저장 및 review_authority 초기화
+	@GetMapping("/review_save")
+	public String review_save(ReviewInfo reviewinfo) {
+		int result = service.review_save(reviewinfo);
+		if (result > 0)
+			System.out.println("후기 작성 성공");
+		int result2 = service.review_noauthor(reviewinfo.getUser_email());
+		return "redirect:/";
+	}
 
 }

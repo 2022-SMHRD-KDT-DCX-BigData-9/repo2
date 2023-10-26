@@ -115,9 +115,37 @@
 						<td><button class="btn-deal" onClick="location.href='#'">거래신청하기</button></td>
 					</tr>
 
+					<c:choose>
+						<c:when test="${loginUser.user_email eq boardDetail.user_email}">
+							<form action="../review_ok" method="get">
+								<tr>
+									<td><input type="text" value="${loginUser.user_email}"
+										style="display: none" name="user_emailone"</td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="거래자 email을 적어주세요:"
+										style="width: 200px" name="user_emailtwo"></td>
+								</tr>
+								<tr>
+									<td><button type="submit" value="거래 완료">거래 완료</button></td>
+								</tr>
+							</form>
+							<!-- <tr><td><button class = "evaluate">평가하기</button></td></tr> -->
+						</c:when>
+						<c:otherwise>
+							<td></td>
+						</c:otherwise>
+					</c:choose>
+
+					<c:if test="${loginUser.review_authority eq 1 }">
+						<tr>
+							<td><button class="evaluate">평가하기</button></td>
+						</tr>
+					</c:if>
+
+
 				</tbody>
 			</table>
-
 			<ul>
 				<div class="img">
 					<img src="data:image/png;base64,${boardDetail.item_img}"
@@ -243,6 +271,62 @@
 			</form>
 		</div>
 	</div>
+
+	<div class="modal" id="modal_evaluate">
+		<!-- 모달 내용 후기 점수-->
+		<div class="modal_body">
+			<form action="../review_save" method="get">
+				<div class="modal-header">
+					<h2 class="modal-title">후기</h2>
+				</div>
+				<div>
+					<input type="email" value="${loginUser.user_email}"
+						style="width: 300px; display: none" name="user_email">
+				</div>
+
+				<div>
+					<input type="text" value="${boardDetail.board_idx}"
+						style="width: 300px; display: none" name="board_idx">
+				</div>
+
+				<div>
+					<p>거래 대상 email</p>
+				</div>
+				<div>
+					<input type="email" placeholder="거래 대상의 email을 적어주세요"
+						style="width: 300px" name="writer_email">
+				</div>
+				<br>
+
+				<div>
+					<p>후기 내용</p>
+				</div>
+				<div class="main">
+					<textarea id="reviewContent" name="review_content" type="text"
+						placeholder="후기 내용을 입력"></textarea>
+				</div>
+				<!-- 평가 대상-->
+
+
+				<br>
+				<!--후기 점수 보내는 바-->
+				<div>
+					<label for="customRange2" class="form-label">후기 점수: <span
+						id="score">0</span></label>
+					<!--후기 점수 0부터 100점까지 보내기-->
+					<input type="range" class="form-range" min="0" max="100"
+						id="customRange2" name="review_ratings">
+				</div>
+				<div class="modal-footer">
+					<button type="submit" id="review">전송하기</button>
+				</div>
+			</form>
+			<div>
+				<button class="evaluate_close_btn">닫기</button>
+			</div>
+		</div>
+	</div>
+
 
 	<script>
       const header = document.querySelector("header");
@@ -373,6 +457,33 @@
 	    });
 	</script>
 
+	<!-- 거래 후기 JS -->
+	<script>
+        const modal = document.querySelector('#modal_evaluate');
+        const btnOpenPopup = document.querySelector('.evaluate');
+        const btnClosePopup2 = document.querySelector('.evaluate_close_btn');
+        
+        //모달 열기
+        btnOpenPopup.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
 
+        //모달 닫기
+        btnClosePopup2.addEventListener('click', () => {
+            modal.style.display = 'none'; 
+        });
+
+        
+        const rangeInput = document.getElementById('customRange2');
+        const scoreDisplay = document.getElementById('score');
+
+        rangeInput.addEventListener('input', () => {
+            scoreDisplay.textContent = rangeInput.value;
+        });
+
+        // 초기 스코어 생성 가능
+        scoreDisplay.textContent = rangeInput.value;
+    
+    </script>
 </body>
 </html>

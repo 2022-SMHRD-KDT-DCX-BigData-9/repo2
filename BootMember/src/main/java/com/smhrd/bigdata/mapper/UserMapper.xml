@@ -160,4 +160,23 @@
 		select * from comment_info
 		where board_idx = #{board_idx}
 	</select>
+
+	<!-- 거래 후기 작성 권한 주기 -->
+	<update id="review_author">
+		UPDATE user_info SET review_authority = 1 where user_email =
+		#{user_emailone} or user_email = #{user_emailtwo}
+	</update>
+	<!-- 거래 후기 작성 권한 초기화 -->
+	<update id="review_noauthor">
+		UPDATE user_info SET review_authority = 0 where user_email = #{user_email}
+	</update>
+	<!-- 거래 후기 내용 저장 -->
+	<insert id="review_save"
+		parameterType="com.smhrd.bigdata.entity.ReviewInfo">
+		insert into review_info (user_email, board_idx, writer_email,
+		review_content, review_ratings)
+		values (#{user_email}, #{board_idx}, #{writer_email}, #{review_content},
+		#{review_ratings})
+	</insert>
+
 </mapper>
