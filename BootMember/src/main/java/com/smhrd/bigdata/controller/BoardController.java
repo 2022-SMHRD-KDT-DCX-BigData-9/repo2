@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.smhrd.bigdata.converter.ImageConverter;
 import com.smhrd.bigdata.converter.ImageToBase64;
 import com.smhrd.bigdata.entity.BoardInfo;
+import com.smhrd.bigdata.entity.CommentInfo;
 import com.smhrd.bigdata.entity.UserInfo;
 
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.smhrd.bigdata.service.BoardService;
 
@@ -334,5 +338,34 @@ public class BoardController {
 		model.addAttribute("search_value", list);
 		return "search";
 	}
+
+// ---------------------------------------------------------------------------------------------------------------
+	// 댓글 작성 기능
+	@PostMapping("/submit_comment")
+	public ResponseEntity<List<CommentInfo>> submitComment(@ModelAttribute CommentInfo commentInfo,
+	        HttpSession session) {
+	    // 현재 로그인한 사용자의 이메일 주소를 세션에서 가져와 CommentInfo 객체에 저장한다
+		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
+	    commentInfo.setUser_email(currentLogin.getUser_email());
+	    
+	    // 댓글 추가 메소드
+	    int result = service.insert_comment(commentInfo);
+
+	    // 댓글 목록을 다시 불러오고 반환
+	    List<CommentInfo> comments = service.getCommentsForBoard(commentInfo.getBoard_idx());
+
+	    // HttpStatus.OK와 함께 댓글 목록을 반환
+	    return new ResponseEntity<>(comments, HttpStatus.OK);
+	}
+
+	// 댓글 조회
+    @GetMapping("/{board_idx}/comments")
+    @ResponseBody // 댓글 목록을 JSON 형식으로 응답하고, 이 응답은 클라이언트에서 처리된다
+    public List<CommentInfo> getCommentsForBoard(@PathVariable Long board_idx) {
+    	// board_idx에 해당하는 게시물에 대한 댓글 목록을 DB에서 가져온다
+    	List<CommentInfo> comments = service.getCommentsForBoard(board_idx);
+        
+        return comments;
+    }
 
 }

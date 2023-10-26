@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smhrd.bigdata.entity.BoardInfo;
+import com.smhrd.bigdata.entity.CommentInfo;
 import com.smhrd.bigdata.entity.UserInfo;
 import com.smhrd.bigdata.mapper.UserMapper;
 
@@ -98,5 +99,15 @@ public class BoardService {
 		int result = mapper.view_increase(b);
 		return result;
 	}
-
+	
+	// 댓글 추가 기능
+	public int insert_comment(CommentInfo commentInfo) {
+		int result = mapper.insert_comment(commentInfo);
+		return result;
+	}
+	
+	// 댓글 출력 기능
+	public List<CommentInfo> getCommentsForBoard(Long board_idx) {
+	    return mapper.getCommentsForBoard(board_idx);
+	}
 }

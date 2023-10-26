@@ -139,9 +139,25 @@
 	<!-- 조회수 기능 -->
 	<update id="view_increase"
 		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		UPDATE board_info SET board_views = board_views + 1 where board_idx =
+		UPDATE board_info SET board_views = board_views + 1
+		where board_idx =
 		#{board_idx}
 	</update>
 
+	<!-- 댓글 추가 기능 -->
+	<insert id="insert_comment"
+		parameterType="com.smhrd.bigdata.entity.CommentInfo">
+		insert into comment_info (user_email, board_idx,
+		comment_content)
+		values
+		(#{user_email}, #{board_idx},
+		#{comment_content})
+	</insert>
 
+	<!-- 댓글 불러오기 -->
+	<select id="getCommentsForBoard" parameterType="long"
+		resultType="com.smhrd.bigdata.entity.CommentInfo">
+		select * from comment_info
+		where board_idx = #{board_idx}
+	</select>
 </mapper>

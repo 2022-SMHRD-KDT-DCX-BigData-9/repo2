@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.smhrd.bigdata.entity.BoardInfo;
+import com.smhrd.bigdata.entity.CommentInfo;
 import com.smhrd.bigdata.entity.ReviewInfo;
 import com.smhrd.bigdata.entity.UserInfo;
 
@@ -60,5 +61,10 @@ public interface UserMapper {
 	
 	// 조회수 기능
 	public int view_increase(BoardInfo b);
-
+	
+	// 댓글 추가 기능
+	public int insert_comment(CommentInfo commentInfo);
+	
+	// 댓글 불러오기 기능
+	public List<CommentInfo> getCommentsForBoard(Long board_idx);
 }
