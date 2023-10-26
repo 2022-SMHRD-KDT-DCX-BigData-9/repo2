@@ -24,7 +24,7 @@ header {
 }
 
 .logo img {
-	 width: 60%;
+	 width: 80%;
 	 height: auto;
 }
 
@@ -44,6 +44,7 @@ header {
 	background: #ffffe0;
 	border-radius:30px;
 }
+
 
 .navmenu a span{
 	position:absolute;
@@ -159,16 +160,16 @@ section {
   }
 } */
 
-  @keyframes fadeIn {
+/*   @keyframes fadeIn {
     from {
       opacity: 0;
     }
     to {
       opacity: 1;
     }
-  }
+  } */
 
-.main-text h5 {
+/* .main-text h5 {
   font-family: 'Cafe24ClassicType-Regular';
   color: #EE1C47;
   font-size: 16px;
@@ -185,8 +186,8 @@ section {
   font-weight: 600;
   margin: 7px 0 10px;
 }
-
-.main-text p {
+ */
+/* .main-text p {
   font-family: 'Cafe24ClassicType-Regular';
   color: #333c56;
   font-size: 40px;
@@ -197,7 +198,7 @@ section {
 .main-text span {
   font-family: 'Tenada';
   color: red;
-}
+} */
 
 
 .main-btn {
@@ -247,21 +248,19 @@ header.sticky {
 }
 
 
-
-/* trending - section - css -> our trending */
 @font-face {
     font-family: 'Cafe24ClassicType-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-}
+} 
 
 @font-face {
     font-family: 'Tenada';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-}
+}  
 
 
 .center-text h2 {
@@ -442,14 +441,10 @@ header.sticky {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	
 	display: none;
 	background-color: rgba(255, 255, 255, 0.5);
 	
 }
-/* #00ced1
-rgba(200, 200, 200, 0.8) */
-
 
 .modal.show {
 	display: block;
@@ -475,7 +470,6 @@ rgba(200, 200, 200, 0.8) */
 	text-align: center;
 	background-color: #EDF2F6;
 	border-radius: 10px;
-
 	transform: translateX(-50%) translateY(-50%);
 	margin-top: 20px;
 	
@@ -495,7 +489,7 @@ rgba(200, 200, 200, 0.8) */
 }
 
 .modal_body fieldset {
-	background-color: 	#f0f8ff;
+	background-color:#f0f8ff;
 	margin-top: 20px;
 	border: 2px solid #000;
 }
@@ -530,8 +524,8 @@ rgba(200, 200, 200, 0.8) */
 	position: relative;
 	width: 200px; 
 	padding: 10px;
-	background-color: #0074d9; 
-	color: #fff; 
+	background-color: #ffffe0; 
+	color: black; 
 }
 
 .uploadBtn {
@@ -539,6 +533,7 @@ rgba(200, 200, 200, 0.8) */
 	justify-content: center;
 	padding-bottom: 20px;
 }
+
 /* 검색창 관련 css  */
 #search-box {
 	display: none;

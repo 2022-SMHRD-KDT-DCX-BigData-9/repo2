@@ -133,7 +133,6 @@
 									<td><button type="submit" value="거래 완료">거래 완료</button></td>
 								</tr>
 							</form>
-							<!-- <tr><td><button class = "evaluate">평가하기</button></td></tr> -->
 						</c:when>
 						<c:otherwise>
 							<td></td>

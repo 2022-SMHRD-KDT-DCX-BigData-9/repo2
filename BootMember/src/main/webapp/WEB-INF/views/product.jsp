@@ -26,7 +26,6 @@
 
 <link rel="stylesheet" type="text/css" href="assets/css/category.css">
 </head>
-
 <body>
 	<header>
 		<a href="/bigdata" class="logo"><img src="image/logo1.png" alt=""></a>
