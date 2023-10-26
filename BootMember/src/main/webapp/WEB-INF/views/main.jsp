@@ -36,8 +36,8 @@
 		<ul class="navmenu">
 			<c:choose>
 				<c:when test="${ empty loginUser }">
-					<li><a href="#" class="btn-open-login">login</a></li>
-					<li><a href="#" class="btn-open-join">register</a></li>
+					<li><a href="#" class="btn-open-login">login<span></span></a></li>
+					<li><a href="#" class="btn-open-join">register<span></span></a></li>
 				</c:when>
 				<c:otherwise>
 					<form method="get" action="logout">
@@ -45,7 +45,7 @@
 					</form>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="product">products</a></li>
+			<li><a href="product">products<span></span></a></li>
 		</ul>
 
 		<div class="nav-icon">
@@ -67,22 +67,24 @@
 
 	<section class="main-home">
 		<div class="main-text">
-			<h5>Winter Collection</h5>
+			<!-- <h5>Winter Collection</h5>
 			<h1>
-				<span>No</span>Pay<br> 
+				<span>물물</span>교환<br>
 			</h1>
 			<p>Things For Exchange</p>
 
 			<a href="#" class="main-btn"> Shop Now <i
 				class='bx bx-right-arrow-alt'></i>
-			</a>
+			</a> -->
 		</div>
 
 		<div class="down-arrow">
-			<a href="#trending" class="down"> <i class='bx bx-down-arrow-alt'></i>
-			</a>
+			<a href="#trending" class="down"> <i class='bx bx-down-arrow-alt'></i></a>
 		</div>
 	</section>
+	
+	<div class="main-home2"></div>
+	<div class="main-review"></div>
 
 	<!-- 사용자가 로그인 시 추천 카테고리 상품 출력 -->
 	<c:if test="${ !empty loginUser }">
@@ -185,29 +187,32 @@
 				</div>
 				<div>
 					<fieldset>
-						<legend>관심 카테고리</legend>
-						<div>
-							<input type="checkbox" id="electro" name="user_category"
-								value="전자제품" onclick="category_check(this)" /> <label
-								for="electro">전자제품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="daily" name="user_category"
-								value="생활용품" onclick="category_check(this)" /> <label
-								for="daily">생활용품</label>
-						</div>
-						<div>
-							<input type="checkbox" id="sport" name="user_category"
-								value="스포츠/레저" onclick="category_check(this)" /> <label
-								for="sport">스포츠/레저</label>
-						</div>
-						<div>
-							<input type="checkbox" id="cloth" name="user_category" value="의류"
-								onclick="category_check(this)" /> <label for="cloth">의류</label>
-						</div>
-						<div>
-							<input type="checkbox" id="book" name="user_category" value="책"
-								onclick="category_check(this)" /> <label for="book">책</label>
+						<legend onclick="toggleCategoryCheckboxes()">관심 카테고리</legend>
+						<div id="categoryCheckboxes" style="display: none;">
+							<div>
+								<input type="checkbox" id="electro" name="user_category"
+									value="전자제품" onclick="category_check(this)" /> <label
+									for="electro">전자제품</label>
+							</div>
+							<div>
+								<input type="checkbox" id="daily" name="user_category"
+									value="생활용품" onclick="category_check(this)" /> <label
+									for="daily">생활용품</label>
+							</div>
+							<div>
+								<input type="checkbox" id="sport" name="user_category"
+									value="스포츠/레저" onclick="category_check(this)" /> <label
+									for="sport">스포츠/레저</label>
+							</div>
+							<div>
+								<input type="checkbox" id="cloth" name="user_category"
+									value="의류" onclick="category_check(this)" /> <label
+									for="cloth">의류</label>
+							</div>
+							<div>
+								<input type="checkbox" id="book" name="user_category" value="책"
+									onclick="category_check(this)" /> <label for="book">책</label>
+							</div>
 						</div>
 					</fieldset>
 					<!-- 모달 푸터-->
@@ -291,6 +296,15 @@
 			}
 		});
 		
+		function toggleCategoryCheckboxes() {
+			  const categoryCheckboxes = document.getElementById("categoryCheckboxes");
+			  if (categoryCheckboxes.style.display === "none" || categoryCheckboxes.style.display === "") {
+			    categoryCheckboxes.style.display = "block";
+			  } else {
+			    categoryCheckboxes.style.display = "none";
+			  }
+			}
+		
 		function redirectToURL() {
             // 원하는 URL로 이동
             window.location.href = "upload";
@@ -303,7 +317,8 @@
             } else {
                 searchBox.style.display = "none";
             }
-        }
+       }
+
 	</script>
 	<!-- 체크박스 하나만 선택할 수 있게 하는 JS -->
 	<script>

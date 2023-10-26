@@ -118,6 +118,35 @@
 						<td><button class="btn-deal" onClick="location.href='#'">거래신청하기</button></td>
 					</tr>
 
+					<c:choose>
+						<c:when test="${loginUser.user_email eq boardDetail.user_email}">
+							<form action="../review_ok" method="get">
+								<tr>
+									<td><input type="text" value="${loginUser.user_email}"
+										style="display: none" name="user_emailone"</td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="거래자 email을 적어주세요:"
+										style="width: 200px" name="user_emailtwo"></td>
+								</tr>
+								<tr>
+									<td><button type="submit" value="거래 완료">거래 완료</button></td>
+								</tr>
+							</form>
+							<!-- <tr><td><button class = "evaluate">평가하기</button></td></tr> -->
+						</c:when>
+						<c:otherwise>
+							<td></td>
+						</c:otherwise>
+					</c:choose>
+
+					<c:if test="${loginUser.review_authority eq 1 }">
+						<tr>
+							<td><button class="evaluate">평가하기</button></td>
+						</tr>
+					</c:if>
+
+
 				</tbody>
 			</table>
 
@@ -129,6 +158,27 @@
 			</ul>
 		</div>
 	</div>
+
+	<!-- 댓글 -->
+	<div class="comment-section">
+		<form id="comment-form" action="/bigdata/submit_comment" method="post">
+			<div class="form-group">
+				<label for="exampleFormControlTextarea1">Leave Comment:</label><br>
+				<textarea class="form-control" name="comment_content" required
+					rows="3" placeholder="댓글을 입력하세요" style="width: 300px;"></textarea>
+				<input type="hidden" name="board_idx"
+					value="${boardDetail.board_idx}">
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-light">Submit</button>
+			</div>
+		</form>
+		<br>
+		<div id="comments-container">
+			<!-- 댓글이 추가되는 div -->
+		</div>
+	</div>
+
 
 	<!-- 회원가입 모달 -->
 	<div class="modal" id="modal_join">
@@ -227,6 +277,63 @@
 		</div>
 	</div>
 
+	<!--    <!-- <!-- 후기 창  -->
+	<div class="modal" id="modal_evaluate">
+		<!-- 모달 내용 후기 점수-->
+		<div class="modal_body">
+			<form action="../review_save" method="get">
+				<div class="modal-header">
+					<h2 class="modal-title">후기</h2>
+				</div>
+				<div>
+					<input type="email" value="${loginUser.user_email}"
+						style="width: 300px; display: none" name="user_email">
+				</div>
+
+				<div>
+					<input type="text" value="${boardDetail.board_idx}"
+						style="width: 300px; display: none" name="board_idx">
+				</div>
+
+				<div>
+					<p>거래 대상 email</p>
+				</div>
+				<div>
+					<input type="email" placeholder="거래 대상의 email을 적어주세요"
+						style="width: 300px" name="writer_email">
+				</div>
+				<br>
+
+				<div>
+					<p>후기 내용</p>
+				</div>
+				<div class="main">
+					<textarea id="reviewContent" name="review_content" type="text"
+						placeholder="후기 내용을 입력"></textarea>
+				</div>
+				<!-- 평가 대상-->
+
+
+				<br>
+				<!--후기 점수 보내는 바-->
+				<div>
+					<label for="customRange2" class="form-label">후기 점수: <span
+						id="score">0</span></label>
+					<!--후기 점수 0부터 100점까지 보내기-->
+					<input type="range" class="form-range" min="0" max="100"
+						id="customRange2" name="review_ratings">
+				</div>
+				<div class="modal-footer">
+					<button type="submit" id="review">전송하기</button>
+				</div>
+			</form>
+			<div>
+				<button class="evaluate_close_btn">닫기</button>
+			</div>
+		</div>
+	</div>
+
+
 	<script>
       const header = document.querySelector("header");
    
@@ -239,6 +346,9 @@
       const btnOpenJoinPopup = document.querySelector('.btn-open-join');
       const btnOpenLoginPopup = document.querySelector('.btn-open-login');
       const btnClosePopup = document.querySelector('.btn-close-popup');
+      
+  
+
    
       // 회원가입 모달 열기
       btnOpenJoinPopup.addEventListener('click', () => {
@@ -298,5 +408,92 @@
       }
    </script>
 
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+       // 댓글 기록 비동기 통신 AJAX
+       function loadComments() {
+           var boardIdx = "${boardDetail.board_idx}";
+           $.ajax({
+               url: "/bigdata/${board_idx}/comments",
+               method: "GET",
+               success: function (data) {
+                   var commentsContainer = $("#comments-container");
+                   commentsContainer.empty(); // 댓글창 초기화 
+                   data.forEach(function (comment) {
+                       var commentHtml = '<div class="comment">';
+                       commentHtml += '<strong>작성자: ' + comment.user_email + '</strong><br>';
+                       commentHtml += '<em>작성 시간: ' + comment.created_at + '</em><br>';
+                       commentHtml += comment.comment_content;
+                       commentHtml += '<br><br></div>';
+                       commentsContainer.append(commentHtml);
+                       
+                   });
+               },
+               error: function (error) {
+                   console.error(error);
+               }
+           });
+       }
+   
+       // 페이지 로딩 될때 댓글 보여주게 설정
+       $(document).ready(function () {
+           loadComments();
+       });
+   
+       // 댓글 작성 비동기통신 AJAX
+       $("#comment-form").submit(function (e) {
+           e.preventDefault();
+           var commentContent = $("textarea[name='comment_content']").val();
+           var board_idx = $("input[name='board_idx']").val();
+   
+           $.ajax({
+               url: "/bigdata/submit_comment",
+               method: "POST",
+               data: {
+                   comment_content: commentContent,
+                   board_idx: board_idx
+               },
+               success: function () {
+                   // 댓글 입력창 초기화
+                   $("textarea[name='comment_content']").val('');
+                   // 입력 할 때 마다 댓글창 새로 로딩해주기
+                   loadComments();
+               },
+               error: function (error) {
+                   console.error(error);
+               }
+           });
+       });
+       
+       
+   </script>
+
+	<script>
+        const modal = document.querySelector('#modal_evaluate');
+        const btnOpenPopup = document.querySelector('.evaluate');
+        const btnClosePopup2 = document.querySelector('.evaluate_close_btn');
+        
+        //모달 열기
+        btnOpenPopup.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
+
+        //모달 닫기
+        btnClosePopup2.addEventListener('click', () => {
+            modal.style.display = 'none'; 
+        });
+
+        
+        const rangeInput = document.getElementById('customRange2');
+        const scoreDisplay = document.getElementById('score');
+
+        rangeInput.addEventListener('input', () => {
+            scoreDisplay.textContent = rangeInput.value;
+        });
+
+        // 초기 스코어 생성 가능
+        scoreDisplay.textContent = rangeInput.value;
+    
+    </script>
 </body>
 </html>

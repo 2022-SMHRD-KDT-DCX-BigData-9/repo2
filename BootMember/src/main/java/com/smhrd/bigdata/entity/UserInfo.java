@@ -33,4 +33,6 @@ public class UserInfo {
 
 	// 회원 가입일자
 	private Timestamp user_joindate;
+	
+	private int review_authority;
 }
