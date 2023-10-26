@@ -397,7 +397,7 @@
            
            element.checked = true;
       }
-   </script>
+	</script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
@@ -483,7 +483,7 @@
 
         // 초기 스코어 생성 가능
         scoreDisplay.textContent = rangeInput.value;
-    
     </script>
+    
 </body>
 </html>
