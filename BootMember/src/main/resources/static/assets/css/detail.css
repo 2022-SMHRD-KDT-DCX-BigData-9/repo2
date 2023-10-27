@@ -10,6 +10,21 @@
 	text-decoration: none;
 }
 
+#modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: none;
+
+   background-color: rgba(200, 200, 200, 0.8);
+
+}
+
+
 header {
 	position: fixed;
 	width: 100%;
@@ -537,7 +552,8 @@ header.sticky {
 	left: 50%;
 	text-align: center;
 	transform: translateX(-50%) translateY(-50%);
-	margin-bottom: 20px;
+	margin-bottom: 20px; 
+	/* 100px */
 }
 
 .modal_body {
@@ -595,4 +611,49 @@ header.sticky {
 /* 검색창 관련 css  */
 #search-box {
 	display: none;
+}
+
+
+
+
+
+
+#modal_rating{
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: none;
+
+   background-color: rgba(200, 200, 200, 0.8);
+
+}
+
+
+
+    
+
+
+.modal_body .main textarea#reviewContent {
+/* 후기 내용 크기 넓히기 */
+  width: 80%; 
+/* 후기 내용 높이 넓히기 */
+  height: 100px; 
+ /* 스크롤바 */ 
+  overflow-y: auto;
+}
+
+.modal_body .main input#reviewImg {
+/* 사진첨부 내용 크기 넓히기 */
+  width: 80%; 
+/* 사진첨부 내용 높이 넓히기 */
+  height: 150px; 
+}
+
+.comment-section {
+   padding: 300px;
+   flex-direction: column;
 }

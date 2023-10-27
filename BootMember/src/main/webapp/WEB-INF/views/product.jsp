@@ -317,7 +317,7 @@
 				<div class="modal-footer">
 					<button type="submit" id="login">로그인</button>
 					<button id="joinButton">회원가입</button>
-					<button class="btn-close-popup">닫기</button>
+					<button class="btn-close-popup" id = "btn-close-popup-login">닫기</button>
 				</div>
 			</form>
 		</div>
@@ -335,6 +335,7 @@
       const btnOpenJoinPopup = document.querySelector('.btn-open-join');
       const btnOpenLoginPopup = document.querySelector('.btn-open-login');
       const btnClosePopup = document.querySelector('.btn-close-popup');
+      const btnClosePopupLogin = document.querySelector('#btn-close-popup-login');
    
       // 회원가입 모달 열기
       btnOpenJoinPopup.addEventListener('click', () => {
@@ -351,6 +352,10 @@
          modalJoin.style.display = 'none';
          modalLogin.style.display = 'none';
       });
+      
+      btnClosePopupLogin.addEventListener('click', () => {
+          modalLogin.style.display = 'none';
+       });
    
       // 모달 이외 창 추가해서 닫기
       modalJoin.addEventListener('click', (e) => {

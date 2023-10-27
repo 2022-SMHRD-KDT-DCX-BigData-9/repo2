@@ -37,6 +37,7 @@ public class UserController {
 		// 로그인이 성공 했을 경우
 		if (result != null) {
 			session.setAttribute("loginUser", result);
+			System.out.println(result);
 			System.out.println("로그인 성공");
 		} else {
 			System.out.println("로그인 실패");

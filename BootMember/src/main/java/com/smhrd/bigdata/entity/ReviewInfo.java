@@ -29,4 +29,6 @@ public class ReviewInfo {
 
 	// 후기 작성날짜
 	private Timestamp created_at;
+	
+	private String writer_email;
 }

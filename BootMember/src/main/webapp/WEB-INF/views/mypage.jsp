@@ -73,7 +73,7 @@
 				<h1>
 					${ loginUser.user_nick }님 <br>
 				</h1>
-				<p>점수 (거래 횟수)</p>
+				<p>신뢰점수: <b style="color: red;">${score}점</b></p>
 			</div>
 
 			<div class="profile-update">

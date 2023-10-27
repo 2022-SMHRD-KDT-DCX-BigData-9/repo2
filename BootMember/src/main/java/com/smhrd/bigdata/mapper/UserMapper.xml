@@ -139,9 +139,44 @@
 	<!-- 조회수 기능 -->
 	<update id="view_increase"
 		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		UPDATE board_info SET board_views = board_views + 1 where board_idx =
-		#{board_idx}
+		UPDATE board_info SET board_views = board_views + 1 where board_idx = #{board_idx}
 	</update>
+	
+	<update id="review_author">
+	UPDATE user_info SET review_authority = 1 where user_email = #{user_emailone} or user_email = #{user_emailtwo}
+	</update>
+	
+	<update id="review_noauthor">
+	UPDATE user_info SET review_authority = 0 where user_email = #{user_email}
+	</update>
+	
+	<insert id="review_save" parameterType="com.smhrd.bigdata.entity.ReviewInfo">
+	insert into review_info (user_email, board_idx, writer_email, review_content, review_ratings)
+	values (#{user_email}, #{board_idx}, #{writer_email}, #{review_content}, #{review_ratings})
+	
+	</insert>
+	
+	 <!-- 댓글 추가 기능 -->
+   <insert id="insert_comment"
+      parameterType="com.smhrd.bigdata.entity.CommentInfo">
+      insert into comment_info (user_email, board_idx,
+      comment_content)
+      values
+      (#{user_email}, #{board_idx},
+      #{comment_content})
+   </insert>
+
+   <!-- 댓글 불러오기 -->
+   <select id="getCommentsForBoard" parameterType="long"
+      resultType="com.smhrd.bigdata.entity.CommentInfo">
+      select * from comment_info
+      where board_idx = #{board_idx}
+   </select>
+   
+   <select id="score_calculate" parameterType="String">
+   select AVG(review_ratings) from review_info where writer_email = #{user_email};
+   </select>
+	
 
 
 </mapper>
