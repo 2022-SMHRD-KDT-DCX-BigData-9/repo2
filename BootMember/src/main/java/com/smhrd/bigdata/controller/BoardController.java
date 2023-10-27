@@ -3,7 +3,9 @@ package com.smhrd.bigdata.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -371,25 +373,43 @@ public class BoardController {
 	}
 
 // ---------------------------------------------------------------------------------------------------------------
-	// 거래 완료를 누르면 두 사람에게 review_authority를 줌
-	@GetMapping("/review_ok")
-	public String review_author(String user_emailone, String user_emailtwo) {
-		/* System.out.println(user_email); */
-		System.out.println(user_emailone);
-		System.out.println(user_emailtwo);
-		int result = service.review_author(user_emailone, user_emailtwo);
-		System.out.println(result);
-		return "redirect:/";
+	// 시은 후기 기능 TEST
+	@PostMapping("/review_testPage")
+	public String review_testPage() {
+		return "test";
 	}
 
-	// 후기 작성 완료시 후기 내용 저장 및 review_authority 초기화
-	@GetMapping("/review_save")
-	public String review_save(ReviewInfo reviewinfo) {
-		int result = service.review_save(reviewinfo);
-		if (result > 0)
-			System.out.println("후기 작성 성공");
-		int result2 = service.review_noauthor(reviewinfo.getUser_email());
-		return "redirect:/";
+
+	@PostMapping("/review_test")
+	public String review_test(@RequestParam String writer_email, HttpSession session) {
+	    // Call the service method to retrieve user's posts based on the provided writer_email
+	    List<BoardInfo> list = service.review_test(writer_email);
+	    // Add the retrieved posts to the model
+	    session.setAttribute("userPosts", list);
+	    
+	    return "test";
+	}
+	
+	
+	@PostMapping("/selected_post")
+	public String selected_post(ReviewInfo reviewinfo, HttpSession session) {
+	    UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
+	    reviewinfo.setUser_email(currentLogin.getUser_email());
+
+	    List<BoardInfo> boardList = (List<BoardInfo>) session.getAttribute("userPosts");
+	    reviewinfo.setBoard_idx(boardList.get(0).getBoard_idx());
+	    reviewinfo.setWriter_email(boardList.get(0).getUser_email());
+
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("user_emailone", reviewinfo.getUser_email());
+	    paramMap.put("board_idx", reviewinfo.getBoard_idx());
+	    paramMap.put("writer_email", reviewinfo.getWriter_email());
+	    paramMap.put("review_content", reviewinfo.getReview_content());
+	    paramMap.put("review_ratings", reviewinfo.getReview_ratings());
+
+	    service.selected_post(paramMap);
+
+	    return "main";
 	}
 
 }

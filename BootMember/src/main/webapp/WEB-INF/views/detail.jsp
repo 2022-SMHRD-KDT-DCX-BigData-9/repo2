@@ -120,7 +120,7 @@
 							<form action="../review_ok" method="get">
 								<tr>
 									<td><input type="text" value="${loginUser.user_email}"
-										style="display: none" name="user_emailone"</td>
+										style="display: none" name="user_emailone"></td>
 								</tr>
 								<tr>
 									<td><input type="text" placeholder="거래자 email을 적어주세요:"
@@ -130,7 +130,6 @@
 									<td><button type="submit" value="거래 완료">거래 완료</button></td>
 								</tr>
 							</form>
-							<!-- <tr><td><button class = "evaluate">평가하기</button></td></tr> -->
 						</c:when>
 						<c:otherwise>
 							<td></td>
@@ -144,6 +143,21 @@
 					</c:if>
 
 
+
+
+	<!-- 시은 기능 TEST -->
+					<form action="../review_testPage" method="post">
+						<tr>
+							<td><button type="submit" value="기능 테스트">테스트</button></td>
+						</tr>
+					</form>
+	<!-- 시은 기능 TEST 끝-->
+	
+	
+	
+	
+	
+	
 				</tbody>
 			</table>
 			<ul>
@@ -307,7 +321,6 @@
 				</div>
 				<!-- 평가 대상-->
 
-
 				<br>
 				<!--후기 점수 보내는 바-->
 				<div>
@@ -457,33 +470,5 @@
 	    });
 	</script>
 
-	<!-- 거래 후기 JS -->
-	<script>
-        const modal = document.querySelector('#modal_evaluate');
-        const btnOpenPopup = document.querySelector('.evaluate');
-        const btnClosePopup2 = document.querySelector('.evaluate_close_btn');
-        
-        //모달 열기
-        btnOpenPopup.addEventListener('click', () => {
-            modal.style.display = 'block';
-        });
-
-        //모달 닫기
-        btnClosePopup2.addEventListener('click', () => {
-            modal.style.display = 'none'; 
-        });
-
-        
-        const rangeInput = document.getElementById('customRange2');
-        const scoreDisplay = document.getElementById('score');
-
-        rangeInput.addEventListener('input', () => {
-            scoreDisplay.textContent = rangeInput.value;
-        });
-
-        // 초기 스코어 생성 가능
-        scoreDisplay.textContent = rangeInput.value;
-    </script>
-    
 </body>
 </html>

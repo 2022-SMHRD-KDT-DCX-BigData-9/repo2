@@ -1,6 +1,7 @@
 package com.smhrd.bigdata.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -112,20 +113,17 @@ public class BoardService {
 		return mapper.getCommentsForBoard(board_idx);
 	}
 
-	// 거래 후기 기능
-	public int review_author(String user_emailone, String user_emailtwo) {
-		int result = mapper.review_author(user_emailone, user_emailtwo);
-		return result;
+	
+	
+	
+	
+	
+	// 시은 기능 TEST
+	public List<BoardInfo> review_test(String writer_email){
+		return mapper.review_test(writer_email);
 	}
-
-	public int review_noauthor(String user_email) {
-		int result = mapper.review_noauthor(user_email);
-		return result;
-	}
-
-	public int review_save(ReviewInfo reviewinfo) {
-		int result = mapper.review_save(reviewinfo);
-		return result;
+	public void selected_post(Map<String, Object> paramMap) {
+		mapper.selected_post(paramMap);
 	}
 
 }

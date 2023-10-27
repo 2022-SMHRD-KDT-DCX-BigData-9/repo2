@@ -1,6 +1,7 @@
 package com.smhrd.bigdata.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -72,5 +73,12 @@ public interface UserMapper {
 	public int review_author(String user_emailone, String user_emailtwo);
 	public int review_noauthor(String user_email);
 	public int review_save(ReviewInfo reviewinfo);
+	
+	
+	
+	
+	// 시은 기능 TEST
+	public List<BoardInfo> review_test(String writer_email);
+	public void selected_post(Map<String, Object> paramMap);
 
 }
