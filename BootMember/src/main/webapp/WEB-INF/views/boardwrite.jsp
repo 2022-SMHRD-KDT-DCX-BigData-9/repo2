@@ -39,9 +39,7 @@
 					<li><a href="#" class="btn-open-join">register</a></li>
 				</c:when>
 				<c:otherwise>
-					<form method="get" action="logout">
-						<input type="submit" value="logout" style="border: 0 solid black">
-					</form>
+					<li><a href="logout" class="logout-btn">logout</a></li>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="product">products</a></li>
@@ -57,7 +55,7 @@
 				<div id="search-box">
 					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
 						style="width: 300px;" name="item_name">
-					<button onclick="performSearch()">Search</button>
+					<button onclick="performSearch()" class="btn-search">Search</button>
 				</div>
 			</form>
 		</div>

@@ -619,8 +619,40 @@ header.sticky {
 	display: none;
 }
 
+/* 댓글 부분 */
 .comment-section {
    padding: 300px;
-   flex-direction: column;
+
+}
+
+/* 댓글 배경 */
+.comment-section .form-group{
+	background-color: #EDF2F6;
+}
+
+.form-group .form-control{
+	width:800px;
+	height:100px;
+}
+
+#comments-container {
+	background-color: #EDF2F6;
+}
+
+/* 댓글 버튼 */
+/* submit */
+.form-group .btn.btn-light {
+	width: 100px;
+	height: 50px;
+    background-color: #ffffe0;
+    color: black;
+}
+
+.comment {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    border-radius: 5px;
 }
 

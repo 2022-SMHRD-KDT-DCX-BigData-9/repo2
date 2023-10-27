@@ -164,7 +164,7 @@
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">Leave Comment:</label><br>
 				<textarea class="form-control" name="comment_content" required
-					rows="3" placeholder="댓글을 입력하세요" style="width: 300px;"></textarea>
+					rows="3" placeholder="댓글을 입력하세요"></textarea>
 				<input type="hidden" name="board_idx"
 					value="${boardDetail.board_idx}">
 			</div>
@@ -276,7 +276,7 @@
 		</div>
 	</div>
 
-	<!--    <!-- <!-- 후기 창  -->
+	<!-- 후기 창  -->
 	<div class="modal" id="modal_evaluate">
 		<!-- 모달 내용 후기 점수-->
 		<div class="modal_body">

@@ -39,9 +39,10 @@
 					<li><a href="#" class="btn-open-join">register</a></li>
 				</c:when>
 				<c:otherwise>
-					<form method="get" action="logout">
-						<input type="submit" value="logout" style="border: 0 solid black">
-					</form>
+<!-- 					<form method="get" action="logout">
+						 <input type="submit" value="logout" class="logout-btn">
+					</form> -->
+					<li><a href="logout" class="logout-btn">logout</a></li>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="product">products</a></li>
@@ -57,7 +58,7 @@
 				<div id="search-box">
 					<input type="text" placeholder="찾고 싶은 물품을 입력하세요"
 						style="width: 300px;" name="item_name">
-					<button onclick="performSearch()">Search</button>
+					<button onclick="performSearch()" class="btn-search">Search</button>
 				</div>
 			</form>
 		</div>
@@ -296,7 +297,7 @@
 					</fieldset>
 					<!-- 모달 푸터-->
 					<div class="modal-footer">
-						<input type="submit" value="수정하기">
+						<input type="submit" value="수정하기" class="btn-submit">
 						<button class="btn-close-popup">닫기</button>
 					</div>
 				</div>
@@ -305,28 +306,28 @@
 	</div>
 
 	<script>
-        //회원정보 수정 모달
-       const modalUpdate = document.querySelector('#modal_update');
-        //회원정보 수정 버튼
-       const btnUpdateProfile = document.querySelector('.btn-update-profile');
-       const btnClosePopup = document.querySelector('.btn-close-popup');
+	//회원정보 수정 모달
+	const modalUpdate = document.querySelector('#modal_update');
+	//회원정보 수정 버튼
+	const btnUpdateProfile = document.querySelector('.btn-update-profile');
+	const btnClosePopup = document.querySelector('.btn-close-popup');
 
-        //회원 정보 수정 모달 열기
-       btnUpdateProfile.addEventListener('click', () => {
-           modalUpdate.style.display = 'block';
-       });
+	//회원 정보 수정 모달 열기
+	btnUpdateProfile.addEventListener('click', () => {
+	    modalUpdate.style.display = 'block';
+	});
 
-       // 모달 닫기
-         btnClosePopup.addEventListener('click', () => {
-           modalUpdate.style.display = 'none';
-       });
+	// 모달 닫기
+	btnClosePopup.addEventListener('click', () => {
+	    modalUpdate.style.display = 'none';
+	});
 
-       // 모달 이외 창 추가해서 닫기
-       modalUpdate.addEventListener('click', (e) => {
-           if (e.target === modalUpdate) {
-               modalUpdate.style.display = 'none';
-           }
-       });
+	// 모달 이외 창 추가해서 닫기
+	window.addEventListener('click', (e) => {
+	    if (e.target === modalUpdate) {
+	        modalUpdate.style.display = 'none';
+	    }
+	});
        
 		function toggleSearchBox() {
             var searchBox = document.getElementById("search-box");
@@ -336,6 +337,7 @@
                 searchBox.style.display = "none";
             }
         }
+		
    </script>
 
 	<!-- 체크박스 하나만 선택할 수 있게 하는 JS -->
