@@ -40,12 +40,12 @@ header {
     font-weight: 400;
     text-decoration: none;
     margin-left: 20px;
-    text-transform: capitalize;
+    text-transform: uppercase;
     padding: 6px 15px;
     transition: all 0.42s ease;
     background: #ffffe0;
     border-radius: 30px;
-    border: none; 
+    border: 3px solid gold; 
 }
 
 /* .logout-btn{

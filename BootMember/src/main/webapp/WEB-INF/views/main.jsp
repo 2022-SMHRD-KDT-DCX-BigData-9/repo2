@@ -80,8 +80,10 @@
 		</div>
 
 		<div class="down-arrow">
-			<a href="#trending" class="down"> <i class='bx bx-down-arrow-alt'></i></a>
+			<a href="#down1" class="down"> <i class='bx bx-down-arrow-alt'></i></a>
 		</div>
+		
+		
 	</section>
 	
 	<div class="main-home2"></div>
@@ -121,7 +123,7 @@
 	<!-- 조회수가 높은 상위 8개 게시물 출력하기 -->
 	<div class="center-text">
 		<h2>
-			Our Trending <span> Products </span>
+			Our Trending <span id="down1"> Products </span>
 		</h2>
 	</div>
 

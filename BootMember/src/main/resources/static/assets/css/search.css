@@ -12,18 +12,19 @@
 
 header {
 	position: fixed;
-	width: 100%;
 	top: 0;
 	right: 0;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	width: 100%;
 	padding: 20px 10%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #EDF2F6;
+	z-index: 1000;
 }
 
 .logo img {
-	max-width: 12opx;
+	width: 80%;
 	height: auto;
 }
 
@@ -31,13 +32,20 @@ header {
 	display: flex;
 }
 
-.navmenu a {
-	color: #2C2C2C;
-	font-size: 16px;
-	text-transform: capitalize;
-	padding: 10px 20px;
-	font-weight: 400;
-	transition: all .42S ease;
+.btn-search, .navmenu a, .logout-btn{
+    width: 85px;
+    height: 32px;
+    font-size: 16px;
+    color: #2C2C2C;
+    font-weight: 400;
+    text-decoration: none;
+    margin-left: 20px;
+    text-transform: uppercase;
+    padding: 6px 15px;
+    transition: all 0.42s ease;
+    background: #ffffe0;
+    border-radius: 30px;
+    border: 3px solid gold; 
 }
 
 .navmenu a:hover {
@@ -180,9 +188,11 @@ header.sticky {
 
 /* 상품 이미지  */
 .row img {
-	width: 100%;
-	height: auto;
+	width: 300px; 
+	height: 300px;
+	object-fit: cover; 
 	transition: all .40s;
+	margin-top: 50px;
 }
 
 .row img:hover {

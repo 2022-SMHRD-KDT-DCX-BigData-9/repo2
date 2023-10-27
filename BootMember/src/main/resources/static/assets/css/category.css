@@ -40,12 +40,12 @@ logo img {
     font-weight: 400;
     text-decoration: none;
     margin-left: 20px;
-    text-transform: capitalize;
+    text-transform: uppercase;
     padding: 6px 15px;
     transition: all 0.42s ease;
     background: #ffffe0;
     border-radius: 30px;
-    border: none; 
+    border: 3px solid gold; 
 }
 
 .navmenu a:hover span, .navmenu a.active span {
@@ -491,14 +491,39 @@ header.sticky {
 .categorynavmenu a {
 	color: #2C2C2C;
 	font-size: 30px;
-	text-transform: capitalize;
+	text-transform:uppercase;
 	padding: 5px 20px;
 	font-weight: 400;
 	transition: all .42S ease;
 	background: #ffffe0;
 	border-radius: 30px;
+	border: 3px solid gold;
+	
 }
 
 .categorynavmenu a:hover {
 	color: #EE1CA7;
 }
+
+  /* 이전/다음 링크 스타일 */
+  .pagination a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+   background-color: #ffffe0;
+    color: black;
+  
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  /* 활성 페이지 번호 스타일 */
+  .pagination span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+      background-color: #ffffe0;
+    color: black;
+  
+    border-radius: 5px;
+  }

@@ -32,7 +32,7 @@ header {
 	display: flex;
 }
 
-.btn-search, .navmenu a, .logout-btn {
+.btn-search, .navmenu a, .logout-btn{
     width: 85px;
     height: 32px;
     font-size: 16px;
@@ -40,12 +40,12 @@ header {
     font-weight: 400;
     text-decoration: none;
     margin-left: 20px;
-    text-transform: capitalize;
+    text-transform: uppercase;
     padding: 6px 15px;
     transition: all 0.42s ease;
     background: #ffffe0;
     border-radius: 30px;
-    border: none; 
+    border: 3px solid gold; 
 }
 
 .navmenu a:hover {
@@ -627,24 +627,33 @@ header.sticky {
 	display: none;
 }
 
-/* 댓글 부분 */
 .comment-section {
-   padding: 300px;
+   text-align: center; /* 내부 컨텐츠를 가운데 정렬 */
+   margin-top:200px; 
 
 }
 
-/* 댓글 배경 */
+/* 댓글 폼 배경 */
 .comment-section .form-group{
 	background-color: #EDF2F6;
+	padding: 20px; /* 필요에 따라 패딩 조정 */
 }
 
+/* 댓글 입력 필드 스타일 */
 .form-group .form-control{
-	width:800px;
-	height:100px;
+	width: 100%; /* 부모 요소에 맞게 100%로 설정 */
+	height: 100px;
 }
 
+/* 댓글 입력 필드 내용 가운데 정렬 */
+.form-group .comment_content{
+	text-align: center;
+}
+
+/* 댓글 컨테이너 스타일 */
 #comments-container {
 	background-color: #EDF2F6;
+	padding: 20px; /* 필요에 따라 패딩 조정 */
 }
 
 /* 댓글 버튼 */
@@ -654,9 +663,10 @@ header.sticky {
 	height: 50px;
     background-color: #ffffe0;
     color: black;
+    
 }
 
-.comment {
+.email_user {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px 0;
@@ -664,3 +674,16 @@ header.sticky {
     border-radius: 5px;
 }
 
+.complete{
+	width: 100px;
+	height: 50px;
+    background-color: #ffffe0;
+    color: black;
+}
+
+.evaluate{
+	width: 100px;
+	height: 50px;
+    background-color: #ffffe0;
+    color: black;
+}
