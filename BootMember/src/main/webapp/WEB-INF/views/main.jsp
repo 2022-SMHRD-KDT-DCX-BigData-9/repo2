@@ -249,7 +249,6 @@
 
 				<div class="modal-footer">
 					<button type="submit" id="login">로그인</button>
-					<button id="joinButton">회원가입</button>
 					<button class="btn-close-popup">닫기</button>
 				</div>
 			</form>

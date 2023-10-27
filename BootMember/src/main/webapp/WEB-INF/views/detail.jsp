@@ -38,7 +38,9 @@
 					<li><a href="#" class="btn-open-join">register</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="logout" class="logout-btn">logout</a></li>
+					<form method="get" action="../logout">
+						<input type="submit" value="logout" style="border: 0 solid black">
+					</form>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="../product">products</a></li>
@@ -118,31 +120,30 @@
 
 					<c:choose>
 						<c:when test="${loginUser.user_email eq boardDetail.user_email}">
-
 							<form action="../review_ok" method="get">
-							<tr>
-								<input type="text" value="${loginUser.user_email}"
-									style="display: none" name="user_emailone">
-							</tr>
-							<tr>
-								<th><input class="email_user" type="text"
-									placeholder="거래자 Email" style="width: 200px"
-									name="user_emailtwo"></th>
-
-								<td>
-									<button type="submit" value="거래 완료" class="complete">거래완료</button>
-								</td>
+								<tr>
+									<td><input type="text" value="${loginUser.user_email}"
+										style="display: none" name="user_emailone"</td>
+								</tr>
+								<tr>
+									<td><input type="text" placeholder="거래자 email을 적어주세요:"
+										style="width: 200px" name="user_emailtwo"></td>
+								</tr>
+								<tr>
+									<td><button type="submit" value="거래 완료" class="finish-btn">거래 완료</button></td>
+								</tr>
+							</form>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
 
 					<c:if test="${loginUser.review_authority eq 1 }">
-						<td><button class="evaluate">평가하기</button></td>
+						<tr>
+							<td><button class="evaluate">평가하기</button></td>
+						</tr>
 					</c:if>
 
-					</tr>
-					</form>
 
 				</tbody>
 			</table>
@@ -159,22 +160,16 @@
 	<!-- 댓글 -->
 	<div class="comment-section">
 		<form id="comment-form" action="/bigdata/submit_comment" method="post">
-
 			<div class="form-group">
-				<label for="exampleFormControlTextarea1">Leave Comment:</label>
-
-				<div class="comment_content">
-					<textarea class="form-control" name="comment_content" required
-						rows="3" placeholder="댓글을 입력하세요"></textarea>
-				</div>
-
+				<label for="exampleFormControlTextarea1">Leave Comment:</label><br>
+				<textarea class="form-control" name="comment_content" required
+					rows="3" placeholder="댓글을 입력하세요" style="width: 300px;"></textarea>
 				<input type="hidden" name="board_idx"
 					value="${boardDetail.board_idx}">
 			</div>
 			<div class="form-group">
 				<button type="submit" class="btn btn-light">Submit</button>
 			</div>
-
 		</form>
 		<br>
 		<div id="comments-container">
@@ -280,7 +275,7 @@
 		</div>
 	</div>
 
-	<!-- 후기 창  -->
+	<!--    <!-- <!-- 후기 창  -->
 	<div class="modal" id="modal_evaluate">
 		<!-- 모달 내용 후기 점수-->
 		<div class="modal_body">
