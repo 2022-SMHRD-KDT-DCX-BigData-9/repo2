@@ -212,8 +212,9 @@ header.sticky {
 
 /* 상품 이미지  */
 .row img {
-	width: 100%;
-	height: auto;
+	width: 300px; 
+	height: 300px;
+	object-fit: cover; 
 	transition: all .40s;
 }
 
