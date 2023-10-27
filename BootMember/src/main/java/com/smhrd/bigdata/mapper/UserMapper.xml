@@ -2,249 +2,205 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.smhrd.bigdata.mapper.UserMapper">
 
-	<!-- 회원가입 -->
-	<insert id="join"
-		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		insert into user_info (user_email, user_pw, user_name,
-		user_nick, user_addr,
-		user_category, user_phone)
-		values (#{user_email},
-		#{user_pw}, #{user_name}, #{user_nick}, #{user_addr},
-		#{user_category}, #{user_phone})
-	</insert>
+   <!-- 회원가입 -->
+   <insert id="join"
+      parameterType="com.smhrd.bigdata.entity.UserInfo">
+      insert into user_info (user_email, user_pw, user_name,
+      user_nick, user_addr,
+      user_category, user_phone)
+      values (#{user_email},
+      #{user_pw}, #{user_name}, #{user_nick}, #{user_addr},
+      #{user_category}, #{user_phone})
+   </insert>
 
-	<!-- 로그인 -->
-	<select id="login"
-		parameterType="com.smhrd.bigdata.entity.UserInfo"
-		resultType="com.smhrd.bigdata.entity.UserInfo">
-		select * from user_info where user_email = #{user_email}
-		and user_pw = #{user_pw}
-	</select>
+   <!-- 로그인 -->
+   <select id="login"
+      parameterType="com.smhrd.bigdata.entity.UserInfo"
+      resultType="com.smhrd.bigdata.entity.UserInfo">
+      select * from user_info where user_email = #{user_email}
+      and user_pw = #{user_pw}
+   </select>
 
-	<!-- 게시물 작성 -->
-	<insert id="boardWrite"
-		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		insert into board_info (item_name, board_content,
-		user_email, item_category,
-		want_category, item_place, item_img)
-		values
-		(#{item_name}, #{board_content}, #{user_email}, #{item_category},
-		#{want_category}, #{item_place}, #{item_img});
-	</insert>
-
-
-	<!-- 회원 정보 수정 -->
-	<update id="userUpdate"
-		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		update user_info set user_pw = #{user_pw}, user_nick =
-		#{user_nick}, user_category = #{user_category}
-		where user_email =
-		#{user_email}
-	</update>
-
-	<!-- 게시글 리스트 출력 -->
-	<select id="boardList"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info
-	</select>
-
-	<!-- 게시글 상세 페이지 출력 -->
-	<select id="boardDetail"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where board_idx = #{board_idx}
-	</select>
+   <!-- 게시물 작성 -->
+   <insert id="boardWrite"
+      parameterType="com.smhrd.bigdata.entity.BoardInfo">
+      insert into board_info (item_name, board_content,
+      user_email, item_category,
+      want_category, item_place, item_img)
+      values
+      (#{item_name}, #{board_content}, #{user_email}, #{item_category},
+      #{want_category}, #{item_place}, #{item_img});
+   </insert>
 
 
-	<!-- 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능 -->
-	<select id="electronics"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '전자제품'
-	</select>
-	<select id="books"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '책'
-	</select>
-	<select id="clothes"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '의류'
-	</select>
-	<select id="sports"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '스포츠/레저'
-	</select>
-	<select id="lifegoods"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where item_category like '생활용품'
-	</select>
+   <!-- 회원 정보 수정 -->
+   <update id="userUpdate"
+      parameterType="com.smhrd.bigdata.entity.UserInfo">
+      update user_info set user_pw = #{user_pw}, user_nick =
+      #{user_nick}, user_category = #{user_category}
+      where user_email =
+      #{user_email}
+   </update>
+
+   <!-- 게시글 리스트 출력 -->
+   <select id="boardList"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info
+   </select>
+
+   <!-- 게시글 상세 페이지 출력 -->
+   <select id="boardDetail"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where board_idx = #{board_idx}
+   </select>
 
 
-	<!-- 후기 목록 출력 기능 -->
-	<select id="reviewList"
-		resultType="com.smhrd.bigdata.entity.ReviewInfo">
-		select * from review_info
-	</select>
-
-	<!-- 조회수 높은 순서대로 출력하는 기능 -->
-	<select id="boardRanking"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info order by board_views desc limit 8
-	</select>
-
-	<!-- 마이페이지 출력 기능 -->
-	<select id="profile"
-		resultType="com.smhrd.bigdata.entity.UserInfo">
-	</select>
-
-	<!-- 카테고리에 맞춰 추천하는 기능 -->
-	<select id="recommendation"
-		resultType="com.smhrd.bigdata.entity.BoardInfo"
-		parameterType="com.smhrd.bigdata.entity.UserInfo">
-		select b.*
-		from board_info b
-		where b.item_category =
-		(select u.user_category from user_info u where
-		u.user_email =
-		#{user_email}) limit 8;
-	</select>
-
-	<!-- 유저가 작성한 게시글 보여주는 기능 -->
-	<select id="userBoard"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where user_email = #{user_email}
-	</select>
-
-	<!-- 페이징 기능 -->
-	<select id="countUserPosts"
-		parameterType="com.smhrd.bigdata.entity.BoardInfo" resultType="int">
-		select
-		count(*) from board_info where user_email = #{user_email}
-	</select>
-
-	<select id="getUserPostsByPage" parameterType="map"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where user_email = #{user_email}
-		limit #{limit} offset #{offset}
-	</select>
+   <!-- 각 카테고리 선택시 해당 카테고리에만 해당되는 게시물 출력 기능 -->
+   <select id="electronics"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where item_category like '전자제품'
+   </select>
+   <select id="books"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where item_category like '책'
+   </select>
+   <select id="clothes"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where item_category like '의류'
+   </select>
+   <select id="sports"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where item_category like '스포츠/레저'
+   </select>
+   <select id="lifegoods"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where item_category like '생활용품'
+   </select>
 
 
-	<!-- 검색 기능 -->
-	<select id="search"
-		resultType="com.smhrd.bigdata.entity.BoardInfo" parameterType="String">
-		SELECT *
-		FROM board_info where item_name LIKE CONCAT('%',#{item_name},'%')
-		or
-		item_category LIKE CONCAT('%',#{item_name},'%');
-	</select>
+   <!-- 후기 목록 출력 기능 -->
+   <select id="reviewList"
+      resultType="com.smhrd.bigdata.entity.ReviewInfo">
+      select * from review_info
+   </select>
 
-	<!-- 조회수 기능 -->
-	<update id="view_increase"
-		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		UPDATE board_info SET board_views = board_views + 1
-		where board_idx =
-		#{board_idx}
-	</update>
+   <!-- 조회수 높은 순서대로 출력하는 기능 -->
+   <select id="boardRanking"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info order by board_views desc limit 8
+   </select>
 
-<<<<<<< HEAD
-	<!-- 댓글 추가 기능 -->
-	<insert id="insert_comment"
-		parameterType="com.smhrd.bigdata.entity.CommentInfo">
-		insert into comment_info (user_email, board_idx,
-		comment_content)
-		values
-		(#{user_email}, #{board_idx},
-		#{comment_content})
-	</insert>
-=======
-	<update id="review_author">
-		UPDATE user_info SET review_authority = 1 where
-		user_email =
-		#{user_emailone} or user_email = #{user_emailtwo}
-	</update>
+   <!-- 마이페이지 출력 기능 -->
+   <select id="profile"
+      resultType="com.smhrd.bigdata.entity.UserInfo">
+   </select>
 
-	<update id="review_noauthor">
-		UPDATE user_info SET review_authority = 0 where
-		user_email = #{user_email}
-	</update>
+   <!-- 카테고리에 맞춰 추천하는 기능 -->
+   <select id="recommendation"
+      resultType="com.smhrd.bigdata.entity.BoardInfo"
+      parameterType="com.smhrd.bigdata.entity.UserInfo">
+      select b.*
+      from board_info b
+      where b.item_category =
+      (select u.user_category from user_info u where
+      u.user_email =
+      #{user_email}) limit 8;
+   </select>
 
-	<insert id="review_save"
-		parameterType="com.smhrd.bigdata.entity.ReviewInfo">
-		insert into review_info (user_email, board_idx, writer_email,
-		review_content, review_ratings)
-		values (#{user_email}, #{board_idx}, #{writer_email}, #{review_content},
-		#{review_ratings})
+   <!-- 유저가 작성한 게시글 보여주는 기능 -->
+   <select id="userBoard"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where user_email = #{user_email}
+   </select>
 
-	</insert>
+   <!-- 페이징 기능 -->
+   <select id="countUserPosts"
+      parameterType="com.smhrd.bigdata.entity.BoardInfo" resultType="int">
+      select
+      count(*) from board_info where user_email = #{user_email}
+   </select>
 
-
-	<!-- 댓글 추가 기능 -->
-	<insert id="insert_comment"
-		parameterType="com.smhrd.bigdata.entity.CommentInfo">
-		insert into comment_info (user_email, board_idx,
-		comment_content)
-		values
-		(#{user_email}, #{board_idx},
-		#{comment_content})
-	</insert>
-
-	<!-- 댓글 불러오기 -->
-	<select id="getCommentsForBoard" parameterType="long"
-		resultType="com.smhrd.bigdata.entity.CommentInfo">
-		select * from comment_info
-		where board_idx = #{board_idx}
-	</select>
+   <select id="getUserPostsByPage" parameterType="map"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where user_email = #{user_email}
+      limit #{limit} offset #{offset}
+   </select>
 
 
+   <!-- 검색 기능 -->
+   <select id="search"
+      resultType="com.smhrd.bigdata.entity.BoardInfo" parameterType="String">
+      SELECT *
+      FROM board_info where item_name LIKE CONCAT('%',#{item_name},'%')
+      or
+      item_category LIKE CONCAT('%',#{item_name},'%');
+   </select>
+
+   <!-- 조회수 기능 -->
+   <update id="view_increase"
+      parameterType="com.smhrd.bigdata.entity.BoardInfo">
+      UPDATE board_info SET board_views = board_views + 1
+      where board_idx =
+      #{board_idx}
+   </update>
+
+   <!-- 댓글 추가 기능 -->
+   <insert id="insert_comment"
+      parameterType="com.smhrd.bigdata.entity.CommentInfo">
+      insert into comment_info (user_email, board_idx,
+      comment_content)
+      values
+      (#{user_email}, #{board_idx},
+      #{comment_content})
+   </insert>
+
+   <!-- 댓글 불러오기 -->
+   <select id="getCommentsForBoard" parameterType="long"
+      resultType="com.smhrd.bigdata.entity.CommentInfo">
+      select * from comment_info
+      where board_idx = #{board_idx}
+   </select>
 
 
->>>>>>> refs/remotes/origin/newkdh
+   <!-- 시은 기능 TEST -->
+   <select id="review_test"
+      resultType="com.smhrd.bigdata.entity.BoardInfo">
+      select * from board_info where user_email = #{writer_email}
+   </select>
+   <!-- 거래 후기 작성 권한 주기 -->
+   <update id="review_author">
+      UPDATE user_info SET review_authority = 1 where
+      user_email =
+      #{user_emailone} or user_email = #{user_emailtwo}
+   </update>
+   <!-- 후기 작성 후 DB 저장 -->
+   <insert id="selected_post" parameterType="java.util.Map">
+      insert into review_info
+      (user_email, board_idx, writer_email,
+      review_content, review_ratings)
+      values (#{user_emailone}, #{board_idx}, #{writer_email},
+      #{review_content}, #{review_ratings})
+   </insert>
 
-	<!-- 댓글 불러오기 -->
-	<select id="getCommentsForBoard" parameterType="long"
-		resultType="com.smhrd.bigdata.entity.CommentInfo">
-		select * from comment_info
-		where board_idx = #{board_idx}
-	</select>
+   <!-- 거래 후기 작성 권한 초기화 -->
+   <update id="review_noauthor"> UPDATE user_info SET review_authority
+      = 0 where
+      user_email = #{user_email}
+   </update>
 
+   <!-- 점수 계산 기능 -->
+   <select id="score_calculate" parameterType="String">
+      select
+      AVG(review_ratings) from review_info where writer_email =
+      #{user_email};
+   </select>
 
-	<!-- 시은 기능 TEST -->
-	<select id="review_test"
-		resultType="com.smhrd.bigdata.entity.BoardInfo">
-		select * from board_info where user_email = #{writer_email}
-	</select>
-	<!-- 거래 후기 작성 권한 주기 -->
-	<update id="review_author">
-		UPDATE user_info SET review_authority = 1 where
-		user_email =
-		#{user_emailone} or user_email = #{user_emailtwo}
-	</update>
-	<!-- 후기 작성 후 DB 저장 -->
-	<insert id="selected_post" parameterType="java.util.Map">
-		insert into review_info
-		(user_email, board_idx, writer_email,
-		review_content, review_ratings)
-		values (#{user_emailone}, #{board_idx}, #{writer_email},
-		#{review_content}, #{review_ratings})
-	</insert>
-
-	<!-- 거래 후기 작성 권한 초기화 -->
-	<update id="review_noauthor"> UPDATE user_info SET review_authority
-		= 0 where
-		user_email = #{user_email}
-	</update>
-
-	<!-- 점수 계산 기능 -->
-	<select id="score_calculate" parameterType="String">
-		select
-		AVG(review_ratings) from review_info where writer_email =
-		#{user_email};
-	</select>
-
-	<!-- 후기 출력 기능 -->
-	<select id="getReviewsWithItemInfo" parameterType="String"
-		resultType="java.util.Map">
-		select a.review_content, a.review_ratings, b.item_name, b.item_img
-		from review_info a
-		join board_info b ON a.board_idx = b.board_idx
-		where a.writer_email = #{user_email}
-	</select>
+   <!-- 후기 출력 기능 -->
+   <select id="getReviewsWithItemInfo" parameterType="String"
+      resultType="java.util.Map">
+      select a.review_content, a.review_ratings, b.item_name, b.item_img
+      from review_info a
+      join board_info b ON a.board_idx = b.board_idx
+      where a.writer_email = #{user_email}
+   </select>
 </mapper>
