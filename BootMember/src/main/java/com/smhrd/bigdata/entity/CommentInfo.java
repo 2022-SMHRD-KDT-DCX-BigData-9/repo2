@@ -25,4 +25,5 @@ public class CommentInfo {
 
 	// 덧글 작성날짜
 	private Timestamp created_at;
+
 }

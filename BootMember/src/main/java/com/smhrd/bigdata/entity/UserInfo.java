@@ -34,6 +34,5 @@ public class UserInfo {
 	// 회원 가입일자
 	private Timestamp user_joindate;
 	
-	// 후기 작성 승인 권한
 	private int review_authority;
 }

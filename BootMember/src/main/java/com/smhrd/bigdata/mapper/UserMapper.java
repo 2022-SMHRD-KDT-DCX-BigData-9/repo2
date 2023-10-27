@@ -65,16 +65,9 @@ public interface UserMapper {
 	// 조회수 기능
 	public int view_increase(BoardInfo b);
 
+
 	// 댓글 추가 기능
 	public int insert_comment(CommentInfo commentInfo);
-
-	// 댓글 불러오기 기능
-	public List<CommentInfo> getCommentsForBoard(Long board_idx);
-
-	// 거래 후기 기능
-	public int review_author(String user_emailone, String user_emailtwo);
-
-	public int review_noauthor(String user_email);
 
 	// 시은 기능 TEST
 	public List<BoardInfo> review_test(String writer_email);
@@ -87,4 +80,14 @@ public interface UserMapper {
 	// 후기 출력 기능
 	/* public List<ReviewBoard> review_board(); */
 	public List<Map<String, Object>> getReviewsWithItemInfo(String user_email);
+
+	public int review_author(String user_emailone, String user_emailtwo);
+
+	public int review_noauthor(String user_email);
+
+	public int review_save(ReviewInfo reviewinfo);
+
+	// 댓글 불러오기 기능
+	public List<CommentInfo> getCommentsForBoard(Long board_idx);
+
 }

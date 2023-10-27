@@ -28,6 +28,5 @@ public class ReviewInfo {
 	// 후기 작성날짜
 	private Timestamp created_at;
 	
-	// 거래한 대상 이메일
 	private String writer_email;
 }

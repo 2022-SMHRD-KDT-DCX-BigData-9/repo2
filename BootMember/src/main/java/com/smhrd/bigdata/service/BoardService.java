@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.smhrd.bigdata.entity.BoardInfo;
 import com.smhrd.bigdata.entity.CommentInfo;
+
+import com.smhrd.bigdata.entity.ReviewInfo;
+
 import com.smhrd.bigdata.entity.UserInfo;
 import com.smhrd.bigdata.mapper.UserMapper;
 
@@ -145,5 +148,12 @@ public class BoardService {
 	// 후기 출력 기능
 	public List<Map<String, Object>> getReviewsWithItemInfo(String user_email){
 		return mapper.getReviewsWithItemInfo(user_email);
+	};
+
+
+
+	public int review_save(ReviewInfo reviewinfo) {
+		int result = mapper.review_save(reviewinfo);
+		return result;
 	};
 }
