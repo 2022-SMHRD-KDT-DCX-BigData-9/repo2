@@ -38,9 +38,7 @@
 					<li><a href="#" class="btn-open-join">register</a></li>
 				</c:when>
 				<c:otherwise>
-					<form method="get" action="logout">
-						<input type="submit" value="logout" style="border: 0 solid black">
-					</form>
+					<li><a href="logout" class="logout-btn">logout</a></li>
 				</c:otherwise>
 			</c:choose>
 			<li><a href="product">products</a></li>
