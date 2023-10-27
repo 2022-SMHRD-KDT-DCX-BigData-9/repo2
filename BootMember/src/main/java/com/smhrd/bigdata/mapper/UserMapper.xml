@@ -139,9 +139,68 @@
 	<!-- 조회수 기능 -->
 	<update id="view_increase"
 		parameterType="com.smhrd.bigdata.entity.BoardInfo">
-		UPDATE board_info SET board_views = board_views + 1 where board_idx =
+		UPDATE board_info SET board_views = board_views + 1
+		where board_idx =
 		#{board_idx}
 	</update>
 
+	<!-- 댓글 추가 기능 -->
+	<insert id="insert_comment"
+		parameterType="com.smhrd.bigdata.entity.CommentInfo">
+		insert into comment_info (user_email, board_idx,
+		comment_content)
+		values
+		(#{user_email}, #{board_idx},
+		#{comment_content})
+	</insert>
 
+	<!-- 댓글 불러오기 -->
+	<select id="getCommentsForBoard" parameterType="long"
+		resultType="com.smhrd.bigdata.entity.CommentInfo">
+		select * from comment_info
+		where board_idx = #{board_idx}
+	</select>
+
+
+	<!-- 시은 기능 TEST -->
+	<select id="review_test"
+		resultType="com.smhrd.bigdata.entity.BoardInfo">
+		select * from board_info where user_email = #{writer_email}
+	</select>
+	<!-- 거래 후기 작성 권한 주기 -->
+	<update id="review_author">
+		UPDATE user_info SET review_authority = 1 where
+		user_email =
+		#{user_emailone} or user_email = #{user_emailtwo}
+	</update>
+	<!-- 후기 작성 후 DB 저장 -->
+	<insert id="selected_post" parameterType="java.util.Map">
+		insert into review_info
+		(user_email, board_idx, writer_email,
+		review_content, review_ratings)
+		values (#{user_emailone}, #{board_idx}, #{writer_email},
+		#{review_content}, #{review_ratings})
+	</insert>
+
+	<!-- 거래 후기 작성 권한 초기화 -->
+	<update id="review_noauthor"> UPDATE user_info SET review_authority
+		= 0 where
+		user_email = #{user_email}
+	</update>
+
+	<!-- 점수 계산 기능 -->
+	<select id="score_calculate" parameterType="String">
+		select
+		AVG(review_ratings) from review_info where writer_email =
+		#{user_email};
+	</select>
+
+	<!-- 후기 출력 기능 -->
+	<select id="getReviewsWithItemInfo" parameterType="String"
+		resultType="java.util.Map">
+		select a.review_content, a.review_ratings, b.item_name, b.item_img
+		from review_info a
+		join board_info b ON a.board_idx = b.board_idx
+		where a.writer_email = #{user_email}
+	</select>
 </mapper>

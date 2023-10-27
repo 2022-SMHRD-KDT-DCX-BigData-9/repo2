@@ -3,11 +3,15 @@ package com.smhrd.bigdata.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +25,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.smhrd.bigdata.converter.ImageConverter;
 import com.smhrd.bigdata.converter.ImageToBase64;
 import com.smhrd.bigdata.entity.BoardInfo;
+import com.smhrd.bigdata.entity.CommentInfo;
+import com.smhrd.bigdata.entity.ReviewInfo;
 import com.smhrd.bigdata.entity.UserInfo;
 
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.smhrd.bigdata.service.BoardService;
 
@@ -80,6 +87,13 @@ public class BoardController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 
+		int score = service.score_calculate(userinfo.getUser_email());
+		model.addAttribute("score", score);
+	// ==============================================================================
+		// 사용자가 받은 후기 출력하기 
+		List<Map<String, Object>> review = service.getReviewsWithItemInfo(userinfo.getUser_email());
+		model.addAttribute("review", review);
+		
 		return "mypage";
 	}
 
@@ -139,6 +153,9 @@ public class BoardController {
 		// 페이지에 출력하기 위해 model에 저장하기
 
 		int result = service.view_increase(b);
+		
+		int score = service.score_calculate(b.getUser_email());
+		model.addAttribute("score", score);
 
 		return "detail"; // 페이지 이동
 	}
@@ -281,9 +298,15 @@ public class BoardController {
 	public String boardRanking(@ModelAttribute UserInfo userinfo, HttpSession session) throws IOException {
 		List<BoardInfo> boardRanking = service.boardRanking();
 
+
+		// 세션에 저장되어있는 유저 정보 가져오기
+
 		UserInfo result = (UserInfo) session.getAttribute("loginUser");
 
 		// 세션에 저장되어있는 유저 정보 가져오기
+
+		System.out.println(result);
+
 		if (result != null) {
 			List<BoardInfo> recommendation = service.recommendation(result);
 			for (BoardInfo r : recommendation) {
@@ -304,7 +327,6 @@ public class BoardController {
 			ImageConverter<File, String> converter = new ImageToBase64();
 			String fileStringValue = converter.convert(file);
 			b.setItem_img(fileStringValue);
-			// 페이지에 출력하기 위해 model에 저장하기
 		}
 		
 		// 조회수 높은 상위 8개 정보 세션에 저장
@@ -332,6 +354,84 @@ public class BoardController {
 
 		model.addAttribute("search_value", list);
 		return "search";
+	}
+
+// ---------------------------------------------------------------------------------------------------------------
+	// 댓글 작성 기능
+	@PostMapping("/submit_comment")
+	public ResponseEntity<List<CommentInfo>> submitComment(@ModelAttribute CommentInfo commentInfo,
+			HttpSession session) {
+		// 현재 로그인한 사용자의 이메일 주소를 세션에서 가져와 CommentInfo 객체에 저장한다
+		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
+		commentInfo.setUser_email(currentLogin.getUser_email());
+
+		// 댓글 추가 메소드
+		int result = service.insert_comment(commentInfo);
+
+		// 댓글 목록을 다시 불러오고 반환
+		List<CommentInfo> comments = service.getCommentsForBoard(commentInfo.getBoard_idx());
+
+		// HttpStatus.OK와 함께 댓글 목록을 반환
+		// ResponseEntity : 응답에 포함할 데이터 (여기서는 댓글 목록)를 명시적으로 설정할 수 있음
+		return new ResponseEntity<>(comments, HttpStatus.OK);
+	}
+
+	// 댓글 조회
+	@GetMapping("/{board_idx}/comments")
+	@ResponseBody // 댓글 목록을 JSON 형식으로 응답하고, 이 응답은 클라이언트에서 처리된다
+	public List<CommentInfo> getCommentsForBoard(@PathVariable Long board_idx) {
+		// board_idx에 해당하는 게시물에 대한 댓글 목록을 DB에서 가져온다
+		List<CommentInfo> comments = service.getCommentsForBoard(board_idx);
+
+		return comments;
+	}
+
+// ---------------------------------------------------------------------------------------------------------------
+	// 메일 입력하면 authority 1로 설정해주는 기능
+	@GetMapping("/review_ok")
+	public String review_author(String user_emailone, String user_emailtwo) {
+		int result = service.review_author(user_emailone, user_emailtwo);
+		return "redirect:/";
+	}
+
+	// 후기 작성 페이지로 이동하는 기능
+	@PostMapping("/review_testPage")
+	public String review_testPage() {
+		return "test";
+	}
+	
+	// 이메일 검색 시 해당 이메일로 작성된 게시글 불러오는 기능
+	@PostMapping("/review_test")
+	public String review_test(@RequestParam String writer_email, HttpSession session) {
+		
+		List<BoardInfo> list = service.review_test(writer_email);
+		
+		session.setAttribute("userPosts", list);
+
+		return "test";
+	}
+	
+	// 검색 결과를 선택하고 리뷰 작성 후 DB로 저장하는 기능
+	@PostMapping("/selected_post")
+	public String selected_post(ReviewInfo reviewinfo, HttpSession session) {
+		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
+		reviewinfo.setUser_email(currentLogin.getUser_email());
+
+		List<BoardInfo> boardList = (List<BoardInfo>) session.getAttribute("userPosts");
+		reviewinfo.setBoard_idx(boardList.get(0).getBoard_idx());
+		reviewinfo.setWriter_email(boardList.get(0).getUser_email());
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("user_emailone", reviewinfo.getUser_email());
+		paramMap.put("board_idx", reviewinfo.getBoard_idx());
+		paramMap.put("writer_email", reviewinfo.getWriter_email());
+		paramMap.put("review_content", reviewinfo.getReview_content());
+		paramMap.put("review_ratings", reviewinfo.getReview_ratings());
+
+		service.selected_post(paramMap);
+		service.review_noauthor(reviewinfo.getUser_email());
+
+		return "main";
 	}
 
 }

@@ -596,3 +596,8 @@ header.sticky {
 #search-box {
 	display: none;
 }
+
+.comment-section {
+	padding: 300px;
+	flex-direction: column;
+}

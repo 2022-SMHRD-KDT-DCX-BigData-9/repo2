@@ -68,7 +68,4 @@ public class UserController {
 		}
 		return "mypage";
 	}
-
-	// 마이페이지 출력 기능
-
 }

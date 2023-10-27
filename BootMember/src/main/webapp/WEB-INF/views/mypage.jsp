@@ -46,7 +46,7 @@
 			</c:choose>
 			<li><a href="product">products</a></li>
 		</ul>
-		
+
 		<div class="nav-icon">
 			<a href="mypage"><i class='bx bx-user'></i></a>
 
@@ -73,7 +73,9 @@
 				<h1>
 					${ loginUser.user_nick }님 <br>
 				</h1>
-				<p>점수 (거래 횟수)</p>
+				<p>
+					신뢰점수: <b style="color: red;">${score}점</b>
+				</p>
 			</div>
 
 			<div class="profile-update">
@@ -83,8 +85,11 @@
 		</div>
 	</section>
 
-	<br><br><br><br>
-	
+	<br>
+	<br>
+	<br>
+	<br>
+
 	<!-- 거래중 상품 목록 리스트 -->
 	<div class="center-text">
 		<h2>
@@ -104,7 +109,8 @@
 					<h4>
 						<p>${ b.item_name }</p>
 					</h4>
-					<p>${ b.want_category }</p><span><b>views</b>: ${b.board_views}</span>
+					<p>${ b.want_category }</p>
+					<span><b>views</b>: ${b.board_views}</span>
 				</div>
 			</div>
 		</c:forEach>
@@ -147,109 +153,34 @@
 		</c:choose>
 	</div>
 
-
+	<br>
+	<br>
+	<br>
+	<br>
 
 	<!-- 회원 리뷰 section -->
-	<section class="Update-news">
-		<div class="up-center-text">
-			<h2>Review</h2>
-		</div>
-
-		<div class="update-cart">
-			<div class="cart">
-				<img src="image/bl-1.png" alt="">
-				<h5>상품명 (제목)</h5>
-				<h4>받은 후기 점수</h4>
-				<p>받은 후기 내용</p>
-			</div>
-
-			<div class="cart">
-				<img src="image/bl-2.png" alt="">
-				<h5>상품명 (제목)</h5>
-				<h4>받은 후기 점수</h4>
-				<p>받은 후기 내용</p>
-			</div>
-
-			<div class="cart">
-				<img src="image/bl-3.png" alt="">
-				<h5>상품명 (제목)</h5>
-				<h4>받은 후기 점수</h4>
-				<p>받은 후기 내용</p>
-			</div>
-
-			<div class="cart">
-				<img src="image/bl-3.png" alt="">
-				<h5>상품명 (제목)</h5>
-				<h4>받은 후기 점수</h4>
-				<p>받은 후기 내용</p>
-			</div>
-
-
-		</div>
-	</section>
-
-	<!-- Contact section -> 담당자  전화번호, 이메일 -->
-	<section class="contact">
-		<div class="contact-info">
-			<div class="first-info">
-				<img src="image/logo.png" alt="">
-
-				<p>
-					3245 Grant Street Longview, <br> TX United Kingdom 765378
-				</p>
-				<p>01049096453</p>
-				<p>deer2073@naver.com</p>
-
-				<div class="social-icon">
-					<a href="#"><i class='bx bxl-facebook'></i></a> <a href="#"><i
-						class='bx bxl-twitter'></i></a> <a href="#"><i
-						class='bx bxl-instagram'></i></a> <a href="#"><i
-						class='bx bxl-youtube'></i></a> <a href="#"><i
-						class='bx bxl-linkedin'></i></a>
-
+	<div class="up-center-text">
+		<h2>받은 후기</h2>
+	</div>
+	<section class="trending products" id="trending">
+		<c:if test="${not empty review}">
+			<c:forEach items="${review}" var="r">
+				<div class="row">
+					<!-- 여기에서 후기 내용을 출력합니다. -->
+					<div>
+						<img src="image/profile.png">
+					</div>
+					<div class="price">
+						<h5>${r.item_name}</h5>
+						<h4>받은 후기 점수: ${r.review_ratings}</h4>
+						<p>${r.review_content}</p>
+					</div>
 				</div>
-			</div>
-
-			<div class="second-info">
-				<h4>Support</h4>
-				<p>Contact us</p>
-				<p>About page</p>
-				<p>Size Guide</p>
-				<p>Shopping & Resturns</p>
-				<p>Privacy</p>
-			</div>
-
-			<div class="thrid-info">
-				<h4>Shop</h4>
-				<p>Men's Shopping</p>
-				<p>Women's Shopping</p>
-				<p>Kid's Shopping</p>
-				<p>Furniture</p>
-				<p>Discount</p>
-			</div>
-
-
-			<div class="fourth-info">
-				<h4>Company</h4>
-				<p>About</p>
-				<p>Blog</p>
-				<p>Affiliate</p>
-				<p>Login</p>
-			</div>
-
-			<div class="five">
-				<h4>Subscribe</h4>
-				<p>Receive updates, Hot Deals, Discounts Sent Sent Straight in
-					your Inbox Daily</p>
-				<p>Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit. Eum,
-					Debitis.</p>
-				<p>Receive Updates, Hot deals, Discounts Sent Straight In Your
-					Inbox Daily</p>
-
-			</div>
-		</div>
+			</c:forEach>
+		</c:if>
 	</section>
-
+	
+	
 
 	<!-- 회원 정보 수정할 수 있는 모달창 -->
 	<div class="modal" id="modal_update">
