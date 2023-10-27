@@ -87,6 +87,13 @@ public class BoardController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", totalPages);
 
+		int score = service.score_calculate(userinfo.getUser_email());
+		model.addAttribute("score", score);
+	// ==============================================================================
+		// 사용자가 받은 후기 출력하기 
+		List<Map<String, Object>> review = service.getReviewsWithItemInfo(userinfo.getUser_email());
+		model.addAttribute("review", review);
+		
 		return "mypage";
 	}
 
@@ -146,6 +153,9 @@ public class BoardController {
 		// 페이지에 출력하기 위해 model에 저장하기
 
 		int result = service.view_increase(b);
+		
+		int score = service.score_calculate(b.getUser_email());
+		model.addAttribute("score", score);
 
 		return "detail"; // 페이지 이동
 	}
@@ -373,43 +383,51 @@ public class BoardController {
 	}
 
 // ---------------------------------------------------------------------------------------------------------------
-	// 시은 후기 기능 TEST
+	// 메일 입력하면 authority 1로 설정해주는 기능
+	@GetMapping("/review_ok")
+	public String review_author(String user_emailone, String user_emailtwo) {
+		int result = service.review_author(user_emailone, user_emailtwo);
+		return "redirect:/";
+	}
+
+	// 후기 작성 페이지로 이동하는 기능
 	@PostMapping("/review_testPage")
 	public String review_testPage() {
 		return "test";
 	}
-
-
+	
+	// 이메일 검색 시 해당 이메일로 작성된 게시글 불러오는 기능
 	@PostMapping("/review_test")
 	public String review_test(@RequestParam String writer_email, HttpSession session) {
-	    // Call the service method to retrieve user's posts based on the provided writer_email
-	    List<BoardInfo> list = service.review_test(writer_email);
-	    // Add the retrieved posts to the model
-	    session.setAttribute("userPosts", list);
-	    
-	    return "test";
+		
+		List<BoardInfo> list = service.review_test(writer_email);
+		
+		session.setAttribute("userPosts", list);
+
+		return "test";
 	}
 	
-	
+	// 검색 결과를 선택하고 리뷰 작성 후 DB로 저장하는 기능
 	@PostMapping("/selected_post")
 	public String selected_post(ReviewInfo reviewinfo, HttpSession session) {
-	    UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
-	    reviewinfo.setUser_email(currentLogin.getUser_email());
+		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
+		reviewinfo.setUser_email(currentLogin.getUser_email());
 
-	    List<BoardInfo> boardList = (List<BoardInfo>) session.getAttribute("userPosts");
-	    reviewinfo.setBoard_idx(boardList.get(0).getBoard_idx());
-	    reviewinfo.setWriter_email(boardList.get(0).getUser_email());
+		List<BoardInfo> boardList = (List<BoardInfo>) session.getAttribute("userPosts");
+		reviewinfo.setBoard_idx(boardList.get(0).getBoard_idx());
+		reviewinfo.setWriter_email(boardList.get(0).getUser_email());
 
-	    Map<String, Object> paramMap = new HashMap<>();
-	    paramMap.put("user_emailone", reviewinfo.getUser_email());
-	    paramMap.put("board_idx", reviewinfo.getBoard_idx());
-	    paramMap.put("writer_email", reviewinfo.getWriter_email());
-	    paramMap.put("review_content", reviewinfo.getReview_content());
-	    paramMap.put("review_ratings", reviewinfo.getReview_ratings());
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("user_emailone", reviewinfo.getUser_email());
+		paramMap.put("board_idx", reviewinfo.getBoard_idx());
+		paramMap.put("writer_email", reviewinfo.getWriter_email());
+		paramMap.put("review_content", reviewinfo.getReview_content());
+		paramMap.put("review_ratings", reviewinfo.getReview_ratings());
 
-	    service.selected_post(paramMap);
+		service.selected_post(paramMap);
+		service.review_noauthor(reviewinfo.getUser_email());
 
-	    return "main";
+		return "main";
 	}
 
 }

@@ -52,33 +52,39 @@ public interface UserMapper {
 
 	// 유저가 작성한 게시글 보여주는 기능
 	public List<BoardInfo> userBoard(UserInfo userinfo);
-	
+
 	// 페이징 기능
 	public int countUserPosts(String user_email);
-	public List<BoardInfo> getUserPostsByPage(@Param("user_email") String user_email, @Param("offset") int offset, @Param("limit") int limit);
-	
+
+	public List<BoardInfo> getUserPostsByPage(@Param("user_email") String user_email, @Param("offset") int offset,
+			@Param("limit") int limit);
+
 	// 검색 기능
 	public List<BoardInfo> search(String item_name);
-	
+
 	// 조회수 기능
 	public int view_increase(BoardInfo b);
-	
+
 	// 댓글 추가 기능
 	public int insert_comment(CommentInfo commentInfo);
-	
+
 	// 댓글 불러오기 기능
 	public List<CommentInfo> getCommentsForBoard(Long board_idx);
-	
+
 	// 거래 후기 기능
 	public int review_author(String user_emailone, String user_emailtwo);
+
 	public int review_noauthor(String user_email);
-	public int review_save(ReviewInfo reviewinfo);
-	
-	
-	
-	
+
 	// 시은 기능 TEST
 	public List<BoardInfo> review_test(String writer_email);
+
 	public void selected_post(Map<String, Object> paramMap);
 
+	// 점수 계산 기능
+	public Integer score_calculate(String writer_email);
+	
+	// 후기 출력 기능
+	/* public List<ReviewBoard> review_board(); */
+	public List<Map<String, Object>> getReviewsWithItemInfo(String user_email);
 }

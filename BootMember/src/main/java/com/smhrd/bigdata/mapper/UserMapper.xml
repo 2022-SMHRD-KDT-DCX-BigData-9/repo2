@@ -171,7 +171,7 @@
 	<update id="review_author">
 		UPDATE user_info SET review_authority = 1 where
 		user_email =
-		#{user_emailone} or user_email = #{writer_email}
+		#{user_emailone} or user_email = #{user_emailtwo}
 	</update>
 	<!-- 후기 작성 후 DB 저장 -->
 	<insert id="selected_post" parameterType="java.util.Map">
@@ -187,4 +187,20 @@
 		= 0 where
 		user_email = #{user_email}
 	</update>
+
+	<!-- 점수 계산 기능 -->
+	<select id="score_calculate" parameterType="String">
+		select
+		AVG(review_ratings) from review_info where writer_email =
+		#{user_email};
+	</select>
+
+	<!-- 후기 출력 기능 -->
+	<select id="getReviewsWithItemInfo" parameterType="String"
+		resultType="java.util.Map">
+		select a.review_content, a.review_ratings, b.item_name, b.item_img
+		from review_info a
+		join board_info b ON a.board_idx = b.board_idx
+		where a.writer_email = #{user_email}
+	</select>
 </mapper>

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.smhrd.bigdata.entity.BoardInfo;
 import com.smhrd.bigdata.entity.CommentInfo;
-import com.smhrd.bigdata.entity.ReviewInfo;
 import com.smhrd.bigdata.entity.UserInfo;
 import com.smhrd.bigdata.mapper.UserMapper;
 
@@ -113,17 +112,38 @@ public class BoardService {
 		return mapper.getCommentsForBoard(board_idx);
 	}
 
-	
-	
-	
-	
-	
+	// 후기 기능
+	public int review_author(String user_emailone, String user_emailtwo) {
+		int result = mapper.review_author(user_emailone, user_emailtwo);
+		return result;
+	}
+
+	public int review_noauthor(String user_email) {
+		int result = mapper.review_noauthor(user_email);
+		return result;
+	}
+
 	// 시은 기능 TEST
-	public List<BoardInfo> review_test(String writer_email){
+	public List<BoardInfo> review_test(String writer_email) {
 		return mapper.review_test(writer_email);
 	}
+
 	public void selected_post(Map<String, Object> paramMap) {
 		mapper.selected_post(paramMap);
 	}
 
+	// 점수 계산 기능
+	public Integer score_calculate(String writer_email) {
+
+		if (mapper.score_calculate(writer_email) == null) {
+			return 50;
+		}
+		else
+			return mapper.score_calculate(writer_email);
+	}
+	
+	// 후기 출력 기능
+	public List<Map<String, Object>> getReviewsWithItemInfo(String user_email){
+		return mapper.getReviewsWithItemInfo(user_email);
+	};
 }
