@@ -460,26 +460,28 @@ public class BoardController {
 	}
 
 	// 검색 결과를 선택하고 리뷰 작성 후 DB로 저장하는 기능
-	@PostMapping("/selected_post")
-	public String selected_post(ReviewInfo reviewinfo, HttpSession session) {
-		UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
-		reviewinfo.setUser_email(currentLogin.getUser_email());
+	// 검색 결과를 선택하고 리뷰 작성 후 DB로 저장하는 기능
+	   @PostMapping("/selected_post")
+	   public String selected_post(@RequestParam("selected_post") long selectedPostBoardIdx, ReviewInfo reviewinfo, HttpSession session) {
+	      UserInfo currentLogin = (UserInfo) session.getAttribute("loginUser");
+	      reviewinfo.setUser_email(currentLogin.getUser_email());
 
-		List<BoardInfo> boardList = (List<BoardInfo>) session.getAttribute("userPosts");
-		reviewinfo.setBoard_idx(boardList.get(0).getBoard_idx());
-		reviewinfo.setWriter_email(boardList.get(0).getUser_email());
+	      List<BoardInfo> boardList = (List<BoardInfo>) session.getAttribute("userPosts");
+	      System.out.println(boardList);
+	      reviewinfo.setBoard_idx(selectedPostBoardIdx);
+	      reviewinfo.setWriter_email(boardList.get(0).getUser_email());
 
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("user_emailone", reviewinfo.getUser_email());
-		paramMap.put("board_idx", reviewinfo.getBoard_idx());
-		paramMap.put("writer_email", reviewinfo.getWriter_email());
-		paramMap.put("review_content", reviewinfo.getReview_content());
-		paramMap.put("review_ratings", reviewinfo.getReview_ratings());
+	      Map<String, Object> paramMap = new HashMap<>();
+	      paramMap.put("user_emailone", reviewinfo.getUser_email());
+	      paramMap.put("board_idx", reviewinfo.getBoard_idx());
+	      paramMap.put("writer_email", reviewinfo.getWriter_email());
+	      paramMap.put("review_content", reviewinfo.getReview_content());
+	      paramMap.put("review_ratings", reviewinfo.getReview_ratings());
 
-		service.selected_post(paramMap);
-		service.review_noauthor(reviewinfo.getUser_email());
+	      service.selected_post(paramMap);
+	      service.review_noauthor(reviewinfo.getUser_email());
 
-		return "main";
-	}
+	      return "main";
+	   }
 
 }
