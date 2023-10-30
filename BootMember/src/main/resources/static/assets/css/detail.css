@@ -19,7 +19,8 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: #EDF2F6;
+	/* background: #EDF2F6; */
+	background:FFFFE0;
 	z-index: 1000;
 }
 
@@ -32,20 +33,22 @@ header {
 	display: flex;
 }
 
-.btn-search, .navmenu a, .logout-btn{
-    width: 85px;
-    height: 32px;
-    font-size: 16px;
-    color: #2C2C2C;
-    font-weight: 400;
-    text-decoration: none;
-    margin-left: 20px;
-    text-transform: uppercase;
-    padding: 6px 15px;
-    transition: all 0.42s ease;
-    background: #ffffe0;
-    border-radius: 30px;
-    border: 3px solid gold; 
+.btn-search, .navmenu a, .logout-btn {
+	width: 85px;
+	height: 32px;
+	font-size: 16px;
+	color: #2C2C2C;
+	font-weight: 400;
+	text-decoration: none;
+	margin-left: 20px;
+	text-transform: uppercase;
+	padding: 6px 15px;
+	transition: all 0.42s ease;
+	background:  #EDF2F6;
+	border-radius: 30px;
+	border:none;
+	/* background: #ffffe0; */
+	/* border: 3px solid gold; */
 }
 
 .navmenu a:hover {
@@ -363,6 +366,7 @@ header.sticky {
 }
 
 /* 스타일 1끝 2 시작 */
+
 .product_view {
 	position: relative;
 	padding: 0 0 0 395px;
@@ -371,6 +375,7 @@ header.sticky {
 	top: 200px;
 	display: flex;
 	justify-content: center;
+	background:#EDF2F6;
 }
 
 .product_view .img {
@@ -425,26 +430,44 @@ header.sticky {
 	color:black
 }
 
-.product_view table th, .product_view table td {
+@font-face {
+	font-family: 'Cafe24ClassicType-Regular';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Tenada';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+.product_view table th{
 	padding: 12px 0;
 	font-size: 15px;
 	color: #444;
 	text-align: left;
 }
 
-
-.product_view table td.price {
-	font-size: 22px;
+.product_view table td{
+	font-size:18px;
+	text-align: left;
+	padding: 12px 0;
 }
 
-.product_view table td.total {
-	font-size: 19px;
+
+.product_view table td.total, .product_view table td.price {
+	font-size: 25px;
 	color: #0a56a9;
 }
 
-.product_view table td.total b {
-	font-size: 22px;
-}
 
 .product_view table .length {
 	position: relative;
@@ -509,7 +532,7 @@ header.sticky {
 	border-radius: 2px;
 }
 
-.btn-deal {
+.btn-deal{
 	position: relative;
 	left: 100px;
 	padding: 10px;
@@ -527,10 +550,19 @@ header.sticky {
 	border-radius: 2px;
 }
 
+.success_btn{
+	position: relative;
+	padding: 10px;
+	background-color: #ffffe0;
+	color:black;
+	border-radius: 2px;
+}
+
 .product_detail {
 	display: flex;
 	justify-content: center;
 }
+
 
 .modal {
 	position: absolute;

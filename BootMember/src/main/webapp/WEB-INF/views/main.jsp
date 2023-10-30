@@ -31,6 +31,7 @@
 </head>
 <body>
 
+
 	<header>
 		<a href="/bigdata" class="logo"><img src="image/logo1.png" alt=""></a>
 		<ul class="navmenu">
@@ -68,16 +69,26 @@
 
 	<section class="main-home">
 		<div class="main-text">
-			<!-- <h5>Winter Collection</h5>
+			
 			<h1>
-				<span>물물</span>교환<br>
+				<span>Exchange & Save</span><br>
 			</h1>
-			<p>Things For Exchange</p>
+			<p>No Pay의 목표는 더 이상 사용하지 않는 중고품을</p>
+			<p>  다른 사람의 물품과
+			교환하여 상호 이익을 창출하고,재활용을</p>
+			<p>통해 환경적 가치를 실현하는 것입니다</p>
+			
+	<button id="popupButton">후기 이벤트</button>
+    <div id="popup" class="popup">
+      	<div class="popup-content">
+            	<span class="close" id="closeButton"><button>닫기</button></span>
+           	 <p></p>
+        </div>
+    </div>
+         </a>
+      </div>
 
-			<a href="#" class="main-btn"> Shop Now <i
-				class='bx bx-right-arrow-alt'></i>
-			</a> -->
-		</div>
+		
 
 		<div class="down-arrow">
 			<a href="#down1" class="down"> <i class='bx bx-down-arrow-alt'></i></a>
@@ -320,6 +331,15 @@
                 searchBox.style.display = "none";
             }
        }
+		
+		// 팝업
+		document.getElementById("popupButton").onclick = function() {
+		    document.getElementById("popup").style.display = "block";
+		}
+
+		document.getElementById("closeButton").onclick = function() {
+		    document.getElementById("popup").style.display = "none";
+		}
 
 	</script>
 	<!-- 체크박스 하나만 선택할 수 있게 하는 JS -->

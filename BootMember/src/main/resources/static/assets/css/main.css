@@ -19,7 +19,8 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background: #EDF2F6;
+	/* background: #EDF2F6; */
+	background:FFFFE0;
 	z-index: 1000;
 }
 
@@ -43,9 +44,11 @@ header {
 	text-transform: uppercase;
 	padding: 6px 15px;
 	transition: all 0.42s ease;
-	background: #ffffe0;
+	background:  #EDF2F6;
 	border-radius: 30px;
-	border: 3px solid gold;
+	border:none;
+	/* background: #ffffe0; */
+	/* border: 3px solid gold; */
 }
 
 .navmenu a:hover span, .navmenu a.active span {
@@ -86,20 +89,22 @@ section {
 	padding: 7% 10%;
 }
 
+/* 메인페이지 사진 */
 .main-home {
-	width: 100%;
-	height: 950px;
-	background-position: center;
-	background-size: cover;
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	align-items: center;
-	background: url('../../image/main04.png') no-repeat center;
+   width: 100%;
+   height: 100vh;
+   background-image: url(../../image/mainpage02.jpg);
+   background-position: center;
+   background-size: cover;
+   display: grid;
+   grid-template-columns: repeat(1, 1fr);
+   align-items: center;
 }
 
 
 
-.main-home2 {
+/* 회사 설명 부분 */
+/* .main-home2 {
 	width: 100vw; 
     height: 90vh; 
     background-image: url('../../image/mainpage01.png');
@@ -109,11 +114,11 @@ section {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     align-items: center;
-    margin: 0; /* 여백 제거 */
-}
+    margin: 0; 여백 제거
+} */
 
-
-.main-review {
+/* 후기 부분 */
+/* .main-review {
 	width: 100%;
 	height: 780px;
 	background-position: center;
@@ -125,12 +130,12 @@ section {
 	margin-top: -50px;
 	margin-right: -10px;
 	margin-left: -10px;
-}
+} */
 
 .main-text {
 	position: relative;
-	opacity: 0;
-	animation: fadeIn 2s ease-in forwards;
+	/* opacity: 0; */
+	/* animation: fadeIn 2s ease-in forwards; */
 }
 
 /* 애니메이션 슬라이드 효과 */
@@ -157,14 +162,6 @@ section {
     }
   } */
 
-/* .main-text h5 {
-  font-family: 'Cafe24ClassicType-Regular';
-  color: #EE1C47;
-  font-size: 16px;
-  text-transform: capitalize;
-  font-weight: 500;
-}
-
 .main-text h1 {
   font-family: 'Tenada';
   color: #000;
@@ -174,20 +171,21 @@ section {
   font-weight: 600;
   margin: 7px 0 10px;
 }
- */
-/* .main-text p {
+
+.main-text p {
   font-family: 'Cafe24ClassicType-Regular';
   color: #333c56;
-  font-size: 40px;
+  font-size: 30px;
   font-style: italic;
   margin-bottom: 20px;
 }
 
 .main-text span {
   font-family: 'Tenada';
-  color: red;
-} */
-.main-btn {
+  color: blue;
+} 
+
+/* .main-btn {
 	display: inline-block;
 	color: #111;
 	font-size: 16px;
@@ -196,16 +194,63 @@ section {
 	border: 2px solid #111;
 	padding: 12px 25px;
 	transition: all .42s ease;
-}
+} */
 
-.main-btn:hover {
+
+
+/* .main-btn:hover {
 	background-color: #000;
 	color: #fff;
 }
 
 .main-btn i {
 	vertical-align: middle;
+} */
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1;
 }
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #333;
+    overflow:auto;
+}
+
+.popup-content p{
+	width: 1000px;
+	height: 550px;
+	background: url('../../image/review01.png') no-repeat center;
+	background-size: cover;
+}
+
+#popupButton{
+	background-color: #ffffe0;
+	color: black;
+	font-size:16px;
+}
+
+#closeButton {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+    color:black;
+}
+
 
 .down-arrow {
 	position: absolute;

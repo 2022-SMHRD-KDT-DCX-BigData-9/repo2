@@ -37,7 +37,7 @@
 				</c:when>
 				<c:otherwise>
 					<form method="get" action="../logout">
-						<input type="submit" value="logout" style="border: 0 solid black">
+						<input type="submit" value="logout" style="text-transform: uppercase; background: #EDF2F6; border-radius: 30px; border:none; width: 85px; height: 32px; font-size: 16px;">
 					</form>
 				</c:otherwise>
 			</c:choose>
@@ -70,7 +70,7 @@
 					</tr>
 					<tr>
 						<th>교환 카테고리</th>
-						<td class="price">${ boardDetail.item_category }</td>
+						<td class="price"><b>${ boardDetail.item_category }</b></td>
 					</tr>
 					<tr>
 						<th>상품명</th>
@@ -78,7 +78,7 @@
 					</tr>
 					<tr>
 						<th>작성자 이메일</th>
-						<th colspan="2">${ boardDetail.user_email }</th>
+						<th colspan="2" style="font-size: 18px;">${ boardDetail.user_email }</th>
 					</tr>
 					<tr>
 						<th>신뢰도 점수</th>
@@ -122,10 +122,10 @@
 									</tr>
 									<tr>
 										<td><input type="text" placeholder="거래자 email을 적어주세요:"
-											style="width: 200px" name="user_emailtwo"></td>
+											style="width: 300px; height:50px;" name="user_emailtwo"></td>
 									</tr>
 									<tr>
-										<td><button type="submit" value="거래 완료">거래 완료</button></td>
+										<td><button type="submit" value="거래 완료" class="success_btn">거래 완료</button></td>
 									</tr>
 								</form>
 							</c:when>
@@ -151,7 +151,7 @@
 				</div>
 			</ul>
 		</div>
-	</div>
+	</div><br><br>
 
 	<!-- 댓글 -->
 	<div class="comment-section">
@@ -159,7 +159,7 @@
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">Leave Comment:</label><br>
 				<textarea class="form-control" name="comment_content" required
-					rows="3" placeholder="댓글을 입력하세요" style="width: 300px;"></textarea>
+					rows="3" placeholder="댓글을 입력하세요" style="width: 500px;"></textarea>
 				<input type="hidden" name="board_idx"
 					value="${boardDetail.board_idx}">
 			</div>
