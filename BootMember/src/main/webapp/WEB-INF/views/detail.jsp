@@ -110,7 +110,7 @@
 					<tr>
 						<td><button class="btn-goback" onClick="location.href='../'">메인페이지로
 								돌아가기</button></td>
-						<td><button class="btn-deal" onClick="location.href='#'">거래신청하기</button></td>
+					<!-- 	<td><button class="btn-deal" onClick="location.href='#'">거래신청하기</button></td> -->
 					</tr>
 					<c:if test="${loginUser.review_authority eq 0}">
 						<c:choose>
