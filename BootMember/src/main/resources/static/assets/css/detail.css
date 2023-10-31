@@ -5,7 +5,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	scroll-behavior: smooth;
-	font-family: 'Jost', sans-serif;
+	font-family: 'SUIT-Regular';
 	list-style: none;
 	text-decoration: none;
 }
@@ -367,6 +367,13 @@ header.sticky {
 
 /* 스타일 1끝 2 시작 */
 
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .product_view {
 	position: relative;
 	padding: 0 0 0 395px;
@@ -439,33 +446,25 @@ header.sticky {
 	font-style: normal;
 }
 
-@font-face {
-	font-family: 'Tenada';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2')
-		format('woff2');
-	font-weight: normal;
-	font-style: normal;
-}
-
-
 .product_view table th{
 	padding: 12px 0;
 	font-size: 15px;
 	color: #444;
 	text-align: left;
+	font-family: 'SUIT-Regular';
 }
 
 .product_view table td{
 	font-size:18px;
 	text-align: left;
 	padding: 12px 0;
+	font-family: 'SUIT-Regular';
 }
 
 
 .product_view table td.total, .product_view table td.price {
-	font-size: 25px;
-	color: #0a56a9;
+	font-size: 18px;
+	font-family: 'SUIT-Regular';
 }
 
 
@@ -541,14 +540,6 @@ header.sticky {
 	border-radius: 2px;
 }
 
-.btn-goback {
-	position: relative;
-	left: 100px;
-	padding: 10px;
-	background-color: #ffffe0;
-	color:black;
-	border-radius: 2px;
-}
 
 .success_btn{
 	position: relative;
@@ -685,6 +676,7 @@ header.sticky {
 #comments-container {
 	background-color: #EDF2F6;
 	padding: 20px; 
+	/* font-family: 'SUIT-Regular'; */
 }
 
 .complete, .evaluate, .btn.btn-light, .finish-btn{
@@ -694,4 +686,20 @@ header.sticky {
     color: black;
 }
 
+#review_info, .btn-goback{
+	background-color: #ffffe0;
+	color: black;
+	width: 100px;
+	height: 50px;
+	/* padding: 10px; */
+}
 
+
+/* .btn-goback {
+	position: relative;
+	left: 100px;
+	padding: 10px;
+	background-color: #ffffe0;
+	color:black;
+	border-radius: 2px;
+} */

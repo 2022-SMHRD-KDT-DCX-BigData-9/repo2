@@ -93,7 +93,7 @@
 						<h4>
 							<p>${ boardCategory.item_name }</p>
 						</h4>
-						<p>${ boardCategory.want_category }</p>
+						<p><b>${ boardCategory.want_category }</b></p>
 						<span><b>views</b>: ${boardCategory.board_views}</span>
 					</div>
 				</div>

@@ -70,7 +70,7 @@
 					</tr>
 					<tr>
 						<th>교환 카테고리</th>
-						<td class="price"><b>${ boardDetail.item_category }</b></td>
+						<td class="price">${ boardDetail.item_category }</td>
 					</tr>
 					<tr>
 						<th>상품명</th>
@@ -82,7 +82,7 @@
 					</tr>
 					<tr>
 						<th>신뢰도 점수</th>
-						<th colspan="2" style="color: red;">${score}점</th>
+						<th colspan="2" style="font-size:18px;">${score}점</th>
 					</tr>
 					<tr>
 						<th>상품코드</th>
@@ -94,7 +94,7 @@
 					</tr>
 					<tr>
 						<th>거래 선호 카테고리</th>
-						<td class="total"><b>${ boardDetail.want_category }</b></td>
+						<td class="total">${ boardDetail.want_category }</td>
 					</tr>
 					<tr>
 						<th>거래 세부 내용</th>
@@ -138,7 +138,7 @@
 					<c:if test="${loginUser.review_authority eq 1}">
 						<form action="../review_testPage" method="post">
 							<tr>
-								<td><button type="submit" value="기능 테스트">후기 작성</button></td>
+								<td><button type="submit" value="기능 테스트" id="review_info">후기 작성</button></td>
 							</tr>
 						</form>
 					</c:if>

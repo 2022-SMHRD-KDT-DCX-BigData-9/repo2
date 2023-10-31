@@ -91,6 +91,7 @@
 				<div class="price">
 					<h4>${boardCategory.item_name}</h4>
 					<p>${boardCategory.want_category}</p>
+					<span><b>views</b>: ${boardCategory.board_views}</span>
 				</div>
 			</div>
 		</c:forEach>

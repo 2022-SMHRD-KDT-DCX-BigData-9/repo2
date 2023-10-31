@@ -69,34 +69,32 @@
 
 	<section class="main-home">
 		<div class="main-text">
-			
+
 			<h1>
 				<span>Exchange & Save</span><br>
 			</h1>
 			<p>No Pay의 목표는 더 이상 사용하지 않는 중고품을</p>
-			<p>  다른 사람의 물품과
-			교환하여 상호 이익을 창출하고,</p>
+			<p>다른 사람의 물품과 교환하여 상호 이익을 창출하고,</p>
 			<p>재활용을 통해 환경적 가치를 실현하는 것입니다</p>
-			
-	<button id="popupButton">후기 이벤트</button>
-    <div id="popup" class="popup">
-      	<div class="popup-content">
-            	<span class="close" id="closeButton"><button>닫기</button></span>
-           	 <p></p>
-        </div>
-    </div>
-         </a>
-      </div>
 
-		
+			<button id="popupButton">후기 이벤트</button>
+			<div id="popup" class="popup">
+				<div class="popup-content">
+					<span class="close" id="closeButton"><button>닫기</button></span>
+					<p></p>
+				</div>
+			</div>
+		</div>
+
+
 
 		<div class="down-arrow">
 			<a href="#down1" class="down"> <i class='bx bx-down-arrow-alt'></i></a>
 		</div>
-		
-		
+
+
 	</section>
-	
+
 	<div class="main-home2"></div>
 	<div class="main-review"></div>
 
